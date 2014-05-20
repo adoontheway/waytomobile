@@ -72,6 +72,31 @@ bool HelloWorld::init()
 	sprite->setPosition(ccp(50.0f,50.0f));
 	this->addChild(sprite, 0);
 	scheduler->scheduleSelector(SEL_SCHEDULE(&HelloWorld::updateByFrame),this,0,false);
+
+	
+	//Ê¹ÓÃplist×÷Îª¶¯»­
+	CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("poison_fog.plist");
+
+	CCSprite* sp = CCSprite::create("poison_fog.png");
+	sp->setPosition(ccp(300.0f,400.0f));
+	this->addChild(sp);
+
+	CCArray* animFrames = CCArray::createWithCapacity(25);
+	char str[100] = {0};
+	for(int i=0; i<30; i++)
+	{
+		sprintf(str,"image %d.png",i*2+i);
+		CCSpriteFrame* frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(str);
+		if( frame != NULL )
+			animFrames->addObject( frame );
+	}
+		
+	CCAnimation *animation = CCAnimation::createWithSpriteFrames( animFrames,0.1f );
+	animation->setLoops(-1);
+	sp->runAction(CCAnimate::create(animation));
+	
+	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFrameByName("poison_fog.plist");
     return true;
 }
 
