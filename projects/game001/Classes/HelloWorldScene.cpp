@@ -71,32 +71,45 @@ bool HelloWorld::init()
 	sprite = CCSprite::create("bl_24.png");
 	sprite->setPosition(ccp(50.0f,50.0f));
 	this->addChild(sprite, 0);
+	bg = CCSprite::create("battle.png");
+	this->addChild(bg);
 	scheduler->scheduleSelector(SEL_SCHEDULE(&HelloWorld::updateByFrame),this,0,false);
 
 	
-	//ÃŠÂ¹Ã“ÃƒplistÃ—Ã·ÃŽÂªÂ¶Â¯Â»Â­
+	//Ê¹ÓÃplist×÷Îª¶¯»­
 	CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
-	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("poison_fog.plist");
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("feiyunan.plist");
+	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("huangfeihu.plist");
 
-	CCSprite* sp = CCSprite::create("poison_fog.png");
+	CCSprite* sp = CCSprite::create("feiyunan.png");
+	CCSprite* hfh = CCSprite::create("huangfeihu.png");
 	sp->setPosition(ccp(300.0f,400.0f));
+	hfh->setPosition(ccp(100,100));
 	this->addChild(sp);
+	this->addChild(hfh);
 
-	CCArray* animFrames = CCArray::createWithCapacity(25);
+	CCArray* animFrames = CCArray::createWithCapacity(15);
+	CCArray* hfhFrames = CCArray::createWithCapacity(24);
 	char str[100] = {0};
-	for(int i=0; i<30; i++)
+	for(int i=0; i<24; i++)
 	{
-		sprintf(str,"image %d.png",i*2+i);
+		sprintf(str,"feiyu%d.png",i);
 		CCSpriteFrame* frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(str);
 		if( frame != NULL )
 			animFrames->addObject( frame );
+
+		sprintf(str,"huangfeihu%d.png",i);
+		frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(str);
+		if( frame != NULL )
+			hfhFrames->addObject( frame );
 	}
 		
 	CCAnimation *animation = CCAnimation::createWithSpriteFrames( animFrames,0.1f );
+	CCAnimation *hfhAnimation = CCAnimation::createWithSpriteFrames( hfhFrames,0.05f );
+	hfhAnimation->setLoops(-1);
 	animation->setLoops(-1);
 	sp->runAction(CCAnimate::create(animation));
-	
-	CCSpriteFrameCache::sharedSpriteFrameCache()->removeSpriteFrameByName("poison_fog.plist");
+	hfh->runAction(CCAnimate::create(hfhAnimation));
     return true;
 }
 

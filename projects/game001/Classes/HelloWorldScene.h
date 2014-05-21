@@ -10,6 +10,7 @@ public:
 	int times;
 
 	cocos2d::CCSprite* sprite;
+	cocos2d::CCSprite* bg;
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
