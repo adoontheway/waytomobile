@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					   xmlns:s="library://ns.adobe.com/flex/spark" 
+					   xmlns:mx="library://ns.adobe.com/flex/mx" 
+					   backgroundColor="0xcccccc" 
+					   backgroundAlpha="0.6" 
+					   minWidth="1000" 
+					   minHeight="800" 
+					   resize="onResize(event)" 
+					   initialize="onInit(event)" 
+					   creationComplete="onCreated()" close="onClose()">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.DragEvent;
+			import mx.events.FlexEvent;
+			import mx.events.ResizeEvent;
+			import mx.graphics.codec.PNGEncoder;
+			import mx.managers.DragManager;
+					
+			private var results:Vector.<BitmapData>;
+			
+			private var referRect:Rectangle;
+			private var fileName:String;
+			private var tempRoot:String;
+			private var so:SharedObject;
+			protected function onDragEnter(event:NativeDragEvent):void
+			{
+				var files:Array = event.clipboard.getData(ClipboardFormats.FILE_LIST_FORMAT) as Array;
+				if( files.length > 0 )
+				{
+					NativeDragManager.acceptDragDrop(event.target as InteractiveObject);		
+				}
+			}
+			
+			protected function onDragDrop(event:NativeDragEvent):void
+			{
+				var files:Array = event.clipboard.getData(ClipboardFormats.FILE_LIST_FORMAT) as Array;
+				if( files == null || files.length == 0 )
+				{
+					return;
+				}
+				fileName = (files[0] as File).name.split(".")[0];
+				tempRoot = files[0].nativePath+"\\..\\"+fileName+"\\";
+				sourceView.source = files[0].nativePath;
+			}
+			
+			protected function onSourceLoaded(event:Event):void
+			{
+				onResize(null);
+			}
+			
+			protected function onResize(event:ResizeEvent):void
+			{
+				if( this.stage)
+				{
+					if( sourceView.bitmapData )
+					{
+						sourceView.width = sourceView.bitmapData.width;
+						sourceView.height = sourceView.bitmapData.height + 10;
+					}
+					
+					sourceView.y = this.height - sourceView.height - 10;
+				}
+			}
+			
+			protected function onValidated(event:MouseEvent):void
+			{
+				if( event.target == validateBtn)
+				{
+					
+				}else if( event.target == previewBtn)
+				{
+					
+				}else if( event.target == nextFrameBtn)
+				{
+					
+				}else if( event.target == multiOperBtn )
+				{
+					referRect.x = 0;
+					referRect.y = 0;
+					referRect.width = int(wTxt.text);
+					referRect.height = int(hTxt.text);
+					var w:int = sourceView.bitmapData.width/referRect.width;
+					var h:int = sourceView.bitmapData.height/referRect.height;
+					var tempFile:File = File.desktopDirectory;
+					var tempFs:FileStream = new FileStream();
+					var encoder:PNGEncoder = new PNGEncoder();
+					var matrix:Matrix = new Matrix();
+					for(var i:int = 0; i < h; i++)
+					{
+						for(var j:int = 0; j < w; j++)
+						{
+							var bmd:BitmapData = new BitmapData(referRect.width,referRect.height);
+//							referRect.x = j * referRect.width;
+//							referRect.y = i * referRect.height;
+							matrix.tx = j * referRect.width;
+							matrix.ty = i * referRect.height;
+							bmd.draw(sourceView.bitmapData,matrix,null,null,referRect);
+							
+							var tempFileName:String = fileName+ (i*w+j);
+							tempFile.nativePath = tempRoot + tempFileName+".png";
+							tempFs.open( tempFile, FileMode.WRITE);
+							tempFs.writeBytes(encoder.encode(bmd));
+							tempFs.close();
+						}
+								
+					}
+				}
+			}
+			
+			protected function onInit(event:FlexEvent):void
+			{
+				referRect = new Rectangle();
+			}
+			
+			private function onCreated():void
+			{
+				so = SharedObject.getLocal("animationeditor");
+				if( so.data["size"] != null )
+				{
+					var sizeArr:Array = so.data["size"].split("*");
+					wTxt.text = sizeArr[0];
+					hTxt.text = sizeArr[1];
+				}
+			}
+			
+			private function onClose():void
+			{
+				so = SharedObject.getLocal("animationeditor");
+				so.data["size"] = wTxt.text+"*"+hTxt.text;
+				so.flush();
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Image id="preView" x="5" y="5" width="200" height="200"/>
+	<s:Image id="sourceView" x="5" y="600" width="1000" fillMode="clip" height="250" nativeDragEnter="onDragEnter(event)" nativeDragDrop="onDragDrop(event)" complete="onSourceLoaded(event)" 
+			 backgroundColor="0x333333" backgroundAlpha="0.8"/>
+	<s:Group id="propGroup" x="800" y="10">
+		<s:Label id="wLbl" x="5" y="5" text="宽度："/>
+		<s:TextInput id="wTxt" x="5" y="30"/>
+		<s:Label id="hLbl" x="5" y="55" text="高度："/>
+		<s:TextInput id="hTxt" x="5" y="80"/>
+		<s:Button id="validateBtn" click="onValidated(event)" x="15" y="105" label="生效"/>
+		<s:Button id="previewBtn" click="onValidated(event)" x="15" y="130" label="预览"/>
+		<s:Button id="nextFrameBtn" click="onValidated(event)" x="15" y="155" label="下一帧"/>
+		<s:Button id="multiOperBtn" click="onValidated(event)" x="15" y="155" label="批量处理"/>
+	</s:Group>
+</s:WindowedApplication>
