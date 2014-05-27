@@ -11,6 +11,8 @@ public:
 
 	cocos2d::CCSprite* sprite;
 	cocos2d::CCSprite* bg;
+	cocos2d::CCSprite* player;
+	cocos2d::CCSprite* hfh;
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
@@ -23,6 +25,8 @@ public:
 	//me jia de
 	void updateByFrame(float value);
     
+	virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+
     // implement the "static node()" method manually
     CREATE_FUNC(HelloWorld);
 };

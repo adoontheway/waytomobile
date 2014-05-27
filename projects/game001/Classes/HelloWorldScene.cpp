@@ -32,7 +32,8 @@ bool HelloWorld::init()
     
     CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
     CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-
+	CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this,0,true);
+	
     /////////////////////////////
     // 2. add a menu item with "X" image, which is clicked to quit the program
     //    you may modify it.
@@ -71,7 +72,7 @@ bool HelloWorld::init()
 	sprite = CCSprite::create("bl_24.png");
 	sprite->setPosition(ccp(50.0f,50.0f));
 	this->addChild(sprite, 0);
-	bg = CCSprite::create("battle.png");
+	bg = CCSprite::create("bg.jpg");
 	this->addChild(bg);
 	scheduler->scheduleSelector(SEL_SCHEDULE(&HelloWorld::updateByFrame),this,0,false);
 
@@ -81,11 +82,11 @@ bool HelloWorld::init()
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("feiyunan.plist");
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("huangfeihu.plist");
 
-	CCSprite* sp = CCSprite::create("feiyunan.png");
-	CCSprite* hfh = CCSprite::create("huangfeihu.png");
-	sp->setPosition(ccp(300.0f,400.0f));
+	player = CCSprite::create("feiyunan.png");
+	hfh = CCSprite::create("huangfeihu.png");
+	player->setPosition(ccp(300.0f,400.0f));
 	hfh->setPosition(ccp(100,100));
-	this->addChild(sp);
+	this->addChild(player);
 	this->addChild(hfh);
 
 	CCArray* animFrames = CCArray::createWithCapacity(15);
@@ -108,7 +109,7 @@ bool HelloWorld::init()
 	CCAnimation *hfhAnimation = CCAnimation::createWithSpriteFrames( hfhFrames,0.05f );
 	hfhAnimation->setLoops(-1);
 	animation->setLoops(-1);
-	sp->runAction(CCAnimate::create(animation));
+	player->runAction(CCAnimate::create(animation));
 	hfh->runAction(CCAnimate::create(hfhAnimation));
     return true;
 }
@@ -118,6 +119,13 @@ void HelloWorld::updateByFrame(float value)
 	times++;
 	float targetX = 50.0f + times; 
 	sprite->setPosition(ccp(targetX, 50.0f));
+}
+
+bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+{
+	CCPoint tPoint = CCPoint(pTouch->getLocation());
+	hfh->setPosition(tPoint);
+	return false;
 }
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
