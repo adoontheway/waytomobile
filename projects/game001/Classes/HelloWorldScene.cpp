@@ -1,9 +1,10 @@
 #include "HelloWorldScene.h"
 #include <iostream>
+#include "cocos-ext.h"
 
 using namespace std;
-
 USING_NS_CC;
+USING_NS_CC_EXT;
 
 CCScene* HelloWorld::scene()
 {
@@ -111,20 +112,50 @@ bool HelloWorld::init()
 	animation->setLoops(-1);
 	player->runAction(CCAnimate::create(animation));
 	hfh->runAction(CCAnimate::create(hfhAnimation));
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("dragonbones/DragonBones_tutorial_Start.png","dragonbones/DragonBones_tutorial_Start.plist","dragonbones/DragonBones_tutorial_Start.xml");
+	CCArmature *armature = CCArmature::create("Dragon");
+	armature->getAnimation()->playByIndex(0);
+	armature->getAnimation()->setSpeedScale(1);
+	armature->setScaleX(-0.5f);
+	armature->setScaleY(0.5f);
+	armature->setPosition(ccp(visibleSize.width/2,visibleSize.height/2));
+	addChild(armature);
     return true;
 }
 
 void HelloWorld::updateByFrame(float value)
 {
-	times++;
-	float targetX = 50.0f + times; 
-	sprite->setPosition(ccp(targetX, 50.0f));
+	float curPos = hfh->getPositionX();
+	printf("x====>",curPos);
+	if(targetPos.x > curPos)
+	{
+		hfh->setPositionX(curPos+10);
+	}else
+	{
+		hfh->setPositionX(curPos-10);
+	}
+	curPos = hfh->getPositionY();
+	printf("y====>",curPos);
+	if(targetPos.y > curPos)
+	{
+		hfh->setPositionX(curPos+10);
+	}else
+	{
+		hfh->setPositionX(curPos-10);
+	}
 }
 
 bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
 	CCPoint tPoint = CCPoint(pTouch->getLocation());
-	hfh->setPosition(tPoint);
+	if( tPoint.x > hfh->getPosition().x )
+	{
+		hfh->setScaleX(1);
+	}else
+	{
+		hfh->setScaleX(-1);
+	}
+	targetPos = tPoint;
 	return false;
 }
 

@@ -13,6 +13,7 @@ public:
 	cocos2d::CCSprite* bg;
 	cocos2d::CCSprite* player;
 	cocos2d::CCSprite* hfh;
+	cocos2d::CCPoint targetPos;
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
     virtual bool init();  
 
