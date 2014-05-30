@@ -115,7 +115,7 @@ bool HelloWorld::init()
 	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("dragonbones/DragonBones_tutorial_Start.png","dragonbones/DragonBones_tutorial_Start.plist","dragonbones/DragonBones_tutorial_Start.xml");
 	CCArmature *armature = CCArmature::create("Dragon");
 	armature->getAnimation()->playByIndex(0);
-	armature->getAnimation()->setSpeedScale(1);
+	armature->getAnimation()->setSpeedScale(0.2);
 	armature->setScaleX(-0.5f);
 	armature->setScaleY(0.5f);
 	armature->setPosition(ccp(visibleSize.width/2,visibleSize.height/2));
@@ -125,37 +125,21 @@ bool HelloWorld::init()
 
 void HelloWorld::updateByFrame(float value)
 {
-	float curPos = hfh->getPositionX();
-	printf("x====>",curPos);
-	if(targetPos.x > curPos)
-	{
-		hfh->setPositionX(curPos+10);
-	}else
-	{
-		hfh->setPositionX(curPos-10);
-	}
-	curPos = hfh->getPositionY();
-	printf("y====>",curPos);
-	if(targetPos.y > curPos)
-	{
-		hfh->setPositionX(curPos+10);
-	}else
-	{
-		hfh->setPositionX(curPos-10);
-	}
+	
 }
 
 bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
 	CCPoint tPoint = CCPoint(pTouch->getLocation());
-	if( tPoint.x > hfh->getPosition().x )
+	if( tPoint.x > hfh->getPositionX())
 	{
 		hfh->setScaleX(1);
 	}else
 	{
 		hfh->setScaleX(-1);
 	}
-	targetPos = tPoint;
+	CCMoveTo *action = CCMoveTo::create(5,tPoint);
+	hfh->runAction(action);
 	return false;
 }
 
