@@ -112,14 +112,16 @@ bool HelloWorld::init()
 	animation->setLoops(-1);
 	player->runAction(CCAnimate::create(animation));
 	hfh->runAction(CCAnimate::create(hfhAnimation));
-	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("dragonbones/DragonBones_tutorial_Start.png","dragonbones/DragonBones_tutorial_Start.plist","dragonbones/DragonBones_tutorial_Start.xml");
-	CCArmature *armature = CCArmature::create("Dragon");
+	CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml");
+	CCArmature *armature = CCArmature::create("Zombie_balloon");
 	armature->getAnimation()->playByIndex(0);
-	armature->getAnimation()->setSpeedScale(0.2);
+	armature->getAnimation()->setSpeedScale(0.5);
+	/**
 	armature->setScaleX(-0.5f);
-	armature->setScaleY(0.5f);
+	armature->setScaleY(0.5f);**/
 	armature->setPosition(ccp(visibleSize.width/2,visibleSize.height/2));
 	addChild(armature);
+	armature->getAnimation()->play("anim_eat");
     return true;
 }
 
@@ -130,6 +132,7 @@ void HelloWorld::updateByFrame(float value)
 
 bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
+	hfh->stopActionByTag(100);
 	CCPoint tPoint = CCPoint(pTouch->getLocation());
 	if( tPoint.x > hfh->getPositionX())
 	{
@@ -138,7 +141,8 @@ bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 	{
 		hfh->setScaleX(-1);
 	}
-	CCMoveTo *action = CCMoveTo::create(5,tPoint);
+	CCMoveTo *action = CCMoveTo::create(2,tPoint);
+	action->setTag(100);
 	hfh->runAction(action);
 	return false;
 }
