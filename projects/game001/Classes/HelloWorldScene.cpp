@@ -1,7 +1,7 @@
 #include "HelloWorldScene.h"
 #include <iostream>
 #include "cocos-ext.h"
-
+#include "GameMainScene.h"
 using namespace std;
 USING_NS_CC;
 USING_NS_CC_EXT;
@@ -77,7 +77,6 @@ bool HelloWorld::init()
 	this->addChild(bg);
 	scheduler->scheduleSelector(SEL_SCHEDULE(&HelloWorld::updateByFrame),this,0,false);
 
-	
 	//使用plist作为动画
 	CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 	CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("feiyunan.plist");
@@ -116,12 +115,11 @@ bool HelloWorld::init()
 	CCArmature *armature = CCArmature::create("Zombie_balloon");
 	armature->getAnimation()->playByIndex(0);
 	armature->getAnimation()->setSpeedScale(0.5);
-	/**
 	armature->setScaleX(-0.5f);
-	armature->setScaleY(0.5f);**/
+	armature->setScaleY(0.5f);
 	armature->setPosition(ccp(visibleSize.width/2,visibleSize.height/2));
 	addChild(armature);
-	armature->getAnimation()->play("anim_eat");
+	armature->getAnimation()->play("anim_walk");
     return true;
 }
 
@@ -149,6 +147,9 @@ bool HelloWorld::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 
 void HelloWorld::menuCloseCallback(CCObject* pSender)
 {
+	CCScene * s = GameMain::scene();
+	CCDirector::sharedDirector()->replaceScene( CCTransitionProgressHorizontal ::create(1.0f , s));
+	return;
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT) || (CC_TARGET_PLATFORM == CC_PLATFORM_WP8)
 	CCMessageBox("You pressed the close button. Windows Store Apps do not implement a close button.","Alert");
 #else
