@@ -12,10 +12,13 @@ public:
 
 	static Scene* createScene();
 	
+	virtual bool onTouchBegan(Touch *touch, Event *unused_event); 
+
 	CREATE_FUNC(GameMain);
 
 	virtual ~GameMain(void);
 protected :
 	Sprite * bg;
+	Sprite * me;
 };
 
