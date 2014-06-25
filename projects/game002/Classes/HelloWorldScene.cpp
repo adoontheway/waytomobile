@@ -26,7 +26,13 @@ bool HelloWorld::init()
     {
         return false;
     }
-    
+	auto size = Director::getInstance()->getVisibleSize();
+	auto bg = Sprite::create("bg.png");
+	bg->setPosition(250, 250);
+	addChild(bg);
+	auto title = Sprite::create("title.png");
+	title->setPosition(150,size.height - title->getContentSize().height);
+	addChild(title);
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
@@ -37,7 +43,7 @@ bool HelloWorld::init()
 	auto *itemImage2 = MenuItemImage::create("shibai.png","shibai.png",CC_CALLBACK_1(HelloWorld::menuCloseCallback,this));
 	Menu *menu = Menu::create(itemImage0,itemImage1,itemImage2, NULL);
 	menu->alignItemsVerticallyWithPadding(5);
-	menu->setPosition( visibleSize.width/2, visibleSize.height/2);
+	menu->setPosition( visibleSize.width-150, visibleSize.height/2);
 
 	this->addChild(menu);
     return true;
