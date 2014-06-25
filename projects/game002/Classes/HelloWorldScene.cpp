@@ -26,13 +26,8 @@ bool HelloWorld::init()
     {
         return false;
     }
-	auto size = Director::getInstance()->getVisibleSize();
-	auto bg = Sprite::create("bg.png");
-	bg->setPosition(250, 250);
-	addChild(bg);
-	auto title = Sprite::create("title.png");
-	title->setPosition(150,size.height - title->getContentSize().height);
-	addChild(title);
+
+	
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	
@@ -44,6 +39,14 @@ bool HelloWorld::init()
 	Menu *menu = Menu::create(itemImage0,itemImage1,itemImage2, NULL);
 	menu->alignItemsVerticallyWithPadding(5);
 	menu->setPosition( visibleSize.width-150, visibleSize.height/2);
+
+	auto bg = Sprite::create("roy.jpg");
+	auto contentSize = bg->getContentSize();
+	bg->setPosition(450 , 310);
+	addChild(bg);
+	auto title = Sprite::create("title.png");
+	title->setPosition(150,visibleSize.height - title->getContentSize().height);
+	addChild(title);
 
 	this->addChild(menu);
     return true;
