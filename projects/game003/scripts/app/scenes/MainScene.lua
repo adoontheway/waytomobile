@@ -10,7 +10,9 @@ function MainScene:ctor()
         x = display.cx, y = display.cy + 50,
          listener = function()
             print("Start printed")
-            self:replaceScene("GameScene")
+            nexScene = display.newScene("GameScene");
+            transition = display.wrapSceneWithTransition(nexScene, "fade", 1.0)
+            display.replaceScene(nexScene)
         end})
 
     self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 64, align = ui.TEXT_ALIGN_CENTER,
@@ -23,6 +25,7 @@ function MainScene:ctor()
         x=display.cx, y=display.cy-50,
         listener = function()
             print("Exit printed")
+            game.exit()
         end})
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
@@ -30,24 +33,9 @@ end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-
-    if device.platform == "android" then
-        -- avoid unmeant back
-        self:performWithDelay(function()
-            -- keypad layer, for android
-            local layer = display.newLayer()
-            layer:addKeypadEventListener(function(event)
-                if event == "back" then app.exit() end
-            end)
-            self:addChild(layer)
-
-            layer:setKeypadEnabled(true)
-        end, 0.5)
-    end
 end
 
 function MainScene:onTouch(event, x, y)
-    print("hehe")
     print(event)
 end
 
