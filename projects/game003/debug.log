@@ -19,43 +19,84 @@ lua_loadChunksFromZIP() - loaded chunks count: 54
 ------------------------------------------------
 LOAD LUA FILE: E:/3rd/cocos_practice_git/trunk/projects/game003/scripts/main.lua
 ------------------------------------------------
-[0.1173] [INFO] 
-[0.1178] [INFO] # DEBUG                        = 2
-[0.1187] [INFO] #
-[0.1193] [INFO] # device.platform              = windows
-[0.1197] [INFO] # device.model                 = unknown
-[0.1203] [INFO] # device.language              = cn
-[0.1207] [INFO] # device.writablePath          = E:\3rd\cocos_practice_git\trunk\projects\game003\
-[0.1221] [INFO] # device.cachePath             = E:\3rd\cocos_practice_git\trunk\projects\game003\
-[0.1229] [INFO] # device.directorySeparator    = \
-[0.1235] [INFO] # device.pathSeparator         = ;
-[0.1239] [INFO] #
-[0.1260] [INFO] # CONFIG_SCREEN_AUTOSCALE      = FIXED_HEIGHT
-[0.1264] [INFO] # CONFIG_SCREEN_WIDTH          = 960.00
-[0.1269] [INFO] # CONFIG_SCREEN_HEIGHT         = 640.00
-[0.1273] [INFO] # display.widthInPixels        = 960.00
-[0.1278] [INFO] # display.heightInPixels       = 640.00
-[0.1284] [INFO] # display.contentScaleFactor   = 1.00
-[0.1289] [INFO] # display.width                = 960.00
-[0.1293] [INFO] # display.height               = 640.00
-[0.1297] [INFO] # display.cx                   = 480.00
-[0.1302] [INFO] # display.cy                   = 320.00
-[0.1407] [INFO] # display.left                 = 0.00
-[0.1412] [INFO] # display.right                = 960.00
-[0.1417] [INFO] # display.top                  = 640.00
-[0.1421] [INFO] # display.bottom               = 0.00
-[0.1426] [INFO] # display.c_left               = -480.00
-[0.1430] [INFO] # display.c_right              = 480.00
-[0.1434] [INFO] # display.c_top                = 320.00
-[0.1438] [INFO] # display.c_bottom             = -320.00
-[0.1450] [INFO] #
-[0.1622] [INFO] Scene "MainScene:onEnter()"
-[1.0382] Start printed
-[1.0389] ----------------------------------------
-[1.0398] LUA ERROR: [string "E:/3rd/cocos_practice_git/trunk/projects/game003/scripts/app/scenes/MainScene.lua"]:13: attempt to call method 'replaceScene' (a nil value)
-
-[1.0407] 
-stack traceback:
-	[string "E:/3rd/cocos_practice_git/trunk/projects/game003/scripts/app/scenes/MainScene.lua"]:13: in function ''
-	[string "framework.ui"]: in main chunk
-[1.0417] ----------------------------------------
+[0.1190] [INFO] 
+[0.1195] [INFO] # DEBUG                        = 2
+[0.1201] [INFO] #
+[0.1209] [INFO] # device.platform              = windows
+[0.1213] [INFO] # device.model                 = unknown
+[0.1219] [INFO] # device.language              = cn
+[0.1222] [INFO] # device.writablePath          = E:\3rd\cocos_practice_git\trunk\projects\game003\
+[0.1230] [INFO] # device.cachePath             = E:\3rd\cocos_practice_git\trunk\projects\game003\
+[0.1237] [INFO] # device.directorySeparator    = \
+[0.1269] [INFO] # device.pathSeparator         = ;
+[0.1273] [INFO] #
+[0.1297] [INFO] # CONFIG_SCREEN_AUTOSCALE      = FIXED_HEIGHT
+[0.1300] [INFO] # CONFIG_SCREEN_WIDTH          = 960.00
+[0.1304] [INFO] # CONFIG_SCREEN_HEIGHT         = 640.00
+[0.1308] [INFO] # display.widthInPixels        = 960.00
+[0.1312] [INFO] # display.heightInPixels       = 640.00
+[0.1316] [INFO] # display.contentScaleFactor   = 1.00
+[0.1320] [INFO] # display.width                = 960.00
+[0.1325] [INFO] # display.height               = 640.00
+[0.1330] [INFO] # display.cx                   = 480.00
+[0.1336] [INFO] # display.cy                   = 320.00
+[0.1342] [INFO] # display.left                 = 0.00
+[0.1348] [INFO] # display.right                = 960.00
+[0.1353] [INFO] # display.top                  = 640.00
+[0.1357] [INFO] # display.bottom               = 0.00
+[0.1361] [INFO] # display.c_left               = -480.00
+[0.1365] [INFO] # display.c_right              = 480.00
+[0.1369] [INFO] # display.c_top                = 320.00
+[0.1434] [INFO] # display.c_bottom             = -320.00
+[0.1441] [INFO] #
+[0.1893] [INFO] Scene "MainScene:onEnter()"
+[1.3811] Start touched
+[1.3887] [INFO] Scene "AnotherScene:onEnter()"
+[2.2133] [INFO] movement, evtType: 0, moveId: anim_walk
+[3.2300] [INFO] Scene "MainScene:onExit()"
+[3.2306] [INFO] ----------------------------------------
+[3.2314] [INFO] LUA VM MEMORY USED: 1198.27 KB
+cocos2d: "cc_fps_images" rc=4 id=2 256 x 32 @ 16 bpp => 16 KB
+cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/roy.jpg" rc=2 id=3 1024 x 647 @ 32 bpp => 2588 KB
+cocos2d: "cc_2x2_white_image" rc=1 id=4 2 x 2 @ 32 bpp => 0 KB
+cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/battle.png" rc=2 id=1 1250 x 650 @ 32 bpp => 3173 KB
+cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/Zombie.png" rc=179 id=9 512 x 512 @ 32 bpp => 1024 KB
+cocos2d: CCTextureCache dumpDebugInfo: 5 textures, for 6801 KB (6.64 MB)
+[3.2358] [INFO] ----------------------------------------
+[3.7633] [INFO] movement, evtType: 2, moveId: anim_walk
+[5.3300] [INFO] movement, evtType: 2, moveId: anim_walk
+[6.9030] [INFO] movement, evtType: 2, moveId: anim_walk
+[8.4696] [INFO] movement, evtType: 2, moveId: anim_walk
+[10.0363] [INFO] movement, evtType: 2, moveId: anim_walk
+[10.2030] [INFO] LUA VM MEMORY USED: 1198.48 KB
+[11.6030] [INFO] movement, evtType: 2, moveId: anim_walk
+[13.1697] [INFO] movement, evtType: 2, moveId: anim_walk
+[14.7364] [INFO] movement, evtType: 2, moveId: anim_walk
+[16.3031] [INFO] movement, evtType: 2, moveId: anim_walk
+[17.8562] [INFO] movement, evtType: 2, moveId: anim_walk
+[19.4230] [INFO] movement, evtType: 2, moveId: anim_walk
+[20.2063] [INFO] LUA VM MEMORY USED: 1198.58 KB
+[20.9897] [INFO] movement, evtType: 2, moveId: anim_walk
+[22.5564] [INFO] movement, evtType: 2, moveId: anim_walk
+[24.1231] [INFO] movement, evtType: 2, moveId: anim_walk
+[25.6898] [INFO] movement, evtType: 2, moveId: anim_walk
+[27.2686] [INFO] movement, evtType: 2, moveId: anim_walk
+[28.8353] [INFO] movement, evtType: 2, moveId: anim_walk
+[30.2187] [INFO] LUA VM MEMORY USED: 1198.68 KB
+[30.4020] [INFO] movement, evtType: 2, moveId: anim_walk
+[31.9705] [INFO] movement, evtType: 2, moveId: anim_walk
+[33.5372] [INFO] movement, evtType: 2, moveId: anim_walk
+[1114.6837] [INFO] movement, evtType: 2, moveId: anim_walk
+[1116.2555] [INFO] movement, evtType: 2, moveId: anim_walk
+[1117.8223] [INFO] movement, evtType: 2, moveId: anim_walk
+[1119.3889] [INFO] movement, evtType: 2, moveId: anim_walk
+[1119.8223] [INFO] LUA VM MEMORY USED: 1198.78 KB
+[1120.9556] [INFO] movement, evtType: 2, moveId: anim_walk
+[1122.5223] [INFO] movement, evtType: 2, moveId: anim_walk
+[1124.0890] [INFO] movement, evtType: 2, moveId: anim_walk
+[1125.6559] [INFO] movement, evtType: 2, moveId: anim_walk
+[1127.2225] [INFO] movement, evtType: 2, moveId: anim_walk
+[2569.2588] [INFO] movement, evtType: 2, moveId: anim_walk
+[2570.2925] [INFO] LUA VM MEMORY USED: 1198.88 KB
+[2570.8257] [INFO] movement, evtType: 2, moveId: anim_walk
+[2572.3923] [INFO] movement, evtType: 2, moveId: anim_walk

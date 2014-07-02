@@ -5,26 +5,28 @@ end)
 
 function MainScene:ctor()
     self.layer = display.newLayer();
+    self.bg = display.newSprite("roy.jpg", display.cx, display.cy)
+    self.layer:addChild(self.bg)
     self:addChild(self.layer)
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
-        x = display.cx, y = display.cy + 50,
+        x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
-            print("Start printed")
-            nexScene = display.newScene("GameScene");
-            transition = display.wrapSceneWithTransition(nexScene, "fade", 1.0)
-            display.replaceScene(nexScene)
+            print("Start touched")
+            local AnotherScene = require("../scripts/app/scenes/AnotherScene")
+            nexScene = AnotherScene:new();
+            CCDirector:sharedDirector():replaceScene(CCTransitionFade:create(1, nexScene))
         end})
 
     self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 64, align = ui.TEXT_ALIGN_CENTER,
-        x=display.cx, y=display.cy,
+        x=display.cx, y=display.cy,color = display.COLOR_BLUE,
          listener = function()
-            print("About printed")
+            print("About touched")
         end})
 
     self.item2 = ui.newTTFLabelMenuItem({text = "EXIT", size = 64, align = ui.TEXT_ALIGN_CENTER, 
-        x=display.cx, y=display.cy-50,
+        x=display.cx, y=display.cy-50,color = display.COLOR_RED,
         listener = function()
-            print("Exit printed")
+            print("Exit touched")
             game.exit()
         end})
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
