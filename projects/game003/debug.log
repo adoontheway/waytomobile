@@ -19,84 +19,567 @@ lua_loadChunksFromZIP() - loaded chunks count: 54
 ------------------------------------------------
 LOAD LUA FILE: E:/3rd/cocos_practice_git/trunk/projects/game003/scripts/main.lua
 ------------------------------------------------
-[0.1190] [INFO] 
-[0.1195] [INFO] # DEBUG                        = 2
-[0.1201] [INFO] #
-[0.1209] [INFO] # device.platform              = windows
-[0.1213] [INFO] # device.model                 = unknown
-[0.1219] [INFO] # device.language              = cn
-[0.1222] [INFO] # device.writablePath          = E:\3rd\cocos_practice_git\trunk\projects\game003\
-[0.1230] [INFO] # device.cachePath             = E:\3rd\cocos_practice_git\trunk\projects\game003\
-[0.1237] [INFO] # device.directorySeparator    = \
-[0.1269] [INFO] # device.pathSeparator         = ;
-[0.1273] [INFO] #
-[0.1297] [INFO] # CONFIG_SCREEN_AUTOSCALE      = FIXED_HEIGHT
-[0.1300] [INFO] # CONFIG_SCREEN_WIDTH          = 960.00
-[0.1304] [INFO] # CONFIG_SCREEN_HEIGHT         = 640.00
-[0.1308] [INFO] # display.widthInPixels        = 960.00
-[0.1312] [INFO] # display.heightInPixels       = 640.00
-[0.1316] [INFO] # display.contentScaleFactor   = 1.00
-[0.1320] [INFO] # display.width                = 960.00
-[0.1325] [INFO] # display.height               = 640.00
-[0.1330] [INFO] # display.cx                   = 480.00
-[0.1336] [INFO] # display.cy                   = 320.00
-[0.1342] [INFO] # display.left                 = 0.00
-[0.1348] [INFO] # display.right                = 960.00
-[0.1353] [INFO] # display.top                  = 640.00
-[0.1357] [INFO] # display.bottom               = 0.00
-[0.1361] [INFO] # display.c_left               = -480.00
-[0.1365] [INFO] # display.c_right              = 480.00
-[0.1369] [INFO] # display.c_top                = 320.00
-[0.1434] [INFO] # display.c_bottom             = -320.00
-[0.1441] [INFO] #
-[0.1893] [INFO] Scene "MainScene:onEnter()"
-[1.3811] Start touched
-[1.3887] [INFO] Scene "AnotherScene:onEnter()"
-[2.2133] [INFO] movement, evtType: 0, moveId: anim_walk
-[3.2300] [INFO] Scene "MainScene:onExit()"
-[3.2306] [INFO] ----------------------------------------
-[3.2314] [INFO] LUA VM MEMORY USED: 1198.27 KB
+[0.1272] [INFO] 
+[0.1279] [INFO] # DEBUG                        = 2
+[0.1293] [INFO] #
+[0.1302] [INFO] # device.platform              = windows
+[0.1306] [INFO] # device.model                 = unknown
+[0.1313] [INFO] # device.language              = cn
+[0.1316] [INFO] # device.writablePath          = E:\3rd\cocos_practice_git\trunk\projects\game003\
+[0.1324] [INFO] # device.cachePath             = E:\3rd\cocos_practice_git\trunk\projects\game003\
+[0.1333] [INFO] # device.directorySeparator    = \
+[0.1344] [INFO] # device.pathSeparator         = ;
+[0.1349] [INFO] #
+[0.1371] [INFO] # CONFIG_SCREEN_AUTOSCALE      = FIXED_HEIGHT
+[0.1374] [INFO] # CONFIG_SCREEN_WIDTH          = 960.00
+[0.1379] [INFO] # CONFIG_SCREEN_HEIGHT         = 640.00
+[0.1383] [INFO] # display.widthInPixels        = 960.00
+[0.1387] [INFO] # display.heightInPixels       = 640.00
+[0.1391] [INFO] # display.contentScaleFactor   = 1.00
+[0.1397] [INFO] # display.width                = 960.00
+[0.1404] [INFO] # display.height               = 640.00
+[0.1408] [INFO] # display.cx                   = 480.00
+[0.1412] [INFO] # display.cy                   = 320.00
+[0.1417] [INFO] # display.left                 = 0.00
+[0.1421] [INFO] # display.right                = 960.00
+[0.1425] [INFO] # display.top                  = 640.00
+[0.1431] [INFO] # display.bottom               = 0.00
+[0.1435] [INFO] # display.c_left               = -480.00
+[0.1439] [INFO] # display.c_right              = 480.00
+[0.1443] [INFO] # display.c_top                = 320.00
+[0.1447] [INFO] # display.c_bottom             = -320.00
+[0.1451] [INFO] #
+[0.1985] [INFO] Scene "MainScene:onEnter()"
+[1.1947] Start touched
+[1.1973] [INFO] Scene "AnotherScene:onEnter()"
+[2.0698] [INFO] movement, evtType: 0, moveId: anim_walk
+[3.0866] [INFO] Scene "MainScene:onExit()"
+[3.0873] [INFO] ----------------------------------------
+[3.0887] [INFO] LUA VM MEMORY USED: 1199.40 KB
 cocos2d: "cc_fps_images" rc=4 id=2 256 x 32 @ 16 bpp => 16 KB
 cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/roy.jpg" rc=2 id=3 1024 x 647 @ 32 bpp => 2588 KB
 cocos2d: "cc_2x2_white_image" rc=1 id=4 2 x 2 @ 32 bpp => 0 KB
 cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/battle.png" rc=2 id=1 1250 x 650 @ 32 bpp => 3173 KB
 cocos2d: "E:\3rd\cocos_practice_git\trunk\projects\game003\res/Zombie.png" rc=179 id=9 512 x 512 @ 32 bpp => 1024 KB
 cocos2d: CCTextureCache dumpDebugInfo: 5 textures, for 6801 KB (6.64 MB)
-[3.2358] [INFO] ----------------------------------------
-[3.7633] [INFO] movement, evtType: 2, moveId: anim_walk
-[5.3300] [INFO] movement, evtType: 2, moveId: anim_walk
-[6.9030] [INFO] movement, evtType: 2, moveId: anim_walk
-[8.4696] [INFO] movement, evtType: 2, moveId: anim_walk
-[10.0363] [INFO] movement, evtType: 2, moveId: anim_walk
-[10.2030] [INFO] LUA VM MEMORY USED: 1198.48 KB
-[11.6030] [INFO] movement, evtType: 2, moveId: anim_walk
-[13.1697] [INFO] movement, evtType: 2, moveId: anim_walk
-[14.7364] [INFO] movement, evtType: 2, moveId: anim_walk
-[16.3031] [INFO] movement, evtType: 2, moveId: anim_walk
-[17.8562] [INFO] movement, evtType: 2, moveId: anim_walk
-[19.4230] [INFO] movement, evtType: 2, moveId: anim_walk
-[20.2063] [INFO] LUA VM MEMORY USED: 1198.58 KB
-[20.9897] [INFO] movement, evtType: 2, moveId: anim_walk
-[22.5564] [INFO] movement, evtType: 2, moveId: anim_walk
-[24.1231] [INFO] movement, evtType: 2, moveId: anim_walk
-[25.6898] [INFO] movement, evtType: 2, moveId: anim_walk
-[27.2686] [INFO] movement, evtType: 2, moveId: anim_walk
-[28.8353] [INFO] movement, evtType: 2, moveId: anim_walk
-[30.2187] [INFO] LUA VM MEMORY USED: 1198.68 KB
-[30.4020] [INFO] movement, evtType: 2, moveId: anim_walk
-[31.9705] [INFO] movement, evtType: 2, moveId: anim_walk
-[33.5372] [INFO] movement, evtType: 2, moveId: anim_walk
-[1114.6837] [INFO] movement, evtType: 2, moveId: anim_walk
-[1116.2555] [INFO] movement, evtType: 2, moveId: anim_walk
-[1117.8223] [INFO] movement, evtType: 2, moveId: anim_walk
-[1119.3889] [INFO] movement, evtType: 2, moveId: anim_walk
-[1119.8223] [INFO] LUA VM MEMORY USED: 1198.78 KB
-[1120.9556] [INFO] movement, evtType: 2, moveId: anim_walk
-[1122.5223] [INFO] movement, evtType: 2, moveId: anim_walk
-[1124.0890] [INFO] movement, evtType: 2, moveId: anim_walk
-[1125.6559] [INFO] movement, evtType: 2, moveId: anim_walk
-[1127.2225] [INFO] movement, evtType: 2, moveId: anim_walk
-[2569.2588] [INFO] movement, evtType: 2, moveId: anim_walk
-[2570.2925] [INFO] LUA VM MEMORY USED: 1198.88 KB
-[2570.8257] [INFO] movement, evtType: 2, moveId: anim_walk
-[2572.3923] [INFO] movement, evtType: 2, moveId: anim_walk
+[3.0929] [INFO] ----------------------------------------
+[3.2278] Touched at %d %d  326  183
+[3.2287] Now playing   2  7  anim_eat
+[3.4198] [INFO] movement, evtType: 0, moveId: anim_eat
+[4.2198] [INFO] movement, evtType: 2, moveId: anim_eat
+[5.0198] [INFO] movement, evtType: 2, moveId: anim_eat
+[5.4106] Touched at %d %d  326  183
+[5.4112] Now playing   3  7  anim_placeladder
+[5.6031] [INFO] movement, evtType: 0, moveId: anim_placeladder
+[6.0031] [INFO] movement, evtType: 1, moveId: anim_placeladder
+[7.4105] Touched at %d %d  326  183
+[7.4115] Now playing   4  7  anim_idle
+[7.6032] [INFO] movement, evtType: 0, moveId: anim_idle
+[8.4365] [INFO] movement, evtType: 2, moveId: anim_idle
+[9.2700] [INFO] movement, evtType: 2, moveId: anim_idle
+[9.2827] Touched at %d %d  302  240
+[9.2835] Now playing   5  7  anim_ladderwalk
+[9.4866] [INFO] movement, evtType: 0, moveId: anim_ladderwalk
+[10.2033] [INFO] LUA VM MEMORY USED: 1200.50 KB
+[10.8268] Touched at %d %d  302  240
+[10.8279] Now playing   6  7  anim_laddereat
+[11.0200] [INFO] movement, evtType: 0, moveId: anim_laddereat
+[11.8200] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[12.6202] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[13.0104] Touched at %d %d  302  240
+[13.0110] Now playing   7  7  anim_death
+[13.2034] [INFO] movement, evtType: 0, moveId: anim_death
+[14.4034] [INFO] movement, evtType: 1, moveId: anim_death
+[14.6904] Touched at %d %d  302  240
+[14.6914] Now playing   1  7  anim_walk
+[14.8867] [INFO] movement, evtType: 0, moveId: anim_walk
+[16.4534] [INFO] movement, evtType: 2, moveId: anim_walk
+[18.0201] [INFO] movement, evtType: 2, moveId: anim_walk
+[19.5868] [INFO] movement, evtType: 2, moveId: anim_walk
+[20.2035] [INFO] LUA VM MEMORY USED: 1201.24 KB
+[21.1535] [INFO] movement, evtType: 2, moveId: anim_walk
+[22.7202] [INFO] movement, evtType: 2, moveId: anim_walk
+[24.2869] [INFO] movement, evtType: 2, moveId: anim_walk
+[25.8537] [INFO] movement, evtType: 2, moveId: anim_walk
+[27.4204] [INFO] movement, evtType: 2, moveId: anim_walk
+[28.9871] [INFO] movement, evtType: 2, moveId: anim_walk
+[30.2039] [INFO] LUA VM MEMORY USED: 1201.34 KB
+[30.5539] [INFO] movement, evtType: 2, moveId: anim_walk
+[32.1281] [INFO] movement, evtType: 2, moveId: anim_walk
+[33.6868] [INFO] movement, evtType: 2, moveId: anim_walk
+[34.5261] Touched at %d %d  378.99996948242  254.00001525879
+[34.5272] Now playing   2  7  anim_eat
+[34.7201] [INFO] movement, evtType: 0, moveId: anim_eat
+[35.5201] [INFO] movement, evtType: 2, moveId: anim_eat
+[35.9939] Touched at %d %d  367  237
+[35.9950] Now playing   3  7  anim_placeladder
+[36.1869] [INFO] movement, evtType: 0, moveId: anim_placeladder
+[36.5869] [INFO] movement, evtType: 1, moveId: anim_placeladder
+[37.3701] Touched at %d %d  822.99987792969  229.00001525879
+[37.3712] Now playing   4  7  anim_idle
+[37.5562] [INFO] movement, evtType: 0, moveId: anim_idle
+[38.3940] [INFO] movement, evtType: 2, moveId: anim_idle
+[38.4982] Touched at %d %d  822.99987792969  229.00001525879
+[38.4991] Now playing   5  7  anim_ladderwalk
+[38.6942] [INFO] movement, evtType: 0, moveId: anim_ladderwalk
+[40.2111] [INFO] LUA VM MEMORY USED: 1201.60 KB
+[40.2611] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[40.3458] Touched at %d %d  313.99996948242  208
+[40.3466] Now playing   6  7  anim_laddereat
+[40.5444] [INFO] movement, evtType: 0, moveId: anim_laddereat
+[41.3453] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[41.8098] Touched at %d %d  326  214.00001525879
+[41.8106] Now playing   7  7  anim_death
+[41.9954] [INFO] movement, evtType: 0, moveId: anim_death
+[43.1954] [INFO] movement, evtType: 1, moveId: anim_death
+[50.2137] [INFO] LUA VM MEMORY USED: 1201.91 KB
+[60.2298] [INFO] LUA VM MEMORY USED: 1202.01 KB
+[70.2299] [INFO] LUA VM MEMORY USED: 1202.10 KB
+[80.2340] [INFO] LUA VM MEMORY USED: 1202.20 KB
+[90.2373] [INFO] LUA VM MEMORY USED: 1202.30 KB
+[100.2376] [INFO] LUA VM MEMORY USED: 1202.40 KB
+[110.2451] [INFO] LUA VM MEMORY USED: 1202.50 KB
+[119.1521] Touched at %d %d  642.99993896484  227
+[119.1528] Now playing   1  7  anim_walk
+[119.3475] [INFO] movement, evtType: 0, moveId: anim_walk
+[120.2476] [INFO] LUA VM MEMORY USED: 1202.65 KB
+[120.9142] [INFO] movement, evtType: 2, moveId: anim_walk
+[121.2162] Touched at %d %d  634.99993896484  250
+[121.2172] Now playing   2  7  anim_eat
+[121.4142] [INFO] movement, evtType: 0, moveId: anim_eat
+[122.2142] [INFO] movement, evtType: 2, moveId: anim_eat
+[122.6724] Touched at %d %d  677  245
+[122.6741] Now playing   3  7  anim_placeladder
+[122.8643] [INFO] movement, evtType: 0, moveId: anim_placeladder
+[123.2643] [INFO] movement, evtType: 1, moveId: anim_placeladder
+[123.9040] Touched at %d %d  277  228
+[123.9048] Now playing   4  7  anim_idle
+[124.0976] [INFO] movement, evtType: 0, moveId: anim_idle
+[124.8564] Touched at %d %d  277  228
+[124.8574] Now playing   5  7  anim_ladderwalk
+[125.0477] [INFO] movement, evtType: 0, moveId: anim_ladderwalk
+[126.6147] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[128.1815] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[129.7531] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[130.2532] [INFO] LUA VM MEMORY USED: 1202.88 KB
+[131.3198] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[132.2561] Touched at %d %d  436.99996948242  227
+[132.2601] Now playing   6  7  anim_laddereat
+[132.4532] [INFO] movement, evtType: 0, moveId: anim_laddereat
+[133.2532] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[133.8721] Touched at %d %d  403.99996948242  229.00001525879
+[133.8733] Now playing   7  7  anim_death
+[134.0700] [INFO] movement, evtType: 0, moveId: anim_death
+[135.2700] [INFO] movement, evtType: 1, moveId: anim_death
+[135.4638] Touched at %d %d  403.99996948242  229.00001525879
+[135.4645] Now playing   1  7  anim_walk
+[135.6534] [INFO] movement, evtType: 0, moveId: anim_walk
+[137.2201] [INFO] movement, evtType: 2, moveId: anim_walk
+[138.7868] [INFO] movement, evtType: 2, moveId: anim_walk
+[140.2536] [INFO] LUA VM MEMORY USED: 1203.04 KB
+[140.3535] [INFO] movement, evtType: 2, moveId: anim_walk
+[141.9203] [INFO] movement, evtType: 2, moveId: anim_walk
+[143.4871] [INFO] movement, evtType: 2, moveId: anim_walk
+[712.3844] [INFO] movement, evtType: 2, moveId: anim_walk
+[713.9540] [INFO] movement, evtType: 2, moveId: anim_walk
+[715.5269] [INFO] movement, evtType: 2, moveId: anim_walk
+[717.0791] [INFO] movement, evtType: 2, moveId: anim_walk
+[717.5808] [INFO] LUA VM MEMORY USED: 1203.14 KB
+[718.6475] [INFO] movement, evtType: 2, moveId: anim_walk
+[720.2139] [INFO] movement, evtType: 2, moveId: anim_walk
+[721.7808] [INFO] movement, evtType: 2, moveId: anim_walk
+[723.3492] [INFO] movement, evtType: 2, moveId: anim_walk
+[724.9152] [INFO] movement, evtType: 2, moveId: anim_walk
+[726.4808] [INFO] movement, evtType: 2, moveId: anim_walk
+[727.5820] [INFO] LUA VM MEMORY USED: 1203.23 KB
+[728.0486] [INFO] movement, evtType: 2, moveId: anim_walk
+[729.6270] [INFO] movement, evtType: 2, moveId: anim_walk
+[731.1890] [INFO] movement, evtType: 2, moveId: anim_walk
+[732.7559] [INFO] movement, evtType: 2, moveId: anim_walk
+[734.3225] [INFO] movement, evtType: 2, moveId: anim_walk
+[735.8892] [INFO] movement, evtType: 2, moveId: anim_walk
+[737.4560] [INFO] movement, evtType: 2, moveId: anim_walk
+[737.5894] [INFO] LUA VM MEMORY USED: 1203.33 KB
+[739.0228] [INFO] movement, evtType: 2, moveId: anim_walk
+[740.5895] [INFO] movement, evtType: 2, moveId: anim_walk
+[742.1562] [INFO] movement, evtType: 2, moveId: anim_walk
+[743.7229] [INFO] movement, evtType: 2, moveId: anim_walk
+[745.2897] [INFO] movement, evtType: 2, moveId: anim_walk
+[746.8564] [INFO] movement, evtType: 2, moveId: anim_walk
+[747.5942] [INFO] LUA VM MEMORY USED: 1203.43 KB
+[748.4135] [INFO] movement, evtType: 2, moveId: anim_walk
+[749.9801] [INFO] movement, evtType: 2, moveId: anim_walk
+[751.5490] [INFO] movement, evtType: 2, moveId: anim_walk
+[753.1161] [INFO] movement, evtType: 2, moveId: anim_walk
+[754.6832] [INFO] movement, evtType: 2, moveId: anim_walk
+[756.2502] [INFO] movement, evtType: 2, moveId: anim_walk
+[757.6011] [INFO] LUA VM MEMORY USED: 1203.53 KB
+[757.8182] [INFO] movement, evtType: 2, moveId: anim_walk
+[759.3849] [INFO] movement, evtType: 2, moveId: anim_walk
+[760.9517] [INFO] movement, evtType: 2, moveId: anim_walk
+[762.5139] [INFO] movement, evtType: 2, moveId: anim_walk
+[764.0810] [INFO] movement, evtType: 2, moveId: anim_walk
+[765.6494] [INFO] movement, evtType: 2, moveId: anim_walk
+[767.2161] [INFO] movement, evtType: 2, moveId: anim_walk
+[767.6161] [INFO] LUA VM MEMORY USED: 1203.63 KB
+[768.7780] [INFO] movement, evtType: 2, moveId: anim_walk
+[770.3460] [INFO] movement, evtType: 2, moveId: anim_walk
+[771.9132] [INFO] movement, evtType: 2, moveId: anim_walk
+[773.4807] [INFO] movement, evtType: 2, moveId: anim_walk
+[775.0472] [INFO] movement, evtType: 2, moveId: anim_walk
+[776.6140] [INFO] movement, evtType: 2, moveId: anim_walk
+[777.6317] [INFO] LUA VM MEMORY USED: 1203.73 KB
+[778.1817] [INFO] movement, evtType: 2, moveId: anim_walk
+[779.7485] [INFO] movement, evtType: 2, moveId: anim_walk
+[781.3151] [INFO] movement, evtType: 2, moveId: anim_walk
+[782.8819] [INFO] movement, evtType: 2, moveId: anim_walk
+[784.4494] [INFO] movement, evtType: 2, moveId: anim_walk
+[786.0161] [INFO] movement, evtType: 2, moveId: anim_walk
+[787.5938] [INFO] movement, evtType: 2, moveId: anim_walk
+[787.6440] [INFO] LUA VM MEMORY USED: 1203.83 KB
+[789.1450] [INFO] movement, evtType: 2, moveId: anim_walk
+[790.7138] [INFO] movement, evtType: 2, moveId: anim_walk
+[792.2809] [INFO] movement, evtType: 2, moveId: anim_walk
+[793.8478] [INFO] movement, evtType: 2, moveId: anim_walk
+[795.4160] [INFO] movement, evtType: 2, moveId: anim_walk
+[796.9827] [INFO] movement, evtType: 2, moveId: anim_walk
+[797.6494] [INFO] LUA VM MEMORY USED: 1203.92 KB
+[798.5508] [INFO] movement, evtType: 2, moveId: anim_walk
+[800.1270] [INFO] movement, evtType: 2, moveId: anim_walk
+[801.6870] [INFO] movement, evtType: 2, moveId: anim_walk
+[803.2537] [INFO] movement, evtType: 2, moveId: anim_walk
+[804.8271] [INFO] movement, evtType: 2, moveId: anim_walk
+[806.3788] [INFO] movement, evtType: 2, moveId: anim_walk
+[807.6556] [INFO] LUA VM MEMORY USED: 1204.02 KB
+[807.9556] [INFO] movement, evtType: 2, moveId: anim_walk
+[809.5226] [INFO] movement, evtType: 2, moveId: anim_walk
+[811.0893] [INFO] movement, evtType: 2, moveId: anim_walk
+[812.6559] [INFO] movement, evtType: 2, moveId: anim_walk
+[814.2227] [INFO] movement, evtType: 2, moveId: anim_walk
+[815.7880] [INFO] movement, evtType: 2, moveId: anim_walk
+[817.3547] [INFO] movement, evtType: 2, moveId: anim_walk
+[817.6714] [INFO] LUA VM MEMORY USED: 1204.12 KB
+[818.9113] [INFO] movement, evtType: 2, moveId: anim_walk
+[820.4796] [INFO] movement, evtType: 2, moveId: anim_walk
+[822.0467] [INFO] movement, evtType: 2, moveId: anim_walk
+[823.6133] [INFO] movement, evtType: 2, moveId: anim_walk
+[825.1808] [INFO] movement, evtType: 2, moveId: anim_walk
+[826.7479] [INFO] movement, evtType: 2, moveId: anim_walk
+[827.6813] [INFO] LUA VM MEMORY USED: 1204.22 KB
+[828.3149] [INFO] movement, evtType: 2, moveId: anim_walk
+[829.8816] [INFO] movement, evtType: 2, moveId: anim_walk
+[831.4487] [INFO] movement, evtType: 2, moveId: anim_walk
+[833.0172] [INFO] movement, evtType: 2, moveId: anim_walk
+[834.5837] [INFO] movement, evtType: 2, moveId: anim_walk
+[836.1506] [INFO] movement, evtType: 2, moveId: anim_walk
+[837.6839] [INFO] LUA VM MEMORY USED: 1204.32 KB
+[837.7173] [INFO] movement, evtType: 2, moveId: anim_walk
+[839.2840] [INFO] movement, evtType: 2, moveId: anim_walk
+[840.8510] [INFO] movement, evtType: 2, moveId: anim_walk
+[842.4123] [INFO] movement, evtType: 2, moveId: anim_walk
+[843.9814] [INFO] movement, evtType: 2, moveId: anim_walk
+[845.5482] [INFO] movement, evtType: 2, moveId: anim_walk
+[847.1148] [INFO] movement, evtType: 2, moveId: anim_walk
+[847.6982] [INFO] LUA VM MEMORY USED: 1204.42 KB
+[848.6815] [INFO] movement, evtType: 2, moveId: anim_walk
+[850.2484] [INFO] movement, evtType: 2, moveId: anim_walk
+[851.8226] [INFO] movement, evtType: 2, moveId: anim_walk
+[853.3799] [INFO] movement, evtType: 2, moveId: anim_walk
+[854.9475] [INFO] movement, evtType: 2, moveId: anim_walk
+[856.5145] [INFO] movement, evtType: 2, moveId: anim_walk
+[857.7145] [INFO] LUA VM MEMORY USED: 1204.52 KB
+[858.0812] [INFO] movement, evtType: 2, moveId: anim_walk
+[859.6448] [INFO] movement, evtType: 2, moveId: anim_walk
+[861.2116] [INFO] movement, evtType: 2, moveId: anim_walk
+[862.7794] [INFO] movement, evtType: 2, moveId: anim_walk
+[864.3464] [INFO] movement, evtType: 2, moveId: anim_walk
+[865.9135] [INFO] movement, evtType: 2, moveId: anim_walk
+[867.4802] [INFO] movement, evtType: 2, moveId: anim_walk
+[867.7302] [INFO] LUA VM MEMORY USED: 1204.62 KB
+[869.0471] [INFO] movement, evtType: 2, moveId: anim_walk
+[870.6138] [INFO] movement, evtType: 2, moveId: anim_walk
+[872.1871] [INFO] movement, evtType: 2, moveId: anim_walk
+[873.7538] [INFO] movement, evtType: 2, moveId: anim_walk
+[875.3205] [INFO] movement, evtType: 2, moveId: anim_walk
+[876.8906] [INFO] movement, evtType: 2, moveId: anim_walk
+[877.7323] [INFO] LUA VM MEMORY USED: 1204.71 KB
+[878.4631] [INFO] movement, evtType: 2, moveId: anim_walk
+[880.0156] [INFO] movement, evtType: 2, moveId: anim_walk
+[881.5817] [INFO] movement, evtType: 2, moveId: anim_walk
+[883.1485] [INFO] movement, evtType: 2, moveId: anim_walk
+[884.7152] [INFO] movement, evtType: 2, moveId: anim_walk
+[886.2819] [INFO] movement, evtType: 2, moveId: anim_walk
+[887.7487] [INFO] LUA VM MEMORY USED: 1204.81 KB
+[887.8487] [INFO] movement, evtType: 2, moveId: anim_walk
+[889.4155] [INFO] movement, evtType: 2, moveId: anim_walk
+[890.9822] [INFO] movement, evtType: 2, moveId: anim_walk
+[892.5490] [INFO] movement, evtType: 2, moveId: anim_walk
+[894.1157] [INFO] movement, evtType: 2, moveId: anim_walk
+[895.6824] [INFO] movement, evtType: 2, moveId: anim_walk
+[897.2491] [INFO] movement, evtType: 2, moveId: anim_walk
+[897.7492] [INFO] LUA VM MEMORY USED: 1204.91 KB
+[898.8159] [INFO] movement, evtType: 2, moveId: anim_walk
+[900.3826] [INFO] movement, evtType: 2, moveId: anim_walk
+[901.9495] [INFO] movement, evtType: 2, moveId: anim_walk
+[903.5163] [INFO] movement, evtType: 2, moveId: anim_walk
+[905.0830] [INFO] movement, evtType: 2, moveId: anim_walk
+[906.6497] [INFO] movement, evtType: 2, moveId: anim_walk
+[907.7499] [INFO] LUA VM MEMORY USED: 1205.01 KB
+[908.2165] [INFO] movement, evtType: 2, moveId: anim_walk
+[909.7833] [INFO] movement, evtType: 2, moveId: anim_walk
+[911.3500] [INFO] movement, evtType: 2, moveId: anim_walk
+[912.9167] [INFO] movement, evtType: 2, moveId: anim_walk
+[914.4835] [INFO] movement, evtType: 2, moveId: anim_walk
+[916.0506] [INFO] movement, evtType: 2, moveId: anim_walk
+[917.6172] [INFO] movement, evtType: 2, moveId: anim_walk
+[917.7505] [INFO] LUA VM MEMORY USED: 1205.11 KB
+[919.1838] [INFO] movement, evtType: 2, moveId: anim_walk
+[920.7506] [INFO] movement, evtType: 2, moveId: anim_walk
+[922.3176] [INFO] movement, evtType: 2, moveId: anim_walk
+[923.8854] [INFO] movement, evtType: 2, moveId: anim_walk
+[925.4524] [INFO] movement, evtType: 2, moveId: anim_walk
+[927.0192] [INFO] movement, evtType: 2, moveId: anim_walk
+[927.7535] [INFO] LUA VM MEMORY USED: 1205.21 KB
+[928.5866] [INFO] movement, evtType: 2, moveId: anim_walk
+[930.1534] [INFO] movement, evtType: 2, moveId: anim_walk
+[931.7205] [INFO] movement, evtType: 2, moveId: anim_walk
+[933.2872] [INFO] movement, evtType: 2, moveId: anim_walk
+[934.8538] [INFO] movement, evtType: 2, moveId: anim_walk
+[936.4206] [INFO] movement, evtType: 2, moveId: anim_walk
+[937.7544] [INFO] LUA VM MEMORY USED: 1205.31 KB
+[937.9875] [INFO] movement, evtType: 2, moveId: anim_walk
+[939.5547] [INFO] movement, evtType: 2, moveId: anim_walk
+[941.1216] [INFO] movement, evtType: 2, moveId: anim_walk
+[942.6883] [INFO] movement, evtType: 2, moveId: anim_walk
+[944.2551] [INFO] movement, evtType: 2, moveId: anim_walk
+[945.8220] [INFO] movement, evtType: 2, moveId: anim_walk
+[947.3886] [INFO] movement, evtType: 2, moveId: anim_walk
+[947.7552] [INFO] LUA VM MEMORY USED: 1205.40 KB
+[948.9554] [INFO] movement, evtType: 2, moveId: anim_walk
+[950.5222] [INFO] movement, evtType: 2, moveId: anim_walk
+[952.0892] [INFO] movement, evtType: 2, moveId: anim_walk
+[953.6559] [INFO] movement, evtType: 2, moveId: anim_walk
+[955.2227] [INFO] movement, evtType: 2, moveId: anim_walk
+[956.7894] [INFO] movement, evtType: 2, moveId: anim_walk
+[957.7561] [INFO] LUA VM MEMORY USED: 1205.50 KB
+[958.3561] [INFO] movement, evtType: 2, moveId: anim_walk
+[959.9276] [INFO] movement, evtType: 2, moveId: anim_walk
+[961.4783] [INFO] movement, evtType: 2, moveId: anim_walk
+[963.0456] [INFO] movement, evtType: 2, moveId: anim_walk
+[964.6122] [INFO] movement, evtType: 2, moveId: anim_walk
+[966.1841] [INFO] movement, evtType: 2, moveId: anim_walk
+[967.7512] [INFO] movement, evtType: 2, moveId: anim_walk
+[967.7679] [INFO] LUA VM MEMORY USED: 1205.60 KB
+[969.3179] [INFO] movement, evtType: 2, moveId: anim_walk
+[970.8846] [INFO] movement, evtType: 2, moveId: anim_walk
+[972.4513] [INFO] movement, evtType: 2, moveId: anim_walk
+[974.0181] [INFO] movement, evtType: 2, moveId: anim_walk
+[975.5848] [INFO] movement, evtType: 2, moveId: anim_walk
+[977.1515] [INFO] movement, evtType: 2, moveId: anim_walk
+[977.7717] [INFO] LUA VM MEMORY USED: 1205.70 KB
+[978.7217] [INFO] movement, evtType: 2, moveId: anim_walk
+[980.2897] [INFO] movement, evtType: 2, moveId: anim_walk
+[981.8462] [INFO] movement, evtType: 2, moveId: anim_walk
+[983.4207] [INFO] movement, evtType: 2, moveId: anim_walk
+[984.9848] [INFO] movement, evtType: 2, moveId: anim_walk
+[986.5525] [INFO] movement, evtType: 2, moveId: anim_walk
+[987.7862] [INFO] LUA VM MEMORY USED: 1205.80 KB
+[988.1195] [INFO] movement, evtType: 2, moveId: anim_walk
+[989.6862] [INFO] movement, evtType: 2, moveId: anim_walk
+[991.2529] [INFO] movement, evtType: 2, moveId: anim_walk
+[1166.4852] [INFO] movement, evtType: 2, moveId: anim_walk
+[1167.7375] Touched at %d %d  239.99998474121  229.00001525879
+[1167.7383] Now playing   2  7  anim_eat
+[1167.9353] [INFO] movement, evtType: 0, moveId: anim_eat
+[1168.7352] [INFO] movement, evtType: 2, moveId: anim_eat
+[1169.5353] [INFO] movement, evtType: 2, moveId: anim_eat
+[1170.3353] [INFO] movement, evtType: 2, moveId: anim_eat
+[1171.1354] [INFO] movement, evtType: 2, moveId: anim_eat
+[1171.4520] [INFO] LUA VM MEMORY USED: 1205.93 KB
+[1171.9354] [INFO] movement, evtType: 2, moveId: anim_eat
+[1172.7355] [INFO] movement, evtType: 2, moveId: anim_eat
+[1173.5355] [INFO] movement, evtType: 2, moveId: anim_eat
+[1173.8572] Touched at %d %d  262  222
+[1173.8595] Now playing   3  7  anim_placeladder
+[1174.0521] [INFO] movement, evtType: 0, moveId: anim_placeladder
+[1174.4521] [INFO] movement, evtType: 1, moveId: anim_placeladder
+[1175.6500] Touched at %d %d  262  222
+[1175.6506] Now playing   4  7  anim_idle
+[1175.8356] [INFO] movement, evtType: 0, moveId: anim_idle
+[1176.6689] [INFO] movement, evtType: 2, moveId: anim_idle
+[1177.2012] Touched at %d %d  264  215.99998474121
+[1177.2020] Now playing   5  7  anim_ladderwalk
+[1177.3861] [INFO] movement, evtType: 0, moveId: anim_ladderwalk
+[1178.8424] Touched at %d %d  264  215.99998474121
+[1178.8436] Now playing   6  7  anim_laddereat
+[1179.0361] [INFO] movement, evtType: 0, moveId: anim_laddereat
+[1179.8362] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[1180.3538] Touched at %d %d  264  215.99998474121
+[1180.3546] Now playing   7  7  anim_death
+[1180.5530] [INFO] movement, evtType: 0, moveId: anim_death
+[1181.4530] [INFO] LUA VM MEMORY USED: 1206.12 KB
+[1181.5850] Touched at %d %d  264  215.99998474121
+[1181.5857] Now playing   1  7  anim_walk
+[1181.7697] [INFO] movement, evtType: 0, moveId: anim_walk
+[1183.3363] [INFO] movement, evtType: 2, moveId: anim_walk
+[1183.5934] Touched at %d %d  264  215.99998474121
+[1183.5942] Now playing   2  7  anim_eat
+[1183.7864] [INFO] movement, evtType: 0, moveId: anim_eat
+[1184.5864] [INFO] movement, evtType: 2, moveId: anim_eat
+[1185.3864] [INFO] movement, evtType: 2, moveId: anim_eat
+[1185.4569] Touched at %d %d  264  215.99998474121
+[1185.4574] Now playing   3  7  anim_placeladder
+[1185.6531] [INFO] movement, evtType: 0, moveId: anim_placeladder
+[1186.0531] [INFO] movement, evtType: 1, moveId: anim_placeladder
+[1186.7454] Touched at %d %d  264  215.99998474121
+[1186.7461] Now playing   4  7  anim_idle
+[1186.9364] [INFO] movement, evtType: 0, moveId: anim_idle
+[1187.7698] [INFO] movement, evtType: 2, moveId: anim_idle
+[1188.5531] Touched at %d %d  264  215.99998474121
+[1188.5540] Now playing   5  7  anim_ladderwalk
+[1188.7380] [INFO] movement, evtType: 0, moveId: anim_ladderwalk
+[1190.3046] [INFO] movement, evtType: 2, moveId: anim_ladderwalk
+[1190.4971] Touched at %d %d  264  215.99998474121
+[1190.4980] Now playing   6  7  anim_laddereat
+[1190.6882] [INFO] movement, evtType: 0, moveId: anim_laddereat
+[1191.4547] [INFO] LUA VM MEMORY USED: 1206.22 KB
+[1191.4883] [INFO] movement, evtType: 2, moveId: anim_laddereat
+[1192.2169] Touched at %d %d  264  215.99998474121
+[1192.2175] Now playing   7  7  anim_death
+[1192.4047] [INFO] movement, evtType: 0, moveId: anim_death
+[1193.6046] [INFO] movement, evtType: 1, moveId: anim_death
+[1194.5449] Touched at %d %d  264  215.99998474121
+[1194.5458] Now playing   1  7  anim_walk
+[1194.7383] [INFO] movement, evtType: 0, moveId: anim_walk
+[1196.3048] [INFO] movement, evtType: 2, moveId: anim_walk
+[1197.8716] [INFO] movement, evtType: 2, moveId: anim_walk
+[1199.4385] [INFO] movement, evtType: 2, moveId: anim_walk
+[1199.7941] Touched at %d %d  326.99996948242  348
+[1199.7950] Now playing   2  7  anim_eat
+[1199.9885] [INFO] movement, evtType: 0, moveId: anim_eat
+[1200.7886] [INFO] movement, evtType: 2, moveId: anim_eat
+[1201.4651] [INFO] LUA VM MEMORY USED: 1206.37 KB
+[1201.5985] [INFO] movement, evtType: 2, moveId: anim_eat
+[1202.3984] [INFO] movement, evtType: 2, moveId: anim_eat
+[1203.1985] [INFO] movement, evtType: 2, moveId: anim_eat
+[1203.9989] [INFO] movement, evtType: 2, moveId: anim_eat
+[1204.7988] [INFO] movement, evtType: 2, moveId: anim_eat
+[1205.5989] [INFO] movement, evtType: 2, moveId: anim_eat
+[1206.3989] [INFO] movement, evtType: 2, moveId: anim_eat
+[1207.1990] [INFO] movement, evtType: 2, moveId: anim_eat
+[1207.9990] [INFO] movement, evtType: 2, moveId: anim_eat
+[1208.7991] [INFO] movement, evtType: 2, moveId: anim_eat
+[1209.5990] [INFO] movement, evtType: 2, moveId: anim_eat
+[1210.3992] [INFO] movement, evtType: 2, moveId: anim_eat
+[1211.1991] [INFO] movement, evtType: 2, moveId: anim_eat
+[1211.4659] [INFO] LUA VM MEMORY USED: 1206.46 KB
+[1211.9991] [INFO] movement, evtType: 2, moveId: anim_eat
+[1212.8000] [INFO] movement, evtType: 2, moveId: anim_eat
+[1213.6002] [INFO] movement, evtType: 2, moveId: anim_eat
+[1214.4003] [INFO] movement, evtType: 2, moveId: anim_eat
+[1215.2003] [INFO] movement, evtType: 2, moveId: anim_eat
+[1216.0004] [INFO] movement, evtType: 2, moveId: anim_eat
+[1216.8003] [INFO] movement, evtType: 2, moveId: anim_eat
+[1217.6003] [INFO] movement, evtType: 2, moveId: anim_eat
+[1218.4005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1219.2004] [INFO] movement, evtType: 2, moveId: anim_eat
+[1220.0004] [INFO] movement, evtType: 2, moveId: anim_eat
+[1220.8005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1221.4672] [INFO] LUA VM MEMORY USED: 1206.56 KB
+[1221.6005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1222.4005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1223.2004] [INFO] movement, evtType: 2, moveId: anim_eat
+[1224.0005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1224.8005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1225.6005] [INFO] movement, evtType: 2, moveId: anim_eat
+[1226.4006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1227.2006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1228.0006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1228.8007] [INFO] movement, evtType: 2, moveId: anim_eat
+[1229.6006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1230.4006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1231.2007] [INFO] movement, evtType: 2, moveId: anim_eat
+[1231.4674] [INFO] LUA VM MEMORY USED: 1206.66 KB
+[1232.0007] [INFO] movement, evtType: 2, moveId: anim_eat
+[1232.8008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1233.6007] [INFO] movement, evtType: 2, moveId: anim_eat
+[1234.4008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1235.2008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1236.0009] [INFO] movement, evtType: 2, moveId: anim_eat
+[1236.8009] [INFO] movement, evtType: 2, moveId: anim_eat
+[1237.6008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1238.4009] [INFO] movement, evtType: 2, moveId: anim_eat
+[1239.2009] [INFO] movement, evtType: 2, moveId: anim_eat
+[1240.0010] [INFO] movement, evtType: 2, moveId: anim_eat
+[1240.8010] [INFO] movement, evtType: 2, moveId: anim_eat
+[1241.4678] [INFO] LUA VM MEMORY USED: 1206.76 KB
+[1241.6011] [INFO] movement, evtType: 2, moveId: anim_eat
+[1242.4011] [INFO] movement, evtType: 2, moveId: anim_eat
+[1243.2012] [INFO] movement, evtType: 2, moveId: anim_eat
+[1244.0011] [INFO] movement, evtType: 2, moveId: anim_eat
+[1244.8011] [INFO] movement, evtType: 2, moveId: anim_eat
+[1245.6012] [INFO] movement, evtType: 2, moveId: anim_eat
+[1246.4012] [INFO] movement, evtType: 2, moveId: anim_eat
+[1247.2013] [INFO] movement, evtType: 2, moveId: anim_eat
+[1248.0013] [INFO] movement, evtType: 2, moveId: anim_eat
+[1248.8014] [INFO] movement, evtType: 2, moveId: anim_eat
+[1249.6013] [INFO] movement, evtType: 2, moveId: anim_eat
+[1250.4015] [INFO] movement, evtType: 2, moveId: anim_eat
+[1251.2014] [INFO] movement, evtType: 2, moveId: anim_eat
+[1251.4681] [INFO] LUA VM MEMORY USED: 1206.86 KB
+[1252.0015] [INFO] movement, evtType: 2, moveId: anim_eat
+[1252.8014] [INFO] movement, evtType: 2, moveId: anim_eat
+[1253.6033] [INFO] movement, evtType: 2, moveId: anim_eat
+[1254.4036] [INFO] movement, evtType: 2, moveId: anim_eat
+[1255.2043] [INFO] movement, evtType: 2, moveId: anim_eat
+[1256.0043] [INFO] movement, evtType: 2, moveId: anim_eat
+[1256.8043] [INFO] movement, evtType: 2, moveId: anim_eat
+[1257.5884] [INFO] movement, evtType: 2, moveId: anim_eat
+[1258.4006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1259.2008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1260.0006] [INFO] movement, evtType: 2, moveId: anim_eat
+[1260.8008] [INFO] movement, evtType: 2, moveId: anim_eat
+[1261.4840] [INFO] LUA VM MEMORY USED: 1206.96 KB
+[1261.6016] [INFO] movement, evtType: 2, moveId: anim_eat
+[1262.4015] [INFO] movement, evtType: 2, moveId: anim_eat
+[1263.2015] [INFO] movement, evtType: 2, moveId: anim_eat
+[1264.0027] [INFO] movement, evtType: 2, moveId: anim_eat
+[1264.8037] [INFO] movement, evtType: 2, moveId: anim_eat
+[1265.6038] [INFO] movement, evtType: 2, moveId: anim_eat
+[1266.4038] [INFO] movement, evtType: 2, moveId: anim_eat
+[1267.2032] [INFO] movement, evtType: 2, moveId: anim_eat
+[1267.9979] [INFO] movement, evtType: 2, moveId: anim_eat
+[1268.7980] [INFO] movement, evtType: 2, moveId: anim_eat
+[1269.5996] [INFO] movement, evtType: 2, moveId: anim_eat
+[1270.4017] [INFO] movement, evtType: 2, moveId: anim_eat
+[1271.2023] [INFO] movement, evtType: 2, moveId: anim_eat
+[1271.4856] [INFO] LUA VM MEMORY USED: 1207.06 KB
+[1272.0026] [INFO] movement, evtType: 2, moveId: anim_eat
+[1272.8025] [INFO] movement, evtType: 2, moveId: anim_eat
+[1273.6024] [INFO] movement, evtType: 2, moveId: anim_eat
+[1274.4026] [INFO] movement, evtType: 2, moveId: anim_eat
+[1275.2042] [INFO] movement, evtType: 2, moveId: anim_eat
+[1276.0043] [INFO] movement, evtType: 2, moveId: anim_eat
+[1276.8042] [INFO] movement, evtType: 2, moveId: anim_eat
+[1277.5885] [INFO] movement, evtType: 2, moveId: anim_eat
+[1278.3885] [INFO] movement, evtType: 2, moveId: anim_eat
+[1279.1885] [INFO] movement, evtType: 2, moveId: anim_eat
+[1279.9885] [INFO] movement, evtType: 2, moveId: anim_eat
+[1280.7898] [INFO] movement, evtType: 2, moveId: anim_eat
+[1281.4896] [INFO] LUA VM MEMORY USED: 1207.15 KB
+[1281.5896] [INFO] movement, evtType: 2, moveId: anim_eat
+[1282.3896] [INFO] movement, evtType: 2, moveId: anim_eat
+[1283.1897] [INFO] movement, evtType: 2, moveId: anim_eat
+[1283.9897] [INFO] movement, evtType: 2, moveId: anim_eat
+[1284.7897] [INFO] movement, evtType: 2, moveId: anim_eat
+[1285.5964] [INFO] movement, evtType: 2, moveId: anim_eat
+[1286.3965] [INFO] movement, evtType: 2, moveId: anim_eat
+[1287.1964] [INFO] movement, evtType: 2, moveId: anim_eat
+[1288.0033] [INFO] movement, evtType: 2, moveId: anim_eat
+[1288.8037] [INFO] movement, evtType: 2, moveId: anim_eat
+[1289.6007] [INFO] movement, evtType: 2, moveId: anim_eat
+[1290.4022] [INFO] movement, evtType: 2, moveId: anim_eat
+[1291.1973] [INFO] movement, evtType: 2, moveId: anim_eat
+[1291.4972] [INFO] LUA VM MEMORY USED: 1207.25 KB
+[1292.0034] [INFO] movement, evtType: 2, moveId: anim_eat
+[1292.8030] [INFO] movement, evtType: 2, moveId: anim_eat
