@@ -7,7 +7,7 @@ set APP_ANDROID_ROOT=%DIR%
 echo - config:
 echo   ANDROID_NDK_ROOT    = %ANDROID_NDK_ROOT%
 echo   QUICK_COCOS2DX_ROOT = %QUICK_COCOS2DX_ROOT%
-echo   COCOS2DX_ROOT       = %COCOS2DX_ROOT%
+echo   COCOS2DX_ROOT       = E:\3rd\quick-cocos2d-x-2.2.1-rc\lib\cocos2d-x\cocos2dx
 echo   APP_ROOT            = %APP_ROOT%
 echo   APP_ANDROID_ROOT    = %APP_ANDROID_ROOT%
 
