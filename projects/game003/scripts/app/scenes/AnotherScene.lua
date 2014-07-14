@@ -5,7 +5,7 @@ end)
 local scheduler = require("framework.scheduler")
 
 function AnotherScene:ctor()
-	self.speed = 50;
+	self.speed = 100;
 	self.curBehaviorId = 1;
     self.layer = display.newLayer()
     self:addChild(self.layer)
@@ -32,10 +32,13 @@ function AnotherScene:onTouch(event, x, y)
 	local tempX = self.zombie:getPositionX()
 	local tempY = self.zombie:getPositionY()
 	local distance = math.sqrt(tempX*tempX + tempY*tempY)
-	local action = CCMoveTo:create(distance/self.speed, CCPoint(x,y))
+	local dura = distance/self.speed
+	print("Distance: "..distance.." Speed: "..self.speed.." Duration: "..dura)
+	local action = CCMoveTo:create(dura, CCPoint(x,y))
 	action:setTag(100)
 	self.zombie:runAction(action)
 	self.animation:play("anim_walk")
+	self.state = "walk"
 	--[[
 	local len1 = #self.zombies;
 	local len2 = #self.behaviors;
@@ -60,24 +63,10 @@ function AnotherScene:onTouch(event, x, y)
 end
 
 function AnotherScene:onEnterFrame(dt)
-	--[[
-	local tempX = self.bg:getPositionX();
-	local tempW = self.bg:getContentSize().width;
-	tempX = tempX - self.speed;
-	if tempX <= display.cx - tempW then
-		self.bg:setPositionX(display.cx + tempW)
-	else
-		self.bg:setPositionX(tempX)
+	if self.zombie:getActionByTag(100) == nil and self.state ~= "idle" then
+		self.animation:play("anim_idle")
+		self.state = "idle"
 	end
-
-	tempX = self.bg1:getPositionX();
-	tempW = self.bg1:getContentSize().width;
-	tempX = tempX - self.speed;
-	if tempX <= display.cx - tempW then
-		self.bg1:setPositionX(display.cx + tempW)
-	else
-		self.bg1:setPositionX(tempX)
-	end]]
 end
 
 function AnotherScene:onEnter()
@@ -91,6 +80,7 @@ function AnotherScene:onEnter()
     self.animation = self.zombie:getAnimation()
     self.animation:setSpeedScale(0.2)
     self.animation:play("anim_idle")
+    self.state = "idle"
     self.zombie:setPosition(display.cx, display.cy)
     self.zombie:setScaleX(-1)
     self.layer:addChild(self.zombie)
