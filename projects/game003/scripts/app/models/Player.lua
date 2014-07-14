@@ -7,6 +7,10 @@ local Player = class("Player", cc.mvc.ModelBase)
 Player.actTags = {"idle"=100,"walk"=101,"attack"=102,"spell"=103,"dead"=104, "celabrate"=105,"relive"=106,"attacked"=107}--Action对应的tag
 
 Player.CHANGE_STATE_EVENT = "CHANGE_STATE_EVENT"	--状态改变事件
+Player.ATTACK_EVENT = "ATTACK_EVENT"
+Player.UNDER_ATTACK_EVENT = "UNDER_ATTACK_EVENT"
+Player.START_EVENT = "START_EVENT"
+Player.HP_CHANGED_EVENT = "HP_CHANGED_EVENT"--血量改变
 
 --定义属性
 Player.schema = clone(cc.mvc.ModelBase.schema)
@@ -56,15 +60,106 @@ function Player:getHp()
 	return self.hp_
 end
 
+function Player:getMaxHp()
+	return 100
+end
+
 function Player:isDead( )
 	return self.fsm__:getState() == "dead"
+end
+
+function Player:canFire()
+	return self.fsm__:canDoEvent("fire")
+end
+
+function Player:getAttack( )
+	return 100
+end
+
+function Player:getArmor()
+	return 100
+end
+
+function Player:isFrozen()
+	return self.fsm__:getState() == "frozen"
 end
 
 function Player:getState()
 	return self.fsm__:getState()
 end
 
+function Player:getCoolDown()
+	return 2
+end
 
-function Player:addHp(hp)
+function Player:setFullHp()
+	self.hp = self:getMaxHp()
+end
+
+function Player:increaseHp(hp)
 	assert(not self:isDead(), string.format("actor %s:%s is dead, can't change Hp", self:getId(), self:getNickName()))
-	assert(hp > 0, string.format("Actor:addHp(hp) - invalid hp value: %s", hp)
+	assert(hp > 0, string.format("Actor:increaseHp(hp) - invalid hp value: %s", hp)
+	local newhp = self.hp_ + hp
+	if newhp > self:getMaxHp() then
+		newhp = self:getMaxHp()
+	end
+
+	if newhp > self:hp_ then
+		self:dispatchEvent({name = Player.HP_CHANGED_EVENT})
+	end
+
+	return self
+end
+
+function Player:decreaseHp(hp)
+	assert(not self:isDead(), string.format("actor %s:%s is dead, can't change Hp", self:getId(), self:getNickName()))
+	assert(hp > 0, string.format("Actor:decreaseHp(hp) - invalid hp value: %s", hp)
+	local newhp = self.hp_ - hp
+	if newhp <= 0 then
+		newhp = 0
+	end
+
+	if newhp < self.hp_ then
+		self.hp_ = newhp
+		self:dispatchEvent({name = Player.HP_CHANGED_EVENT})
+		if newhp == 0 then
+			self.fsm__:doEvent("kill")
+		end
+	end
+	return self
+end
+
+function Player:fire(enemy)
+	self.fsm__:doEvent("fire")
+	self.fsm__:doEvent("ready",self:getCoolDown())
+end
+
+function Player:hit(enemy)
+	assert(not self:isDead(), string.format("actor %s:%s is dead, can't fire", self:getId(), self:getNickName()))
+
+	local damage = 0
+	if math.random(1,100) <= 80 then
+		local armor = 0
+		if not enemy:isFrozen() then
+			armor = enemy:getArmor()
+		end
+		damage = self:geAttack() - armor
+		if damage <= 0 then 
+			damage = 1 
+		end
+		self:dispatchEvent({name = Player.UNDER_ATTACK_EVENT,source=self,damage=damage})
+	end
+	return damage
+end
+
+function Player:onChangeState_(event)
+	printf("Player %s:%s state changed from %s to %s",self:getId(), self:getNickName(),event.from,event.to)
+	event = {name=Player.CHANGE_STATE_EVENT,from=event.from, to=event.to}
+	self:dispatchEvent(event)
+end
+
+function Player:onStart_( event )
+	printf("Player %s:%s started..", self:getId(),self:getNickName())
+	self:setFullHp();
+	self:dispatchEvent({name=Player.START_EVENT})
+end
