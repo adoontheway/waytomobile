@@ -2,6 +2,8 @@ local AnotherScene = class("AnotherScene", function()
     return display.newScene("AnotherScene")
 end)
 
+local scheduler = require("framework.scheduler")
+
 function AnotherScene:ctor()
 	self.speed = 2;
 	self.curBehaviorId = 1;
@@ -16,18 +18,21 @@ function AnotherScene:ctor()
     self.layer:addChild(self.bg1)
 end
 
-function AnotherScene:moveTo()
-	-- body
-	print("Scheduling.....")
-end
-
 function AnotherScene:onTouch(event, x, y)
-	self.targetPos = {x=x,y=y};
-	if self.handler ~= nil then
-		scheduler.unscheduleGlobal(self.handler)
-		self.handler = nil
+
+	--[[if self.tempAction ~= nill then
+		
+	end]]
+	if x < self.zombie:getPositionX() then
+		self.zombie:setScaleX(1)
+	else
+		self.zombie:setScaleX(-1)
 	end
-	self.handler = scheduller.scheduleGlobal(moveTo, 0.5)
+
+	local action = CCMoveTo:create(math.random(1,5), CCPoint(x,y))
+	self.zombie:runAction(action)
+	self.tempAction = action;
+	self.animation:play("anim_walk")
 	--[[
 	local len1 = #self.zombies;
 	local len2 = #self.behaviors;
@@ -36,7 +41,7 @@ function AnotherScene:onTouch(event, x, y)
 		local sp = CCArmature:create(self.zombies[i])
 		local animation = sp:getAnimation()
 		if animation ~= nil then
-			animation:play(self.behaviors[1])--有的动作这个没有
+			animation:play(self.behaviors[1])--脫脨碌脛露炉脳梅脮芒赂枚脙禄脫脨
 			animation:setSpeedScale(0.5)
 			sp:setPosition(math.random(display.left, display.right), math.random(display.bottom, display.top))
 			self.layer:addChild(sp)
@@ -79,13 +84,13 @@ function AnotherScene:onEnter()
 
     local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
-    local zombie = CCArmature:create("Zombie_gargantuar")
-    self.animation = zombie:getAnimation()
+    self.zombie = CCArmature:create("Zombie_gargantuar")
+    self.animation = self.zombie:getAnimation()
     self.animation:setSpeedScale(0.2)
     self.animation:play("anim_idle")
-    zombie:setPosition(display.cx, display.cy)
-    zombie:setScaleX(-1)
-    self.layer:addChild(zombie)
+    self.zombie:setPosition(display.cx, display.cy)
+    self.zombie:setScaleX(-1)
+    self.layer:addChild(self.zombie)
     self.layer:addTouchEventListener(function(event,x,y)
     	return self:onTouch(event, x,y)
     	end)	
