@@ -5,7 +5,7 @@ end)
 local scheduler = require("framework.scheduler")
 
 function AnotherScene:ctor()
-	self.speed = 2;
+	self.speed = 50;
 	self.curBehaviorId = 1;
     self.layer = display.newLayer()
     self:addChild(self.layer)
@@ -20,18 +20,21 @@ end
 
 function AnotherScene:onTouch(event, x, y)
 
-	--[[if self.tempAction ~= nill then
-		
-	end]]
+	if self.zombie:getActionByTag(100) ~= nill then
+		self.zombie:stopActionByTag(100)
+	end
+
 	if x < self.zombie:getPositionX() then
 		self.zombie:setScaleX(1)
 	else
 		self.zombie:setScaleX(-1)
 	end
-
-	local action = CCMoveTo:create(math.random(1,5), CCPoint(x,y))
+	local tempX = self.zombie:getPositionX()
+	local tempY = self.zombie:getPositionY()
+	local distance = math.sqrt(tempX*tempX + tempY*tempY)
+	local action = CCMoveTo:create(distance/self.speed, CCPoint(x,y))
+	action:setTag(100)
 	self.zombie:runAction(action)
-	self.tempAction = action;
 	self.animation:play("anim_walk")
 	--[[
 	local len1 = #self.zombies;
