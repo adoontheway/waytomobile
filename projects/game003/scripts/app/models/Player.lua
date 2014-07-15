@@ -10,7 +10,13 @@ Player.CHANGE_STATE_EVENT = "CHANGE_STATE_EVENT"	--状态改变事件
 Player.ATTACK_EVENT = "ATTACK_EVENT"
 Player.UNDER_ATTACK_EVENT = "UNDER_ATTACK_EVENT"
 Player.START_EVENT = "START_EVENT"
+Player.READY-EVENT = "READY_EVENT"
+Player.FIRE_EVENT = "FIRE_EVENT"
+Player.THAW_EVENT = "THAW_EVENT"
+Player.KILL_EVENT = "KILL_EVENT"
+Player.RELIVE_EVENT = "RELIVE_EVENT"
 Player.HP_CHANGED_EVENT = "HP_CHANGED_EVENT"--血量改变
+Player.FREEZE_EVENT = "FREEZE_EVENT"
 
 --定义属性
 Player.schema = clone(cc.mvc.ModelBase.schema)
@@ -26,9 +32,11 @@ function Player:ctor(properties, events, callbacks)
 	self.fsm__ = self:getComponent("cc.components.behavior.StateMachine")
 	local defaultEvents = {
 		{name="start", from="none", to="idle"},
-		{name="attack", from="idle", to="attack"},
-		{name="ready", from="attack", to="idle"},
-		{name="kill", from={"idle","attack"}, to="idle"},
+		{name="fire", from="idle", to="firing"},
+		{name="ready", from="firing", to="idle"},
+		{name="freeeze", from="idle", to="frozen"},
+		{name="thaw", from="frozen", to="idle"},
+		{name="kill", from={"idle","frozen"}, to="dead"},
 		{name="relive", from="dead", to="idle"}
 	}
 	table.insertto(defaultEvents,checktable(events))
@@ -46,6 +54,13 @@ function Player:ctor(properties, events, callbacks)
 	}
 
 	table.table.merge(defaultCallbacks, checktable(callbacks))
+
+	self.fsm__:setupState({
+		events = defaultEvents,
+		callbacks = defaultCallbacks
+		})
+
+	self.fsm__:doEvent("start")
 end
 
 function Player:getNickName()
@@ -163,3 +178,45 @@ function Player:onStart_( event )
 	self:setFullHp();
 	self:dispatchEvent({name=Player.START_EVENT})
 end
+
+function Player:onReady_(event)
+	printf("Player %s:%s fire", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.FIRE_EVENT})
+end
+
+function Player:onThaw_(event)
+	printf("Player %s:%s thawing", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.THAW_EVENT})
+end
+
+function Player:onFire_(event)
+	printf("Player %s:%s is firing", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.FIRE_EVENT})
+end
+
+function Player:onFreeze_(event)
+	printf("Player %s:%s is frozen", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.FREEZE_EVENT})
+end
+
+function Player:onKill_(event)
+	printf("Player %s:%s is killed", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.KILL_EVENT})
+end
+
+function Player:onRelive_(event)
+	printf("Player %s:%s is relived", self:getId(), self:getNickName())
+	self:dispatchEvent({name = Player.RELIVE_EVENT})
+end
+
+function Player:onLeavingFiring_(event)
+	local coolDown = checknumber(event.args[1])
+	if coolDown > 0 then
+		scheduler.performWithDelayGlobal(function()
+			event.transition()
+		end, coolDown)
+		return "async"
+	end
+end
+
+return Player
