@@ -30,7 +30,7 @@ function Hero:increaseExp(exp)
 	return self
 end
 
-function Hero:getExp( )
+function Hero:getExp()
 	return self.exp_;
 end
 
@@ -42,4 +42,7 @@ function Hero:hit(target)
 	return damage
 end
 
+---添加随从
+function Hero:addFellow(...)
+end
 return Hero

@@ -24,7 +24,7 @@ Player.schema["nickname"]	= 	["string"]
 Player.shcema["level"]	=	["number",1]
 Player.schema["hp"]	=["int",1]
 Player.schema["mp"] = ["int",1]
-Player.schema["rawid"]=["int",0]--id对应静态数据，可以拿出所有数据
+Player.schema["rawid"]=["int",0]--id对应静态数据，可以拿出所有数据，静态数据需要建立起来
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)

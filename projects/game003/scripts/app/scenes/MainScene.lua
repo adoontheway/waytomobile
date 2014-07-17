@@ -1,9 +1,12 @@
-
+--[[
+    欢迎界面
+]]
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
 
 function MainScene:ctor()
+    self.instance = self
     self.layer = display.newLayer();
     self.bg = display.newSprite("roy.jpg", display.cx, display.cy)
     self.layer:addChild(self.bg)

@@ -1,10 +1,25 @@
+--[[
+	战斗场景
+]]
 local AnotherScene = class("AnotherScene", function()
-    return display.newScene("AnotherScene")
+    return display.newNode("AnotherScene")
 end)
 
 local scheduler = require("framework.scheduler")
 
 function AnotherScene:ctor()
+	if not app:Registry.isObjectExists("player") then
+		--这些数据需要从服务端拿取
+		local player = Hero:new({
+			id = 1,
+			nickname = "me"
+			level =1
+		})
+		app:setObject("player", player)
+	end
+
+	self.palyer = app:getObject("player")
+
 	self.speed = 100;
 	self.curBehaviorId = 1;
     self.layer = display.newLayer()
@@ -39,27 +54,6 @@ function AnotherScene:onTouch(event, x, y)
 	self.zombie:runAction(action)
 	self.animation:play("anim_walk")
 	self.state = "walk"
-	--[[
-	local len1 = #self.zombies;
-	local len2 = #self.behaviors;
-	for i=1,10 do
-		print(self.zombies[i],self.behaviors[i])
-		local sp = CCArmature:create(self.zombies[i])
-		local animation = sp:getAnimation()
-		if animation ~= nil then
-			animation:play(self.behaviors[1])--ÓÐµÄ¶¯×÷Õâ¸öÃ»ÓÐ
-			animation:setSpeedScale(0.5)
-			sp:setPosition(math.random(display.left, display.right), math.random(display.bottom, display.top))
-			self.layer:addChild(sp)
-		end
-	end
-
-	self.curBehaviorId = self.curBehaviorId + 1;
-	if self.curBehaviorId > #self.behaviors then
-		self.curBehaviorId = 1;
-	end
-	self.animation:play(self.behaviors[self.curBehaviorId])
-	]]
 end
 
 function AnotherScene:onEnterFrame(dt)
