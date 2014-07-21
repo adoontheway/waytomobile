@@ -66,15 +66,15 @@ function Player:ctor(properties, events, callbacks)
 		})
 
 	self.fsm__:doEvent("start")
-	self.res_ = math.random(1,#Player.resources)
+	self.res_ = Player.resources[math.random(1,#Player.resources)]
 end
 --资源
 function Player:getRes()
-	return self.res
+	return self.res_
 end
 
 function Player:getId()
-	return self.id
+	return self.id_
 end
 
 function Player:getNickName()

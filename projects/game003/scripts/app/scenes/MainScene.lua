@@ -19,6 +19,8 @@ function MainScene:ctor()
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
             local nexScene = AnotherScene:new()
+            nexScene.attacker = 1
+            nexScene.defender = 2
             local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
             display.replaceScene(nexScene)
         end})

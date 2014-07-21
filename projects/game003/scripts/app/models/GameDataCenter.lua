@@ -26,6 +26,13 @@ end
 function GameDataCenter:getSelfData( ... )
 	-- body
 end
+--寻找玩家数据
+function GameDataCenter:getPlayerById(id)
+	if self.players ~= nil and #self.players ~= 0 then
+		return self.players[id]
+	end
+	return nil
+end
 --添加角色
 function GameDataCenter:addPlayer( id, player )
 	if self.curId < id then

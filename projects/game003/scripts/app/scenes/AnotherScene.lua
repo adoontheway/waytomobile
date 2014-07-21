@@ -3,6 +3,7 @@
 ]]
 local Player = require("app.models.Player")
 local Hero = require("app.models.Hero")
+local GameDataCenter = import("app.models.GameDataCenter")
 local AnotherScene = class("AnotherScene", function()
     return display.newScene("AnotherScene")
 end)
@@ -31,7 +32,7 @@ function AnotherScene:addPlayer(playerId)
 end
 
 
-function AnotherScene:onTouch(event, x, y)
+function AnotherScene:onTouch(event)
 --[[
 	if self.zombie:getActionByTag(100) ~= nill then
 		self.zombie:stopActionByTag(100)
@@ -53,6 +54,7 @@ function AnotherScene:onTouch(event, x, y)
 	self.animation:play("anim_walk")
 	self.state = "walk"
 ]]
+	print("Touched.....")
 end
 
 function AnotherScene:onEnterFrame(dt)
@@ -81,7 +83,11 @@ function AnotherScene:onEnter()
 	--初始化资源
 	local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
-
+    local center = GameDataCenter:Instance()
+    local player = center:getPlayerById(self.attacker)
+    local defender = center:getPlayerById(self.defender)
+    print(player:getNickName())
+    print(defender:getNickName())
     --[[
     self.zombie = CCArmature:create("Zombie_gargantuar")
     self.animation = self.zombie:getAnimation()
@@ -92,12 +98,12 @@ function AnotherScene:onEnter()
     self.zombie:setScaleX(-1)
     self.layer:addChild(self.zombie)
     ]]
-    self.layer:addTouchEventListener(function(event,x,y)
-    	return self:onTouch(event, x,y)
-    	end)	
-    self.layer:setTouchEnabled(true)
-    self:scheduleUpdate(function(dt) 
-    	self:onEnterFrame(dt)
+    self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+    	-- body
+    	self.onTouch(event)
     end)
+    self.layer:setTouchEnabled(true)
+    self:schedule(self.onEnterFrame,1)
 end
+
 return AnotherScene
