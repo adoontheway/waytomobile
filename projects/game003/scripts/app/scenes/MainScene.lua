@@ -4,7 +4,11 @@
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
+local GameDataCenter = import("app.models.GameDataCenter")
 
+local Hero = require("app.models.Hero")
+
+local AnotherScene = require("app.scenes.AnotherScene")
 function MainScene:ctor()
     self.instance = self
     self.layer = display.newLayer();
@@ -14,9 +18,9 @@ function MainScene:ctor()
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
-            local AnotherScene = require("app.scenes.AnotherScene")
-            nexScene = AnotherScene:new();
-            CCDirector:sharedDirector():replaceScene(CCTransitionFade:create(0.5, nexScene))
+            local nexScene = AnotherScene:new()
+            local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
+            display.replaceScene(nexScene)
         end})
 
     self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 64, align = ui.TEXT_ALIGN_CENTER,
@@ -35,6 +39,19 @@ end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
+     local player = Hero:new({
+        id = 1,
+        nickname = "hehe",
+        level =1
+    })
+
+    local enemy = Hero:new({
+        id = 2,
+        nickname = "heh1",
+        level =1
+    })
+    GameDataCenter:Instance():addPlayer(1, player)
+    GameDataCenter:Instance():addPlayer(2, enemy)
 end
 
 function MainScene:onTouch(event, x, y)

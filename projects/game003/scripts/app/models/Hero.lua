@@ -1,7 +1,7 @@
 --[[
 	角色类，继承自玩家类
 ]]
-local Player = require(".Player")
+local Player = require("app.models.Player")
 local Hero = class("Hero", Player)
 
 Hero.EXP_CHANGED_EVENT = "EXP_CHANGED_EVENT"
@@ -43,6 +43,6 @@ function Hero:hit(target)
 end
 
 ---添加随从
-function Hero:addFellow(...)
+function Hero:addFellow()
 end
 return Hero

@@ -1,5 +1,6 @@
 local Hero = import("..models.Hero")
 local HeroView = import("..views.HeroView")
+local GameDataCenter = import("app.models.GameDataCenter")
 
 local PlayerController = class("PlayerController", function(  )
 	return display.newNode()
@@ -78,7 +79,7 @@ function PlayerController:fire(attacker, target)
 
 	attacker:fire()
 
-	local bullet = display.display.newSprite("gongji_wenzi.png"):addTo(self)
+	local bullet = display.newSprite("gongji_wenzi.png"):addTo(self)
 	local view = self.views_[attacker]
 	local x,y = view:getPosition()
 	y = y +12

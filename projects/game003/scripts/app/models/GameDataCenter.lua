@@ -3,24 +3,40 @@
 ]]
 local GameDataCenter = class("GameDataCenter")
 
-local Player = require(".Player")
-local Hero = require(".Hero")
-local PlayerController = require("..controllers.PlayerController")
+local Player = require("app.models.Player")
+local Hero = require("app.models.Hero")
 
 function GameDataCenter:ctor()
-	self.instance = self
+	self.players = {}
+	self.curId = 0
+end
+
+function GameDataCenter:Instance( )
+	-- body
+	if self.instance == nil then
+		self.instance = self.new()
+	end
+	return self.instance
+end
+--生成一个全局唯一id
+function GameDataCenter:generateId()
+
 end
 --读取自己的信息
 function GameDataCenter:getSelfData( ... )
 	-- body
 end
 --添加角色
-function GameDataCenter:addPlayer( id, rawid )
-	-- body
+function GameDataCenter:addPlayer( id, player )
+	if self.curId < id then
+		self.curId =  id 
+	end
+	self.players[id] = player
 end
 --删除角色
 function GameDataCenter:delPlayer( id )
 	-- body
+	self.players[id] = nil
 end
 --发送消息到服务端
 function GameDataCenter:sendMsg( )

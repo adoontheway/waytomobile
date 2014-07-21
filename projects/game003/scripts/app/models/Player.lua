@@ -3,14 +3,18 @@ local scheduler = require(cc.PACKAGE_NAME..".scheduler")
 	角色类
 ]]
 local Player = class("Player", cc.mvc.ModelBase)
+--素材
+Player.resources = {"Zombie_polevaulter","Zombie_ladder","Zombie_jackbox","Zombie_imp","Zombie_gargantuar","Zombie_dolphinrider","Zombie_balloon"}
+--行为
+Player.behaviors = {"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
+--Action对应的tag
+Player.actTags = {anim_idle=100,anim_walk=101,anim_eat=102,anim_eat=103,anim_death=104, celabrate=105,relive=106,attacked=107}
 
-Player.actTags = {"idle"=100,"walk"=101,"attack"=102,"spell"=103,"dead"=104, "celabrate"=105,"relive"=106,"attacked"=107}--Action对应的tag
-
-Player.CHANGE_STATE_EVENT = "CHANGE_STATE_EVENT"	--状态改变事件
+Player.CHANGE_STATE_EVENT = "CHANGE_STATE_EVENT"	--状态改变事件#CHANGE_STATE_EVENT
 Player.ATTACK_EVENT = "ATTACK_EVENT"
 Player.UNDER_ATTACK_EVENT = "UNDER_ATTACK_EVENT"
 Player.START_EVENT = "START_EVENT"
-Player.READY-EVENT = "READY_EVENT"
+Player.READY_EVENT = "READY_EVENT"
 Player.FIRE_EVENT = "FIRE_EVENT"
 Player.THAW_EVENT = "THAW_EVENT"
 Player.KILL_EVENT = "KILL_EVENT"
@@ -20,16 +24,17 @@ Player.FREEZE_EVENT = "FREEZE_EVENT"
 
 --定义属性
 Player.schema = clone(cc.mvc.ModelBase.schema)
-Player.schema["nickname"]	= 	["string"]
-Player.shcema["level"]	=	["number",1]
-Player.schema["hp"]	=["int",1]
-Player.schema["mp"] = ["int",1]
-Player.schema["rawid"]=["int",0]--id对应静态数据，可以拿出所有数据，静态数据需要建立起来
+Player.schema["nickname"]	= 	{"string"}
+Player.schema["level"]	=	{"number",1}
+Player.schema["hp"]	={"int",1}
+Player.schema["mp"] = {"int",1}
+Player.schema["res"] = {"string"}
+Player.schema["id"]={"int",1}--id对应静态数据，可以拿出所有数据，静态数据需要建立起来
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
-	self:addComponent("cc.components.behavior.StateMachine")
-	self.fsm__ = self:getComponent("cc.components.behavior.StateMachine")
+	self:addComponent("components.behavior.StateMachine")
+	self.fsm__ = self:getComponent("components.behavior.StateMachine")
 	local defaultEvents = {
 		{name="start", from="none", to="idle"},
 		{name="fire", from="idle", to="firing"},
@@ -53,7 +58,7 @@ function Player:ctor(properties, events, callbacks)
 		onleavefiring = handler(self, self.onLeaveFiring_)
 	}
 
-	table.table.merge(defaultCallbacks, checktable(callbacks))
+	table.merge(defaultCallbacks, checktable(callbacks))
 
 	self.fsm__:setupState({
 		events = defaultEvents,
@@ -61,10 +66,19 @@ function Player:ctor(properties, events, callbacks)
 		})
 
 	self.fsm__:doEvent("start")
+	self.res_ = math.random(1,#Player.resources)
+end
+--资源
+function Player:getRes()
+	return self.res
+end
+
+function Player:getId()
+	return self.id
 end
 
 function Player:getNickName()
-	return delf.nickname_
+	return self.nickname_
 end
 
 function Player:getLevel()
@@ -113,13 +127,13 @@ end
 
 function Player:increaseHp(hp)
 	assert(not self:isDead(), string.format("actor %s:%s is dead, can't change Hp", self:getId(), self:getNickName()))
-	assert(hp > 0, string.format("Actor:increaseHp(hp) - invalid hp value: %s", hp)
+	assert(hp > 0, string.format("Actor:increaseHp(hp) - invalid hp value: %s", hp))
 	local newhp = self.hp_ + hp
 	if newhp > self:getMaxHp() then
 		newhp = self:getMaxHp()
 	end
 
-	if newhp > self:hp_ then
+	if newhp > self.hp_ then
 		self:dispatchEvent({name = Player.HP_CHANGED_EVENT})
 	end
 
@@ -128,7 +142,7 @@ end
 
 function Player:decreaseHp(hp)
 	assert(not self:isDead(), string.format("actor %s:%s is dead, can't change Hp", self:getId(), self:getNickName()))
-	assert(hp > 0, string.format("Actor:decreaseHp(hp) - invalid hp value: %s", hp)
+	assert(hp > 0, string.format("Actor:decreaseHp(hp) - invalid hp value: %s", hp))
 	local newhp = self.hp_ - hp
 	if newhp <= 0 then
 		newhp = 0
