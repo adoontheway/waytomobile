@@ -1,7 +1,7 @@
 --[[
 	角色类，继承自玩家类
 ]]
-local Player = require("app.models.Player")
+local Player = import(".Player")
 local Hero = class("Hero", Player)
 
 Hero.EXP_CHANGED_EVENT = "EXP_CHANGED_EVENT"
@@ -9,10 +9,8 @@ Hero.LEVEL_UP_EVENT = "LEVEL_UP_EVENT"
 
 Hero.schema = clone(Player.schema)
 Hero.schema["exp"] = {"number",0}
-
-function Hero:getNextLevelExp()
-	return self:getLevel()*100
-end
+-- 升到下一级需要的经验值
+Hero.NEXT_LEVEL_EXP = 50
 
 function Hero:increaseExp(exp)
 	assert(not self:isDead(), string.format("Hero %s:%s is dead, can't increase Exp", self:getId(), self:getNickName()))
@@ -43,6 +41,7 @@ function Hero:hit(target)
 end
 
 ---添加随从
-function Hero:addFellow()
+function Hero:addFellow(...)
 end
+
 return Hero

@@ -4,11 +4,11 @@
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
-local GameDataCenter = import("app.models.GameDataCenter")
 
+local Player = require("app.models.Player")
 local Hero = require("app.models.Hero")
-
 local AnotherScene = require("app.scenes.AnotherScene")
+
 function MainScene:ctor()
     self.instance = self
     self.layer = display.newLayer();
@@ -37,23 +37,22 @@ function MainScene:ctor()
         end})
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
+    
+    if not app:isObjectExists("hehe") then
+        local player = Hero:new({
+            id = "hehe",
+            nickname = "beach",
+            level = 1
+        })
+        app:setObject("hehe", player)
+    end
+
+    print("Player Init complete....")
 end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-     local player = Hero:new({
-        id = 1,
-        nickname = "hehe",
-        level =1
-    })
-
-    local enemy = Hero:new({
-        id = 2,
-        nickname = "heh1",
-        level =1
-    })
-    GameDataCenter:Instance():addPlayer(1, player)
-    GameDataCenter:Instance():addPlayer(2, enemy)
+    
 end
 
 function MainScene:onTouch(event, x, y)

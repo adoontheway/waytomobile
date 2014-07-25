@@ -1,12 +1,12 @@
 local Hero = import("..models.Hero")
 local HeroView = import("..views.HeroView")
-local GameDataCenter = import("app.models.GameDataCenter")
 
 local PlayerController = class("PlayerController", function(  )
 	return display.newNode()
 end)
 
-function PlayerController:ctor(  )
+function PlayerController:ctor()
+	--[[
 	if not app:Registry.isObjectExists("player") then
 		local player = Hero:new({
 			id = "player",
@@ -33,7 +33,7 @@ function PlayerController:ctor(  )
 	self.views_[self.enemy] = HeroView.new(self.enemy)
 		:pos(display.cx+300, display.cy)
 		:addTo(self)
-
+	
 	cc.ui.UIPushButton.new("baojix_wenzi.png", {scale9 = true}})
 		:setButtonSize(43, 24)
 		:setButtonLabel(cc.ui.UILabel.new({text="fire"}))
@@ -72,6 +72,7 @@ function PlayerController:ctor(  )
 			self.player:getComponent("components.behavior.EventProtocol"):dumpAllEventListeners();
 		end
 	end)
+	]]
 end
 
 function PlayerController:fire(attacker, target)

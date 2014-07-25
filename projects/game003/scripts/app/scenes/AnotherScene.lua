@@ -1,9 +1,8 @@
 --[[
-	战斗场景
+	鎴樻枟鍦烘櫙
 ]]
 local Player = require("app.models.Player")
 local Hero = require("app.models.Hero")
-local GameDataCenter = import("app.models.GameDataCenter")
 local AnotherScene = class("AnotherScene", function()
     return display.newScene("AnotherScene")
 end)
@@ -23,7 +22,7 @@ function AnotherScene:ctor()
     self.players = {}
 end
 
---添加一个玩家到舞台上#AnotherScene:addPlayer
+--娣诲姞涓�釜鐜╁鍒拌垶鍙颁笂#AnotherScene:addPlayer
 function AnotherScene:addPlayer(playerId)
 	local player = self,players[playerId]
 	if player ~= nil then
@@ -64,30 +63,17 @@ function AnotherScene:onEnterFrame(dt)
 		end
 	end
 
-	--[[if self.zombie:getActionByTag(100) == nil and self.state ~= "idle" then
+	if self.zombie:getActionByTag(100) == nil and self.state ~= "idle" then
 		self.animation:play("anim_idle")
 		self.state = "idle"
 	end]]
 end
 
 function AnotherScene:onEnter()
-	--[[if not app:Registry.isObjectExists("player") then
-		--这些数据需要从服务端拿取
-		local player = Hero:new({
-			id = 1,
-			nickname = "me"
-			level =1
-		})
-		app:setObject("player", player)
-	end]]
-	--初始化资源
 	local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
-    local center = GameDataCenter:Instance()
-    local player = center:getPlayerById(self.attacker)
-    local defender = center:getPlayerById(self.defender)
-    print(player:getNickName())
-    print(defender:getNickName())
+    local attacker = app:getObject("me")
+    local defender = app:getObject("enemy")
     --[[
     self.zombie = CCArmature:create("Zombie_gargantuar")
     self.animation = self.zombie:getAnimation()
