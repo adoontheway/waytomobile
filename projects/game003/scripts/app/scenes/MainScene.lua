@@ -39,15 +39,13 @@ function MainScene:ctor()
     self.layer:addChild(self.menu)
     
     if not app:isObjectExists("hehe") then
-        local player = Hero:new({
-            id = "hehe",
+        local player = Hero.new({
+            id = "me",
             nickname = "beach",
             level = 1
         })
-        app:setObject("hehe", player)
+        app:setObject("me", player)
     end
-
-    print("Player Init complete....")
 end
 
 function MainScene:onEnter()

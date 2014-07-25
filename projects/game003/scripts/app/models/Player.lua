@@ -4,14 +4,14 @@
 local scheduler = require(cc.PACKAGE_NAME..".scheduler")
 
 local Player = class("Player", cc.mvc.ModelBase)
---[[
+
 --素材
 Player.resources = {"Zombie_polevaulter","Zombie_ladder","Zombie_jackbox","Zombie_imp","Zombie_gargantuar","Zombie_dolphinrider","Zombie_balloon"}
 --行为
 Player.behaviors = {"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
 --Action对应的tag
 Player.actTags = {anim_idle=100,anim_walk=101,anim_eat=102,anim_eat=103,anim_death=104, celabrate=105,relive=106,attacked=107}
-]]
+
 Player.CHANGE_STATE_EVENT = "CHANGE_STATE_EVENT"	--状态改变事件#CHANGE_STATE_EVENT
 Player.ATTACK_EVENT = "ATTACK_EVENT"
 Player.UNDER_ATTACK_EVENT = "UNDER_ATTACK_EVENT"
@@ -29,7 +29,7 @@ Player.schema = clone(cc.mvc.ModelBase.schema)
 Player.schema["nickname"]	= 	{"string"}
 Player.schema["level"]	=	{"number",1}
 Player.schema["hp"]	={"number",1}
---Player.schema["res"] = {"string",Player.resources[math.random(1,#Player.resources)]}
+Player.schema["res"] = {"string",Player.resources[math.random(1,#Player.resources)]}
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
@@ -182,7 +182,6 @@ end
 
 function Player:onChangeState_(event)
 	printf("Player %s:%s state changed from %s to %s",self:getId(), self.nickname_,event.from,event.to)
-	print("What is wrong fucking with you")
 	event = {name=Player.CHANGE_STATE_EVENT,from=event.from, to=event.to}
 	self:dispatchEvent(event)
 end
@@ -488,5 +487,4 @@ function Player:onLeaveFiring_(event)
     end
 end
 
-return Player
-]]
+return Player]]
