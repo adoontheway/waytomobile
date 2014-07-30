@@ -21,14 +21,14 @@ GameObjStar::~GameObjStar(){
     
 }
 void GameObjStar::onEnter(){
-    CCNode::onEnter();
+    Node::onEnter();
     //星星初始化
-    this->setContentSize(CCSizeMake(36.5,35.5));
-    CCSprite* star = CCSprite::create("star.png");
+    this->setContentSize(Size(36.5,35.5));
+    Sprite* star = Sprite::create("star.png");
     star->setScale(0.5);
     _visable = true;
     addChild(star,1);
 }
 void GameObjStar::onExit(){
-    CCNode::onExit();
+    Node::onExit();
 }

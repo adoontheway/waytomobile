@@ -12,17 +12,17 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-class GameMark : public CCNode
+class GameMark : public Layer
 {
 public:
     GameMark(void);
     virtual ~GameMark(void);
     virtual void onEnter();
     virtual void onExit();
-    CCArray *bits;
+    Vector<Sprite*> * bits;
     int mark;
     void addnumber(int var);
-    CCTexture2D* ui;
+    Texture2D* ui;
 };
 
 #endif

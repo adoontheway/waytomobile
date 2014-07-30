@@ -11,7 +11,7 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-class GameObjStar : public CCNode
+class GameObjStar : public Node
 {
 public:
     GameObjStar(void);

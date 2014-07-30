@@ -9,9 +9,10 @@
 #ifndef example16_1_GameObjMap_h
 #define example16_1_GameObjMap_h
 #include "cocos2d.h"
+#include "GameObjStar.h"
 using namespace cocos2d;
 
-class GameObjMap : public CCNode
+class GameObjMap : public Node
 {
 public:
     GameObjMap(void);
@@ -21,8 +22,8 @@ public:
     virtual void onExit();
     void bg1change();
     void bg2change();
-    CCArray * stars1;
-    CCArray * stars2;
+	Vector<GameObjStar*> * stars1;
+    Vector<GameObjStar*> * stars2;
 };
 
 

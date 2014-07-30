@@ -13,7 +13,7 @@
 #include "GameObjMap.h"
 #include "GameMark.h"
 using namespace cocos2d;
-class GameMain : public cocos2d::CCLayer
+class GameMain : public cocos2d::Layer
 {
 public:
     
@@ -29,10 +29,10 @@ public:
     void setover();
     GameObjMap * map;
     GameMark *gamemark;
-    CCSprite *gameover;
-    static cocos2d::CCScene* scene();
+    Sprite *gameover;
+    static cocos2d::Scene* createScene();
     
-    void menuBackCallback(CCObject* pSender);
+    void menuBackCallback(Ref* pSender);
     
     CREATE_FUNC(GameMain);
     
@@ -41,7 +41,7 @@ public:
     void onEnterTransitionDidFinish();
     void onExitTransitionDidStart();
     
-    bool isCollion(CCPoint p1,CCPoint p2,int w1,int h1,int w2,int h2);
+    bool isCollion(Point p1,Point p2,int w1,int h1,int w2,int h2);
 };
 
 

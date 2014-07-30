@@ -11,27 +11,27 @@
 #include "cocos2d.h"
 using namespace cocos2d;
 
-class GameObjHero : public CCNode, public CCTargetedTouchDelegate
+class GameObjHero : public Layer
 {
 public:
-    CCSprite *mainsprite;
-    CCTexture2D *hurt;
-    CCTexture2D *jump;
-    CCPoint offset;
+    Sprite *mainsprite;
+    Texture2D *hurt;
+    Texture2D *jump;
+    Point offset;
     short state;//0:正常 1：跳跃 2：受伤
     bool iscontrol;
     GameObjHero(void);
     virtual ~GameObjHero(void);
     void setState(short var);
-    CCRect rect();
+    Rect rect();
     virtual void onEnter();
     virtual void onExit();
     void jumpend();
     void hurtend();
-    bool containsTouchLocation(CCTouch* touch);
-    virtual bool ccTouchBegan(CCTouch* touch, CCEvent* event);
-    virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
-    virtual void ccTouchEnded(CCTouch* touch, CCEvent* event);
+    bool containsTouchLocation(Touch* touch);
+    virtual bool onTouchBegan(Touch* touch, Event* event);
+    virtual void onTouchMoved(Touch* touch, Event* event);
+    virtual void onTouchEnded(Touch* touch, Event* event);
     
     virtual void touchDelegateRetain();
     virtual void touchDelegateRelease();

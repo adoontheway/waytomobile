@@ -13,9 +13,9 @@
 #include "GameObjStar.h"
 using namespace cocos2d;
 
-CCScene* GameMain::scene()
+Scene* GameMain::createScene()
 {
-    CCScene *scene = CCScene::create();
+    Scene *scene = Scene::create();
     
     GameMain *layer = GameMain::create();
     
@@ -25,36 +25,36 @@ CCScene* GameMain::scene()
 }
 bool GameMain::init()
 {
-    if ( !CCLayer::init() )
+    if ( !Layer::init() )
     {
         return false;
     }
     
-    CCSize size = CCDirector::sharedDirector()->getWinSize();    
+	Size size = Director::getInstance()->getWinSize();    
     map = new GameObjMap();
-    map->setAnchorPoint(ccp(0,1));
-    map->setPosition(ccp(0,size.height));
+    map->setAnchorPoint(Vec2(0,1));
+    map->setPosition(Vec2(0,size.height));
     addChild(map,0);
     hero = new GameObjHero();
     hero->setScale(0.5);
-    hero->setPosition(ccp(100,160));
+    hero->setPosition(Vec2(100,160));
     addChild(hero,1);
     gamemark = new GameMark();
     addChild(gamemark,4);
     gamemark = new GameMark();
     addChild(gamemark,4);
-    gameover = CCSprite::create("gameover.png");
-    gameover->setAnchorPoint(ccp(0.5,0.5));
-    gameover->setPosition(ccp(0,0));
-    gameover->setPosition(ccp(size.width/2,size.height/2 + 70));
+    gameover = Sprite::create("gameover.png");
+    gameover->setAnchorPoint(Vec2(0.5,0.5));
+    gameover->setPosition(Vec2(0,0));
+    gameover->setPosition(Vec2(size.width/2,size.height/2 + 70));
     gameover->setVisible(false);
     gameover->setScale(0.5);
     addChild(gameover,5);
-    CCMenuItemImage *pCloseItem = CCMenuItemImage::create("back.png","back.png",this,menu_selector(GameMain::menuBackCallback) );
-    pCloseItem->setPosition( ccp(size.width/2,size.height/2 - 50) );
+	MenuItemImage *pCloseItem = MenuItemImage::create("back.png","back.png",CC_CALLBACK_1(GameMain::menuBackCallback, this) );
+    pCloseItem->setPosition( Vec2(size.width/2,size.height/2 - 50) );
     pCloseItem->setScale(0.5);
-    CCMenu* pMenu = CCMenu::create(pCloseItem, NULL);
-    pMenu->setPosition( CCPointZero );
+    Menu* pMenu = Menu::create(pCloseItem);
+    pMenu->setPosition( Vec2(0,0) );
     this->addChild(pMenu,5,25);
     pMenu->setVisible(false);
     pMenu->setEnabled(false);
@@ -63,7 +63,7 @@ bool GameMain::init()
     return true;
 }
 void GameMain::setover(){
-    CCMenu* pMenu = (CCMenu *)this->getChildByTag(25);
+    Menu* pMenu = (Menu *)this->getChildByTag(25);
     pMenu->setVisible(true);
     pMenu->setEnabled(true);
     gameover->setVisible(true);
@@ -74,8 +74,8 @@ void GameMain::setover(){
     isover = true;
 }
 void GameMain::isherodrop(){
-	CCPoint p1 = (map->getChildByTag(0))->getPosition();
-	CCPoint p2 = (map->getChildByTag(1))->getPosition();    
+	Point p1 = (map->getChildByTag(0))->getPosition();
+	Point p2 = (map->getChildByTag(1))->getPosition();    
     int temp;
     if(p1.x <= 100 && (p1.x + 480) >= 100){
         temp = (100 - p1.x) / 64;
@@ -89,7 +89,7 @@ void GameMain::isherodrop(){
         } 
     }
 }
-bool GameMain::isCollion(CCPoint p1,CCPoint p2,int w1,int h1,int w2,int h2){
+bool GameMain::isCollion(Point p1,Point p2,int w1,int h1,int w2,int h2){
     if(abs(p1.x - p2.x) < w1 + w2 && abs(p1.y - p2.y) < h1 + h2){
         return true;
     }
@@ -98,41 +98,41 @@ bool GameMain::isCollion(CCPoint p1,CCPoint p2,int w1,int h1,int w2,int h2){
 void GameMain::update(float time){
     if(hero->state == 0)
        isherodrop();
-    CCPoint p1 = (map->getChildByTag(0))->getPosition();
-    CCPoint p2 = (map->getChildByTag(1))->getPosition();
+    Point p1 = (map->getChildByTag(0))->getPosition();
+    Point p2 = (map->getChildByTag(1))->getPosition();
     for(int i = 0;i < 5;i ++){
         if(p1.x <= 100 && (p1.x + 480) >= 100){
-            GameObjStar *obj = (GameObjStar *)(map->stars1)->objectAtIndex(i);
-            if(obj->get_visable() && isCollion(ccp(100,hero->getPosition().y + 62.5),ccp(p1.x + 86 + 96 * i,280),40,35,18.25,17.75)){
+			GameObjStar *obj = (GameObjStar *)(map->stars1)->at(i);
+            if(obj->get_visable() && isCollion(Vec2(100,hero->getPosition().y + 62.5),Vec2(p1.x + 86 + 96 * i,280),40,35,18.25,17.75)){
                 obj->set_visable(false);
                 gamemark->addnumber(200);
             }
         }else{
-            GameObjStar *obj = (GameObjStar *)(map->stars2)->objectAtIndex(i);
-            if(obj->get_visable() && isCollion(ccp(100,hero->getPosition().y + 62.5),ccp(p2.x + 86 + 96 * i,280),40,35,18.25,17.75)){
+            GameObjStar *obj = (GameObjStar *)(map->stars2)->at(i);
+            if(obj->get_visable() && isCollion(Vec2(100,hero->getPosition().y + 62.5),Vec2(p2.x + 86 + 96 * i,280),40,35,18.25,17.75)){
                 obj->set_visable(false);
                 gamemark->addnumber(200);
             }
         }
     }
 }
-void GameMain::menuBackCallback(CCObject* pSender){
-    CCDirector::sharedDirector()->setDepthTest(true);
-    CCDirector::sharedDirector()->replaceScene(CCTransitionPageTurn::create(0.5,GameMenu::scene(), true));
+void GameMain::menuBackCallback(Ref* pSender){
+    Director::getInstance()->setDepthTest(true);
+	Director::getInstance()->replaceScene(TransitionPageTurn::create(0.5,GameMenu::createScene(), true));
 }
 void GameMain::onEnterTransitionDidFinish()
 {
-    CCLayer::onEnterTransitionDidFinish();
-    CCDirector::sharedDirector()->setDepthTest(false);
+    Layer::onEnterTransitionDidFinish();
+    Director::getInstance()->setDepthTest(false);
 }
 
 void GameMain::onExitTransitionDidStart()
 {
-    CCLayer::onExitTransitionDidStart();
+    Layer::onExitTransitionDidStart();
 }
 void GameMain::onExit(){
-    CCLayer::onExit();
+    Layer::onExit();
 }
 void GameMain::onEnter(){
-    CCLayer::onEnter();
+    Layer::onEnter();
 }
