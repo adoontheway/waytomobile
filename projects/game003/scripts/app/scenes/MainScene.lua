@@ -19,8 +19,6 @@ function MainScene:ctor()
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
             local nexScene = AnotherScene:new()
-            nexScene.attacker = 1
-            nexScene.defender = 2
             local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
             display.replaceScene(nexScene)
         end})
@@ -38,13 +36,20 @@ function MainScene:ctor()
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
     
-    if not app:isObjectExists("hehe") then
+    if not app:isObjectExists("me") then
         local player = Hero.new({
             id = "me",
             nickname = "beach",
             level = 1
         })
         app:setObject("me", player)
+
+        local enemy = Hero.new({
+            id = "enemy",
+            nickname = "bitch",
+            level = 1
+            })
+        app:setObject("enemy", enemy)
     end
 end
 

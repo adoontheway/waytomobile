@@ -57,41 +57,30 @@ function AnotherScene:onTouch(event)
 end
 
 function AnotherScene:onEnterFrame(dt)
-	--[[for i,v in pairs(self.players) do
-		if v:getActionByTag(100) == nil and self.state ~= "idle" then
-			v.animation:play("anim_idle")
-		end
-	end
 
-	if self.zombie:getActionByTag(100) == nil and self.state ~= "idle" then
-		self.animation:play("anim_idle")
-		self.state = "idle"
-	end]]
 end
 
 function AnotherScene:onEnter()
-	local manager = CCArmatureDataManager:sharedArmatureDataManager()
+    local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
     local attacker = app:getObject("me")
     local attackerSp = CCArmature:create(attacker:getRes())
     local animation = attackerSp:getAnimation()
     animation:setSpeedScale(0.2)
-    animation:play("anim_idle")
-    attackerSp:setPosition(display.cx, display.cy)
+    animation:play("anim_walk")
+    attackerSp:setPosition(attackerSp:getContentSize().width, display.cy)
     attackerSp:setScaleX(-1)
     self.layer:addChild(attackerSp)
-    --[[
-    self.zombie = CCArmature:create("Zombie_gargantuar")
-    self.animation = self.zombie:getAnimation()
-    self.animation:setSpeedScale(0.2)
-    self.animation:play("anim_idle")
-    self.state = "idle"
-    self.zombie:setPosition(display.cx, display.cy)
-    self.zombie:setScaleX(-1)
-    self.layer:addChild(self.zombie)
-    ]]
+
+    local enemy = app:getObject("enemy")
+    local attackerSp1 = CCArmature:create(enemy:getRes())
+    local animation1 = attackerSp1:getAnimation()
+    animation1:setSpeedScale(0.2)
+    animation1:play("anim_walk")
+    attackerSp1:setPosition(display.right - attackerSp1:getContentSize().width, display.cy)
+    self.layer:addChild(attackerSp1)
+   
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
-    	-- body
     	self.onTouch(event)
     end)
     self.layer:setTouchEnabled(true)
