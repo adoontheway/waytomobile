@@ -6,7 +6,6 @@ local PlayerController = class("PlayerController", function(  )
 end)
 
 function PlayerController:ctor()
-	--[[
 	if not app:Registry.isObjectExists("player") then
 		local player = Hero:new({
 			id = "player",
@@ -72,7 +71,6 @@ function PlayerController:ctor()
 			self.player:getComponent("components.behavior.EventProtocol"):dumpAllEventListeners();
 		end
 	end)
-	]]
 end
 
 function PlayerController:fire(attacker, target)

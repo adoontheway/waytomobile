@@ -40,14 +40,20 @@ function MainScene:ctor()
         local player = Hero.new({
             id = "me",
             nickname = "beach",
-            level = 1
+            level = 1,
+            x = display.cx + 150,
+            y = display.cy,
+            direction = -1
         })
         app:setObject("me", player)
 
         local enemy = Hero.new({
             id = "enemy",
             nickname = "bitch",
-            level = 1
+            level = 1,
+            y = display.cy,
+            x = display.cx - 150,
+            direction = 1
             })
         app:setObject("enemy", enemy)
     end

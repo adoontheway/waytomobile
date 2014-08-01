@@ -30,4 +30,15 @@ function MyApp:isObjectExists(key)
 	return self.objects_[key] ~= nil
 end
 
+function MyApp:getTarget(source)
+	for k,v in pairs(self.objects_) do
+		if v:isDead() ~= true then
+			if v:getId() ~= source:getId() then--todo 暂时只判断两个的id不相等，后续添加随从之后用ownerId判断
+				return k
+			end
+		end
+	end
+	return nil
+end
+
 return MyApp

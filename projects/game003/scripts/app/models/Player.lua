@@ -30,7 +30,10 @@ Player.schema["nickname"]	= 	{"string"}
 Player.schema["level"]	=	{"number",1}
 Player.schema["hp"]	= {"number",1}
 Player.schema["target"] = {"string"}
-Player.schema["res"] = {"string",Player.resources[ math.random(1,#Player.resources)]}
+Player.schema["res"] = {"string",Player.resources[math.random(1,#Player.resources)]}
+Player.schema["direction"] = {"number",1}--朝向
+Player.schema["x"] = {"number",1}--朝向
+Player.schema["y"] = {"number",1}--朝向
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
@@ -40,6 +43,7 @@ function Player:ctor(properties, events, callbacks)
 		{name="start", from="none", to="idle"},
 		{name="fire", from="idle", to="firing"},
 		{name="ready", from="firing", to="idle"},
+		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
 		{name="thaw", from="frozen", to="idle"},
 		{name="kill", from={"idle","frozen"}, to="dead"},
@@ -56,7 +60,8 @@ function Player:ctor(properties, events, callbacks)
 		onthaw = handler(self, self.onThaw_),
 		onkill = handler(self, self.onKill_),
 		onrelive = handler(self, self.onRelive_),
-		onleavefiring = handler(self, self.onLeaveFiring_)
+		onleavefiring = handler(self, self.onLeaveFiring_),
+		onwalk = handler(self, self.onWalking),
 	}
 
 	table.merge(defaultCallbacks, checktable(callbacks))
@@ -67,9 +72,23 @@ function Player:ctor(properties, events, callbacks)
 
 	self.fsm__:doEvent("start")
 end
+
+--警戒范围，这些应该是从静态数据读取的
+function Player:getRadius()
+	return 50
+end
+
 --资源
 function Player:getRes()
 	return self.res_
+end
+
+function Player:getX()
+	return self.x_
+end
+
+function Player:getY()
+	return self.y_
 end
 
 function Player:getNickName()
@@ -114,6 +133,10 @@ end
 
 function Player:getState()
 	return self.fsm__:getState()
+end
+
+function Player:getDirection()
+	return self.direction_
 end
 
 function Player:getCoolDown()
@@ -233,6 +256,32 @@ function Player:onLeavingFiring_(event)
 			event.transition()
 		end, coolDown)
 		return "async"
+	end
+end
+
+function Player:onWalking(event)
+	local target = self.target_
+	if target_ ~= nil then
+
+	end
+end
+
+function Player:searchTarget()
+	local target
+	if self.target_ ~= nil then
+		target = app:getObject(self.target_)
+		if target:isDead() then
+			self.target_ = nil
+		end
+	end
+
+	if self.target_ == nil then
+		local temptarget = app:getTarget(self)
+		if temptarget ~= nil then--有敌人
+			
+		else--没有敌人了
+
+		end
 	end
 end
 
