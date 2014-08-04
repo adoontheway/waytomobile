@@ -284,5 +284,9 @@ function Player:searchTarget()
 		end
 	end
 end
+--取得技能
+function Player:getSkills( )
+	-- body
+end
 
 return Player

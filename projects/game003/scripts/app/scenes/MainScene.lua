@@ -7,7 +7,7 @@ end)
 
 local Player = require("app.models.Player")
 local Hero = require("app.models.Hero")
-local AnotherScene = require("app.scenes.AnotherScene")
+local FightScene = require("app.scenes.FightScene")
 
 function MainScene:ctor()
     self.instance = self
@@ -18,7 +18,7 @@ function MainScene:ctor()
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
-            local nexScene = AnotherScene:new()
+            local nexScene = FightScene:new()
             local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
             display.replaceScene(nexScene)
         end})

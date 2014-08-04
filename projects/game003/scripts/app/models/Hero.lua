@@ -41,7 +41,12 @@ function Hero:hit(target)
 end
 
 ---添加随从
-function Hero:addFellow(...)
+function Hero:addFellow()
+end
+
+--取得随从
+function Hero:getFellows( ... )
+	-- body
 end
 
 return Hero
