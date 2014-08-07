@@ -7,7 +7,7 @@ end)
 --建立一些必备资源
 function CharacterView:ctor()
 	self:setTouchEnabled(true)
-	self.head = display.newSprite("default_head.jpg")--默认头像
+	self.head = display.newSprite("hero/AM.jpg")--默认头像
 	self:addChild(self.head)
 	--[[
 	self.hpBar = display.newSprite(filename, x, y, params)--hp进度条

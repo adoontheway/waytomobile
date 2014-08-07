@@ -4,7 +4,7 @@
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
-
+local MainUi = require("app.views.MainUi")
 local Player = require("app.models.Player")
 local Hero = require("app.models.Hero")
 local FightScene = require("app.scenes.FightScene")
@@ -12,9 +12,9 @@ local FightScene = require("app.scenes.FightScene")
 function MainScene:ctor()
     self.instance = self
     self.layer = display.newLayer();
-    self.bg = display.newSprite("roy.jpg", display.cx, display.cy)
-    self.layer:addChild(self.bg)
+    self.ui = MainUi.new()
     self:addChild(self.layer)
+    self.ui:addTo(self.layer)
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()

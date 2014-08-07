@@ -17,10 +17,8 @@ function FightScene:ctor()
     self.layer = display.newLayer()
     self:addChild(self.layer)
     self.layer:setTouchEnabled(true)
-    self.bg = display.newSprite("battle.png",display.cx, display.cy)
-    self.bg1 = display.newSprite("battle.png",display.cx+self.bg:getContentSize().width, display.cy)
+    self.bg = display.newSprite("battle_bg/bbg_corridor_ruin.jpg",display.cx, display.cy)
     self.layer:addChild(self.bg)
-    self.layer:addChild(self.bg1)
     self.players = {}
     self.ui = FightUi.new()
 end
