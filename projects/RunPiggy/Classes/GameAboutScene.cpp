@@ -48,7 +48,7 @@ bool GameAbout::init()
     myjineng->setPosition(Vec2(100,260));
     this->addChild(myjineng);
     //关于标签
-    Sprite*abouttitle = Sprite::create("about.png");
+    Sprite* abouttitle = Sprite::create("about.png");
     abouttitle->setScale(0.5);
 	abouttitle->setPosition(Vec2(size.width/2, size.height - 20));
     this->addChild(abouttitle,3,3);

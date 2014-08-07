@@ -69,13 +69,13 @@ void GameObjHero::setState(short var){
             this->stopAllActions();
             mainsprite->stopAllActions();
             mainsprite->setTexture(jump);
-			this->runAction(Sequence::create(JumpBy::create(2.5,Vec2(0,0),100,1),CallFunc::create(CC_CALLBACK_0(GameObjHero::jumpend ,this))));
+			this->runAction(Sequence::create(JumpBy::create(2.5,Vec2(0,0),100,1),CallFuncN::create(CC_CALLBACK_0(GameObjHero::jumpend ,this)),nullptr));
             break;
         case 2://受伤
             this->stopAllActions();
             mainsprite->stopAllActions();
             mainsprite->setTexture(hurt);
-            this->runAction(Sequence::create(Blink::create(3, 10),CallFunc::create(CC_CALLBACK_0(GameObjHero::hurtend,this))));
+			this->runAction(Sequence::create(Blink::create(3, 10),CallFuncN::create(CC_CALLBACK_0(GameObjHero::hurtend,this)),nullptr));
             ((GameMain *)this->getParent())->setover();
             break;
         case 0://奔跑动画

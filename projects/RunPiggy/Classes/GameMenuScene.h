@@ -26,7 +26,7 @@ public:
     
     static cocos2d::Scene* createScene();
     
-    void menuEnter();
+	void menuEnter(Node* node);
     
 	void menuNewGameCallback(Ref* pSender);
     
@@ -41,6 +41,11 @@ public:
     void onEnterTransitionDidFinish();
     
     void onExitTransitionDidStart();
+
+	virtual bool onTouchBegan(Touch *touch, Event *event);
+	virtual void onTouchMoved(Touch *touch, Event *event);
+	virtual void onTouchEnded(Touch *touch, Event *event);
+	virtual void onTouchCancelled(Touch *touch, Event *event);
 };
 
 #endif

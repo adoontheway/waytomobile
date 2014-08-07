@@ -28,62 +28,57 @@ bool GameMenu::init()
     {
         return false;
     }
-    
+
 	Size size = Director::getInstance()->getVisibleSize();    
     
 	//菜单背景
     Sprite* bg = Sprite::create("MainMenu.png");
-    bg->setScale(0.5);
+    bg->setScale(0.5f);
 	bg->retain();
     bg->setPosition( Vec2(size.width/2, size.height/2) );
     this->addChild(bg, 0,0);
 	
     //按钮
     auto newGameItem = MenuItemImage::create("newGameA.png", "newGameB.png",CC_CALLBACK_1(GameMenu::menuNewGameCallback,this));
-	newGameItem->setScale(0.5);
-    newGameItem->setPosition(Vec2(size.width / 2 + 40,size.height / 2 - 20));
-    newGameItem->setEnabled(false);
+	newGameItem->setScale(0.5f);
+	newGameItem->setPosition(Vec2(size.width / 2 + 40,size.height / 2 - 20));
+	newGameItem->setEnabled(false);
     auto continueItem = MenuItemImage::create("continueA.png", "continueB.png",CC_CALLBACK_1(GameMenu::menuContinueCallback,this));
-	continueItem->setScale(0.5);
     continueItem->setPosition(Vec2(size.width / 2 + 40,size.height / 2 - 60));
     continueItem->setEnabled(false);
-    auto aboutItem = MenuItemImage::create("aboutA.png", "aboutB.png",CC_CALLBACK_1(GameMenu::menuAboutCallback,this));
-	aboutItem->setScale(0.5);
+	continueItem->setScale(0.5f);
+	auto aboutItem = MenuItemImage::create("aboutA.png", "aboutB.png",CC_CALLBACK_1(GameMenu::menuAboutCallback,this));
     aboutItem->setPosition(Vec2(size.width / 2 + 40,size.height / 2 - 100));
     aboutItem->setEnabled(false);
-    soundItem = MenuItemImage::create("sound-on-A.png", "sound-on-B.png",CC_CALLBACK_1(GameMenu::menuSoundCallback,this));
-	soundItem->setScale(0.5);
+    aboutItem->setScale(0.5f);
+	soundItem = MenuItemImage::create("sound-on-A.png", "sound-on-B.png",CC_CALLBACK_1(GameMenu::menuSoundCallback,this));
     soundItem->setEnabled(false);
     soundItem->setPosition(Vec2(40,40));
-	soundItem->retain();
-	auto mainmenu = Menu::create(soundItem,nullptr);
+	soundItem->setScale(0.5f);
+	Menu* mainmenu = Menu::create(newGameItem,continueItem,aboutItem,soundItem,NULL);
+	mainmenu->alignItemsVertically();
     mainmenu->setPosition(Vec2(0,0));
-    this->addChild(mainmenu,1,3);/***/
+    this->addChild(mainmenu,1,3);
     issound = true;
     //初始化声音
 	SimpleAudioEngine::getInstance()->preloadBackgroundMusic( std::string( FileUtils::getInstance()->fullPathFromRelativeFile("background.mp3",".")).c_str() );
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.5);
     SimpleAudioEngine::getInstance()->playBackgroundMusic(std::string( FileUtils::getInstance()->fullPathFromRelativeFile("background.mp3",".")).c_str(), true);
-	log("GameMenu::init complete...");
 	return true;
 }
 void GameMenu::onEnter(){
+	Layer::onEnter();
     //入场动作
     auto size =Director::getInstance()->getVisibleSize();
-    
-	auto* mainmenu = this->getChildByTag(3);
+	auto mainmenu = this->getChildByTag(3);
     mainmenu->setScale(0);
-	mainmenu->runAction(Sequence::create(ScaleTo::create(0.5,1),CallFunc::create(CC_CALLBACK_0(GameMenu::menuEnter, this))));
-	log("GameMenu::onEnter complete...");
-	/***/
+	mainmenu->runAction(Sequence::create(ScaleTo::create(0.5,1),CallFuncN::create(CC_CALLBACK_1(GameMenu::menuEnter,this)),nullptr));
 	}
-void GameMenu::menuEnter(){
-	
-    auto* mainmenu = this->getChildByTag(3);
+void GameMenu::menuEnter(Node* node){
+    auto mainmenu = this->getChildByTag(3);
 	auto temp = mainmenu->getChildren();
     for(int i = 0;i < (int)(temp.size());i ++)
         ((MenuItemImage *)temp.at(i))->setEnabled(true);
-		/***/
 }
 void GameMenu::onExit(){
     Layer::onExit();
@@ -105,7 +100,7 @@ void GameMenu::menuAboutCallback(Ref* pSender)
 }
 void GameMenu::onEnterTransitionDidFinish()
 {
-    Layer::onEnterTransitionDidFinish();
+   Layer::onEnterTransitionDidFinish();
    Director::getInstance()->setDepthTest(false);
 }
 
@@ -113,6 +108,7 @@ void GameMenu::onExitTransitionDidStart()
 {
     Layer::onExitTransitionDidStart();
 }
+
 void GameMenu::menuSoundCallback(Ref* pSender)
 {
 	
@@ -128,5 +124,25 @@ void GameMenu::menuSoundCallback(Ref* pSender)
         SimpleAudioEngine::getInstance()->stopBackgroundMusic();
        issound = false;
     }
-	/***/
+}
+
+bool GameMenu::onTouchBegan(Touch *touch, Event *event)
+{
+	log("Touch Began...");
+	return true;
+}
+
+void GameMenu::onTouchMoved(Touch *touch, Event *event)
+{
+	
+}
+
+void GameMenu::onTouchEnded(Touch *touch, Event *event)
+{
+	
+}
+
+void GameMenu::onTouchCancelled(Touch *touch, Event *event)
+{
+	
 }

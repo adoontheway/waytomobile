@@ -17,20 +17,20 @@ GameObjMap::GameObjMap(){
 GameObjMap::~GameObjMap(){
     
 }
-void GameObjMap::bg1change(){
+void GameObjMap::bg1change( ){
     //运动出屏幕重设位置，运动
     Sprite * bg = (Sprite *)this->getChildByTag(0);
     bg->setPosition(Vec2(480,320));
-	bg->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFunc::create(CC_CALLBACK_0(GameObjMap::bg1change,this))));
+	bg->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFuncN::create(CC_CALLBACK_0(GameObjMap::bg1change,this)),nullptr));
     for(int i = 0;i < 5;i ++){
         ((GameObjStar *)stars1->at(i))->set_visable(true);
     }
 }
-void GameObjMap::bg2change(){
+void GameObjMap::bg2change( ){
     //运动出屏幕重设位置，运动
     Sprite * bg = (Sprite *)this->getChildByTag(1);
     bg->setPosition(Vec2(480,320));
-    bg->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFunc::create(CC_CALLBACK_0(GameObjMap::bg2change,this))));
+	bg->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFuncN::create(CC_CALLBACK_0(GameObjMap::bg2change,this)),nullptr));
     for(int i = 0;i < 5;i ++){
         ((GameObjStar *)stars2->at(i))->set_visable(true);
     }
@@ -57,8 +57,8 @@ void GameObjMap::onEnter(){
     bgdi2->setAnchorPoint(Vec2(0,0));
     bgdi2->setPosition(Vec2(0,-124) );
     bg2->addChild(bgdi2,1);
-    bg1->runAction(Sequence::create(MoveBy::create(10,Vec2(-480,0)),CallFunc::create( CC_CALLBACK_0(GameObjMap::bg1change,this))));
-    bg2->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFunc::create( CC_CALLBACK_0(GameObjMap::bg2change,this))));
+	bg1->runAction(Sequence::create(MoveBy::create(10,Vec2(-480,0)),CallFuncN::create( CC_CALLBACK_0(GameObjMap::bg1change,this)),nullptr));
+	bg2->runAction(Sequence::create(MoveBy::create(20,Vec2(-960,0)),CallFuncN::create( CC_CALLBACK_0(GameObjMap::bg2change,this)),nullptr));
    // stars1 = CCArray::create(5);
    // stars2 = CCArray::create(5);
 	stars1=new Vector<GameObjStar*>(5);

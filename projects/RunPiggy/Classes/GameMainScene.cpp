@@ -53,7 +53,7 @@ bool GameMain::init()
 	MenuItemImage *pCloseItem = MenuItemImage::create("back.png","back.png",CC_CALLBACK_1(GameMain::menuBackCallback, this) );
     pCloseItem->setPosition( Vec2(size.width/2,size.height/2 - 50) );
     pCloseItem->setScale(0.5);
-    Menu* pMenu = Menu::create(pCloseItem);
+	Menu* pMenu = Menu::create(pCloseItem,nullptr);
     pMenu->setPosition( Vec2(0,0) );
     this->addChild(pMenu,5,25);
     pMenu->setVisible(false);
