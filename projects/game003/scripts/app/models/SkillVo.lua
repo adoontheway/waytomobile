@@ -3,8 +3,10 @@
 ]]
 local SkillVo = class("SkillVo")
 
-function SkillVo:ctor()
-	-- body
+function SkillVo:ctor(data)
+	if data ~= nil then
+		--todo
+	end
 end
 
 --buff|debuff的冷却时间

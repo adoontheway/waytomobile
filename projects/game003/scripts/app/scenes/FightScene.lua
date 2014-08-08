@@ -21,6 +21,8 @@ function FightScene:ctor()
     self.layer:addChild(self.bg)
     self.players = {}
     self.ui = FightUi.new()
+    self.ui:setPosition(0, display.cy)
+    self.layer:addChild(self.ui)
 end
 
 --娣诲姞涓�釜鐜╁鍒拌垶鍙颁笂#FightScene:addPlayer
@@ -81,15 +83,13 @@ function FightScene:onEnter()
     attackerSp1:setPosition(enemy:getX(), enemy:getY())
     attackerSp1:setScaleX(enemy:getDirection())
     self.layer:addChild(attackerSp1)
-   
-    self.ui:addTo(self.layer)
 
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)
     end)
     self.layer:setTouchEnabled(true)
     self:schedule(self.onEnterFrame,1)
-
+    print("FightScene:onEnter()....")
 end
 
 return FightScene

@@ -13,33 +13,42 @@ function CharacterView:ctor()
 	self.hpBar = display.newSprite(filename, x, y, params)--hp进度条
 	self.mpBar = display.newSprite(filename, x, y, params)--mp进度条
 	]]
+	local skill = SkillVo.new()
+	local skillItem = SkillItem.new()
+	local skillItem = self:genSkillItem("item/s403.jpg")
+	skillItem:setPosition(100, 0)
+	self:addChild(skillItem)
 	self.skills = {};--技能容器,需要设定最多使用几个技能
 end
 --生成一个技能显示item
 function CharacterView:genSkillItem(skill,item)
-	if item == nil then
-		item = diaplay.newSprite(skill:getResId())
-	else
+	--if item == nil then
+		item = display.newSprite(skill)--skill:getResId())
+        return item
+	--else
 			
-	end
+	--end
 end
 --进入场景的时候更新显示
 function CharacterView:onEnter()
 	local me = app:getObject("me")
 	local skills = me:getSkills()
-	local skillNum = 1;
+	
+	--[[local skillNum = 1;
 	for k,v in pairs(skills) do
 		if v:isUsing() then
 			local skillItem
 			if self.skillItem[skillNum] ~= nil then
 				skillItem = self.skills[skillNum]
 			else
-				skillItem = self:genSkillItem()
+				skillItem = self:genSkillItem("item/s403.jpg")
 				self.skills[skillNum] = skillItem
+				skillItem:setPosition(100*skillNum, 0)
+				self:addChild(skillItem)
 			end
 			skillNum = skillNum + 1
 		end
-	end
+	end]]
 end
 --退出场景的时候回收资源
 function CharacterView:onExit()
