@@ -1,15 +1,19 @@
 --[[
 	鎴樻枟鍦烘櫙
 ]]
-local Player = require("app.models.Player")
-local Hero = require("app.models.Hero")
-local FightUi = require("app.views.FightUi")
+local Player = import("app.models.Player")
+local Hero = import("app.models.Hero")
+local FightUi = import("app.views.FightUi")
+local PlayerController = import("app.controllers.PlayerController")
 
 local FightScene = class("FightScene", function()
     return display.newScene("FightScene")
 end)
 
-local scheduler = require("framework.scheduler")
+local controller = nil
+local handler = nil
+
+local scheduler = import("framework.scheduler")
 
 function FightScene:ctor()
 	self.speed = 100;
@@ -21,8 +25,9 @@ function FightScene:ctor()
     self.layer:addChild(self.bg)
     self.players = {}
     self.ui = FightUi.new()
-    self.ui:setPosition(0, display.cy)
+    --self.ui:setPosition(0, display.bottom-150)
     self.layer:addChild(self.ui)
+    
 end
 
 --娣诲姞涓�釜鐜╁鍒拌垶鍙颁笂#FightScene:addPlayer
@@ -59,8 +64,8 @@ function FightScene:onTouch(event)
 	print("Touched.....")
 end
 
-function FightScene:onEnterFrame(dt)
-
+function FightScene:onEnterFrame()
+    controller:tick()
 end
 
 function FightScene:onEnter()
@@ -88,8 +93,19 @@ function FightScene:onEnter()
     	self.onTouch(event)
     end)
     self.layer:setTouchEnabled(true)
-    self:schedule(self.onEnterFrame,1)
+    
+    controller = PlayerController.new()
+
+    handler = scheduler.scheduleGlobal(self.onEnterFrame, 1)
+    --self:schedule(self.onEnterFrame,1)
     print("FightScene:onEnter()....")
+end
+
+function FightScene:onExit()
+    -- body
+    if handler ~= nil then
+        scheduler.unscheduleGlobal(handler)
+    end
 end
 
 return FightScene

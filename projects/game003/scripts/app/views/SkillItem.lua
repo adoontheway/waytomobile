@@ -13,6 +13,11 @@ function SkillItem:setSkill( skillVo)
 	self:updateDisplay()
 end
 
+function SkillItem:setResPath( resPath)
+	self.icon = display.newSprite(resPath)
+	self.icon:addTo(self)
+end
+
 function SkillItem:updateDisplay()
 	self.icon = display.newSprite(skillVo:getResId())
 end

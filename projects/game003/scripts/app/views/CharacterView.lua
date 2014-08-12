@@ -1,6 +1,8 @@
 --[[
 	角色在场景中的状态显示类：血条，蓝条，技能冷却等
 ]]
+local SkillVo = require("app.models.SkillVo")
+local SkillItem = require("app.views.SkillItem")
 local  CharacterView = class("CharacterView", function()
 		return display.newNode()
 end)
@@ -16,7 +18,7 @@ function CharacterView:ctor()
 	local skill = SkillVo.new()
 	local skillItem = SkillItem.new()
 	local skillItem = self:genSkillItem("item/s403.jpg")
-	skillItem:setPosition(100, 0)
+	skillItem:setPosition(100, 10)
 	self:addChild(skillItem)
 	self.skills = {};--技能容器,需要设定最多使用几个技能
 end

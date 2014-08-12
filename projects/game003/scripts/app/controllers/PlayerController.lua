@@ -1,76 +1,15 @@
 local Hero = import("..models.Hero")
-local HeroView = import("..views.HeroView")
 
-local PlayerController = class("PlayerController", function(  )
-	return display.newNode()
-end)
+local PlayerController = class("PlayerController")
+
+
 
 function PlayerController:ctor()
-	if not app:Registry.isObjectExists("player") then
-		local player = Hero:new({
-			id = "player",
-			nickname = "hehe"
-			level =1
-		})
-		app:setObject("player", player)
-	end
-
-	self.palyer = app:getObject("player")
-	self.enemy = Hero:new({
-		id="enemy",
-		nickname="enemy1",
-		level=1
-		})
-
-	self.views_ = {}
-	self.bullets_ = {}
-
-	self.views_[self.player] = HeroView.new(self.player)
-		:pos(display.cx-300, display.cy)
-		:addTo(self)
-
-	self.views_[self.enemy] = HeroView.new(self.enemy)
-		:pos(display.cx+300, display.cy)
-		:addTo(self)
-	
-	cc.ui.UIPushButton.new("baojix_wenzi.png", {scale9 = true}})
-		:setButtonSize(43, 24)
-		:setButtonLabel(cc.ui.UILabel.new({text="fire"}))
-		:onButtonPressed(function( event )
-			event.target:setScale(1.1)
-		end)
-		:onButtonRelease(function(event)
-			event.target.scale(1.0)
-		end)
-		:onButtonClicked(function(event)
-			self:fire(self.player,self.enemy)
-		end)
-		:pos(display.cx - 300, display.bottom +100)
-		:addTo(self)
-
-	cc.ui.UIPushButton.new("fangyu_wenzi.png", {scale9 = true}})
-		:setButtonSize(43, 24)
-		:setButtonLabel(cc.ui.UILabel.new({text="fire"}))
-		:onButtonPressed(function( event )
-			event.target:setScale(1.1)
-		end)
-		:onButtonRelease(function(event)
-			event.target.scale(1.0)
-		end)
-		:onButtonClicked(function(event)
-			self:fire(self.enemy,self.player)
-		end)
-		:pos(display.cx + 300, display.bottom +100)
-		:addTo(self)
-
-	self:addNodeEventListener(cc.NODE_ENTER_FRAME_EVENT, handler(self, self.tick))
-	self:scheduleUpdate_()
-
-	self:addNodeEventListener(cc.NODE_EVENT, function(event)
+	--[[self:addNodeEventListener(cc.NODE_EVENT, function(event)
 		if event.name == "exit" then
 			self.player:getComponent("components.behavior.EventProtocol"):dumpAllEventListeners();
 		end
-	end)
+	end)]]
 end
 
 function PlayerController:fire(attacker, target)
@@ -111,7 +50,31 @@ function PlayerController:hit(attacker, target, bullet)
 	end
 end
 
-function PlayerController:tick(dt)
+function PlayerController:tick()
+	local  enemy
+	local me = app:getObject("me")	
+    local mytarget = me:getTarget()
+	if mytarget == nil then
+		print("I have no target...")
+		me:searchTarget()
+	else
+		printf("My target id : %s",me:getTarget())
+	end
+
+    mytarget = me:getTarget()
+    if mytarget == nil then
+        print("Win...")
+    else
+    	enemy = app:getObject(mytarget)
+    	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
+    	if distance < 10 then
+    		print("Attack.....")
+    	else
+    		print("Keep moving....")
+    	end
+    end
+    
+	--[[
 	for index = #self.bullets_, 1, -1 do
 		local bullet = self.bullets_[index]
 		local x, y = bullet:getPosition()
@@ -133,10 +96,10 @@ function PlayerController:tick(dt)
 				end
 			end
 		end
-	end
+	end]]
 end
 
-local function dist( ax,ay,bx,by )
+function PlayerController:dist( ax,ay,bx,by )
 	local dx,dy = ax - bx, ay - by
 	return math.sqrt(dx*dx + dy*dy)
 end

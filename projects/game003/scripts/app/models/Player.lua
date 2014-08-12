@@ -198,7 +198,7 @@ function Player:hit(enemy)
 		if not enemy:isFrozen() then
 			armor = enemy:getArmor()
 		end
-		damage = self:geAttack() - armor
+		damage = self:getAttack() - armor
 		if damage <= 0 then 
 			damage = 1 
 		end
@@ -278,9 +278,7 @@ function Player:searchTarget()
 	if self.target_ == nil then
 		local temptarget = app:getTarget(self)
 		if temptarget ~= nil then--有敌人
-			
-		else--没有敌人了
-
+			self.target_ = temptarget
 		end
 	end
 end

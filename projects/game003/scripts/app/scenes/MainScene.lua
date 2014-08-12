@@ -4,10 +4,10 @@
 local MainScene = class("MainScene", function()
     return display.newScene("MainScene")
 end)
-local MainUi = require("app.views.MainUi")
-local Player = require("app.models.Player")
-local Hero = require("app.models.Hero")
-local FightScene = require("app.scenes.FightScene")
+local MainUi = import("app.views.MainUi")
+local Player = import("app.models.Player")
+local Hero = import("app.models.Hero")
+local FightScene = import("app.scenes.FightScene")
 
 function MainScene:ctor()
     self.instance = self
@@ -18,7 +18,7 @@ function MainScene:ctor()
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
-            local nexScene = FightScene:new()
+            local nexScene = FightScene.new()
             local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
             display.replaceScene(nexScene)
         end})
@@ -43,7 +43,7 @@ function MainScene:ctor()
             level = 1,
             x = display.cx + 150,
             y = display.cy,
-            direction = -1
+            direction = 1
         })
         app:setObject("me", player)
 
@@ -53,7 +53,7 @@ function MainScene:ctor()
             level = 1,
             y = display.cy,
             x = display.cx - 150,
-            direction = 1
+            direction = -1
             })
         app:setObject("enemy", enemy)
     end

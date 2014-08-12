@@ -9,7 +9,7 @@ end)
 
 function FightUi:ctor()
 	self.view = CharacterView:new()
-	self.view:setPosition(100, 200)
+	self.view:setPosition(100,display.bottom+100)
 	self:addChild(self.view)
 	print("FightUi:ctor().....")
 end
