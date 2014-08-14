@@ -1,5 +1,6 @@
 --[[
 	角色类
+	这里要管理资源的引用与切换
 ]]
 local scheduler = require(cc.PACKAGE_NAME..".scheduler")
 
@@ -32,8 +33,9 @@ Player.schema["hp"]	= {"number",1}
 Player.schema["target"] = {"string"}
 Player.schema["res"] = {"string",Player.resources[math.random(1,#Player.resources)]}
 Player.schema["direction"] = {"number",1}--朝向
-Player.schema["x"] = {"number",1}--朝向
-Player.schema["y"] = {"number",1}--朝向
+Player.schema["x"] = {"number",1}
+Player.schema["y"] = {"number",1}
+Player.schema["speed"] = {"number",100}
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
@@ -41,7 +43,7 @@ function Player:ctor(properties, events, callbacks)
 	self.fsm__ = self:getComponent("components.behavior.StateMachine")
 	local defaultEvents = {
 		{name="start", from="none", to="idle"},
-		{name="fire", from="idle", to="firing"},
+		{name="fire", from={"walking","idle"}, to="firing"},
 		{name="ready", from="firing", to="idle"},
 		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
@@ -73,6 +75,10 @@ function Player:ctor(properties, events, callbacks)
 	self.fsm__:doEvent("start")
 end
 
+function Player:getSpeed()
+	-- body
+	return self.speed_
+end
 --警戒范围，这些应该是从静态数据读取的
 function Player:getRadius()
 	return 50
@@ -207,6 +213,12 @@ function Player:hit(enemy)
 	return damage
 end
 
+function Player:walk()
+	-- body
+	self.fsm__:doEvent("walk")
+	print(self.x_)
+end
+
 function Player:onChangeState_(event)
 	printf("Player %s:%s state changed from %s to %s",self:getId(), self.nickname_,event.from,event.to)
 	event = {name=Player.CHANGE_STATE_EVENT,from=event.from, to=event.to}
@@ -260,8 +272,7 @@ function Player:onLeavingFiring_(event)
 end
 
 function Player:onWalking(event)
-	local target = self.target_
-	if target_ ~= nil then
+	if self.target_ ~= nil then
 
 	end
 end

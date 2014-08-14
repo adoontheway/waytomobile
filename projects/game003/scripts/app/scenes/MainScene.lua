@@ -41,9 +41,10 @@ function MainScene:ctor()
             id = "me",
             nickname = "beach",
             level = 1,
-            x = display.cx + 150,
+            x = display.cx - 150,
             y = display.cy,
-            direction = 1
+            direction = -1,
+            speed = 10
         })
         app:setObject("me", player)
 
@@ -52,8 +53,8 @@ function MainScene:ctor()
             nickname = "bitch",
             level = 1,
             y = display.cy,
-            x = display.cx - 150,
-            direction = -1
+            x = display.cx + 150,
+            direction = 1
             })
         app:setObject("enemy", enemy)
     end

@@ -14,6 +14,7 @@ local controller = nil
 local handler = nil
 
 local scheduler = import("framework.scheduler")
+local spMaps = nil
 
 function FightScene:ctor()
 	self.speed = 100;
@@ -30,7 +31,6 @@ function FightScene:ctor()
     
 end
 
---娣诲姞涓�釜鐜╁鍒拌垶鍙颁笂#FightScene:addPlayer
 function FightScene:addPlayer(playerId)
 	local player = self,players[playerId]
 	if player ~= nil then
@@ -40,41 +40,29 @@ end
 
 
 function FightScene:onTouch(event)
---[[
-	if self.zombie:getActionByTag(100) ~= nill then
-		self.zombie:stopActionByTag(100)
-	end
-
-	if x < self.zombie:getPositionX() then
-		self.zombie:setScaleX(1)
-	else
-		self.zombie:setScaleX(-1)
-	end
-	local tempX = self.zombie:getPositionX()
-	local tempY = self.zombie:getPositionY()
-	local distance = math.sqrt(tempX*tempX + tempY*tempY)
-	local dura = distance/self.speed
-	print("Distance: "..distance.." Speed: "..self.speed.." Duration: "..dura)
-	local action = CCMoveTo:create(dura, CCPoint(x,y))
-	action:setTag(100)
-	self.zombie:runAction(action)
-	self.animation:play("anim_walk")
-	self.state = "walk"
-]]
 	print("Touched.....")
 end
 
 function FightScene:onEnterFrame()
     controller:tick()
+    for key,sp in pairs(spMaps) do
+        local data = app:getObject(key)
+        if data ~= nil then
+            sp:setPosition(data:getX(), data:getY())
+        end
+    end
 end
 
 function FightScene:onEnter()
+    
+    spMaps = {}
+
     local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
     local attacker = app:getObject("me")
     local attackerSp = CCArmature:create(attacker:getRes())
     local animation = attackerSp:getAnimation()
-    animation:setSpeedScale(0.2)
+    animation:setSpeedScale(0.4)
     animation:play("anim_walk")
     attackerSp:setPosition(attacker:getX(), attacker:getY())
     attackerSp:setScaleX(attacker:getDirection())
@@ -89,6 +77,9 @@ function FightScene:onEnter()
     attackerSp1:setScaleX(enemy:getDirection())
     self.layer:addChild(attackerSp1)
 
+    spMaps["me"] = attackerSp
+    spMaps["enemy"] = attackerSp1
+
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)
     end)
@@ -96,7 +87,7 @@ function FightScene:onEnter()
     
     controller = PlayerController.new()
 
-    handler = scheduler.scheduleGlobal(self.onEnterFrame, 1)
+    handler = scheduler.scheduleGlobal(self.onEnterFrame, 0.5)
     --self:schedule(self.onEnterFrame,1)
     print("FightScene:onEnter()....")
 end

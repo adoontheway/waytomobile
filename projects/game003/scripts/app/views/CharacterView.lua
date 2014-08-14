@@ -8,12 +8,21 @@ local  CharacterView = class("CharacterView", function()
 end)
 --建立一些必备资源
 function CharacterView:ctor()
+	self.proBg = display.newSprite("progres_bg.png", x, y, params)
+	self:addChild(self.proBg)
+	self.hpBar = display.newProgressTimer("progress.png", display.PROGRESS_TIMER_BAR)
+	self.hpBar:setMidpoint(CCPoint(0,0.5))
+	self.hpBar:setBarChangeRate(CCPoint(1.0,0))
+	self.hpBar:setPosition(self.proBg:getContentSize().width/2, self.proBg:getContentSize().height/2)
+	self.hpBar:setPercentage(100)
+	self.proBg:addChild(self.hpBar)
+	self.proBg:pos(100, -50)
+
+
 	self:setTouchEnabled(true)
 	self.head = display.newSprite("hero/AM.jpg")--默认头像
 	self:addChild(self.head)
-	--[[
-	self.hpBar = display.newSprite(filename, x, y, params)--hp进度条
-	self.mpBar = display.newSprite(filename, x, y, params)--mp进度条
+	--[[self.mpBar = display.newSprite(filename, x, y, params)--mp进度条
 	]]
 	local skill = SkillVo.new()
 	local skillItem = SkillItem.new()
