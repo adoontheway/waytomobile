@@ -44,7 +44,8 @@ function MainScene:ctor()
             x = display.cx - 150,
             y = display.cy,
             direction = -1,
-            speed = 10
+            speed = 10,
+            res = "Zombie_polevaulter"
         })
         app:setObject("me", player)
 
@@ -54,7 +55,8 @@ function MainScene:ctor()
             level = 1,
             y = display.cy,
             x = display.cx + 150,
-            direction = 1
+            direction = 1,
+            res = "Zombie_balloon"
             })
         app:setObject("enemy", enemy)
     end

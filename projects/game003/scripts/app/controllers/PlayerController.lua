@@ -3,6 +3,9 @@ local PlayerController = class("PlayerController")
 function PlayerController:ctor()
 end
 
+function PlayerController:initEventListener(hero)
+end
+
 function PlayerController:tick()
 	local  enemy
 	local me = app:getObject("me")	
