@@ -6,15 +6,13 @@ end
 function PlayerController:initEventListener(hero)
 end
 
-function PlayerController:tick()
+function PlayerController:tick(spMaps)
+	---更新数据
 	local  enemy
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
 	if mytarget == nil then
-		print("I have no target...")
 		me:searchTarget()
-	else
-		printf("My target id : %s",me:getTarget())
 	end
 
     mytarget = me:getTarget()
@@ -22,20 +20,48 @@ function PlayerController:tick()
         print("Win...")
     else
     	enemy = app:getObject(mytarget)
+    	local myShape
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
-    	if distance < 10 then
-    		me:fire(enemy)
-    		print("Attack.....")
+    	if distance < me:getRadius() then
+    		if me:getState() == "walking" then
+    			myShape = spMaps[me:getId()]
+    			myShape:stopActionByTag(100)
+    			me:fire(enemy)
+    		end
     	else
-    		print("Keep moving....")
-    		me:walk()
+    		if me:getState() ~= "walking" then
+    			me:walk()
+    			myShape = spMaps[me:getId()]
+    			local duration = distance/me:getSpeed()
+    			local action = CCMoveTo:create(duration,CCPoint(enemy:getX(),enemy:getY()))
+    			action:setTag(100)
+    			myShape:runAction(action)
+    		end
     	end
+    end
+    --更新显示:用显示去更新数据，这个是不对的
+    for key,sp in pairs(spMaps) do
+        local data = app:getObject(key)
+        if data ~= nil then
+            --sp:setPosition(data:getX(), data:getY())
+            data:setX(sp:getPositionX())
+            data:setY(sp:getPositionY())
+        end
     end
 end
 
 function PlayerController:dist( ax,ay,bx,by )
 	local dx,dy = ax - bx, ay - by
 	return math.sqrt(dx*dx + dy*dy)
+end
+
+function PlayerController:useSkill()
+	self.view:useSkill()
+end
+
+function PlayerController:control( view )
+	-- body
+	self.view = view
 end
 
 return PlayerController

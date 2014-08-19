@@ -8,8 +8,6 @@ local Player = class("Player", cc.mvc.ModelBase)
 
 --素材
 Player.resources = {"Zombie_polevaulter","Zombie_ladder","Zombie_jackbox","Zombie_imp","Zombie_gargantuar","Zombie_dolphinrider","Zombie_balloon"}
---行为
-Player.behaviors = {"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
 --Action对应的tag
 Player.actTags = {anim_idle=100,anim_walk=101,anim_eat=102,anim_eat=103,anim_death=104, celabrate=105,relive=106,attacked=107}
 
@@ -40,11 +38,11 @@ Player.schema["speed"] = {"number",100}
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
 	self:addComponent("components.behavior.StateMachine")
-	self.fsm__ = self:getComponent("components.behavior.StateMachine")
+	self.fsm__ = self:getComponent("components.behavior.StateMachine")      
 	local defaultEvents = {
 		{name="start", from="none", to="idle"},
 		{name="fire", from={"walking","idle"}, to="firing"},
-		{name="ready", from="firing", to="idle"},
+		{name="ready", from={"walking","firing"}, to="idle"},
 		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
 		{name="thaw", from="frozen", to="idle"},
@@ -81,12 +79,20 @@ function Player:getSpeed()
 end
 --警戒范围，这些应该是从静态数据读取的
 function Player:getRadius()
-	return 50
+	return 100
 end
 
 --资源
 function Player:getRes()
 	return self.res_
+end
+
+function Player:setX( value )
+	self.x_ = value
+end
+
+function Player:setY( value )
+	self.y_ = value
 end
 
 function Player:getX()
@@ -214,9 +220,8 @@ function Player:hit(enemy)
 end
 
 function Player:walk()
-	-- body
 	self.fsm__:doEvent("walk")
-	print(self.x_)
+	
 end
 
 function Player:onChangeState_(event)

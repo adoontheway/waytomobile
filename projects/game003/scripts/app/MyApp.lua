@@ -41,4 +41,11 @@ function MyApp:getTarget(source)
 	return nil
 end
 
+function MyApp:getController()
+	if self.controller == nil then
+		self.controller = require("app.controllers.PlayerController").new()
+	end
+	return self.controller
+end
+
 return MyApp

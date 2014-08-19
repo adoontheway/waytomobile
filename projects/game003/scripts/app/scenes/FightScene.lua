@@ -45,17 +45,10 @@ function FightScene:onTouch(event)
 end
 
 function FightScene:onEnterFrame()
-    controller:tick()
-    for key,sp in pairs(spMaps) do
-        local data = app:getObject(key)
-        if data ~= nil then
-            sp:setPosition(data:getX(), data:getY())
-        end
-    end
+    app:getController():tick(spMaps)
 end
 
 function FightScene:onEnter()
-    
     spMaps = {}
 
     local manager = CCArmatureDataManager:sharedArmatureDataManager()
@@ -71,24 +64,43 @@ function FightScene:onEnter()
 
     spMaps["me"] = attackerSp
     spMaps["enemy"] = attackerSp1
-
+    --[[
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)
     end)
     self.layer:setTouchEnabled(true)
-    
-    controller = PlayerController.new()
+    ]]
 
-    handler = scheduler.scheduleGlobal(self.onEnterFrame, 0.5)
-    --self:schedule(self.onEnterFrame,1)
-    print("FightScene:onEnter()....")
+    handler = scheduler.scheduleGlobal(self.onEnterFrame, 0.3)
+    app:getController():control(self)
 end
 
 function FightScene:onExit()
-    -- body
     if handler ~= nil then
         scheduler.unscheduleGlobal(handler)
     end
+end
+
+function FightScene:useSkill()
+    -- body
+    print("Use skill....")
+    local target = spMaps["enemy"]
+    CCTexture2D:PVRImagesHavePremultipliedAlpha(true)
+    CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("wuleizhou.plist")
+    local effectShape = display.newSprite("wuleizhou.png")
+    local frames = CCArray:create()
+    for i=1,11 do
+        local framename = string.format("thunder%i.png", i)
+        printf("FrameName....", framename)
+        local frame = CCSpriteFrameCache:sharedSpriteFrameCache():spriteFrameByName(framename)
+        if frame ~= nil then
+            frames.addObject(frame)
+        end
+    end
+
+    local  animation = CCAnimation:createWithSpriteFrames(frames)
+    effectShape:runAction(CCAnimate:create(animation))
+    effectShape:pos(target:getPositionX(), target:getPositionY())
 end
 
 return FightScene

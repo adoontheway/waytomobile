@@ -19,7 +19,28 @@ function GameUnit:ctor(hero)
 end
 
 function GameUnit:onStateChange( event )
-	-- body
+	self:updateShapeDisplay(self.player:getState())
+end
+
+--更新角色显示{"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
+function GameUnit:updateShapeDisplay(state)
+	local animname = "anim_idle"
+	if state == "walking" then
+		animname = "anim_walk"
+	elseif state == "firing" then
+		animname = "anim_eat"
+	elseif state == "dead" then
+		animname = "anim_death"
+	end
+
+	if self.shape ~= nil then
+		local animation = self.shape:getAnimation()
+		animation:setSpeedScale(0.4)
+	    animation:play(animname)
+	    self:setPosition(self.player:getX(), self.player:getY())
+    	self:setScaleX(self.player:getDirection())
+		
+	end
 end
 
 function GameUnit:onKilled( event)
@@ -37,25 +58,14 @@ end
 --初始化显示
 function GameUnit:initDisplay()
 	-- 角色外观
-	local shape
-	if self.player ~= nil then
-		--todo
-		shape = CCArmature:create(self.player:getRes())
-		local animation = shape:getAnimation()
-		animation:setSpeedScale(0.4)
-	    animation:play("anim_idle")
-	    self:setPosition(self.player:getX(), self.player:getY())
-	    self:setScaleX(self.player:getDirection())
-	else
-		shape = display.newSprite("defaultimage.png")
-	end
-	self:addChild(shape)
+	local shape = CCArmature:create(self.player:getRes())
 	self.shape = shape
+   	self:updateShapeDisplay(self.player:getState())
+   	self:addChild(shape)
 
 	--角色血条
 	self.hpbar = Progress.new("progres_bg.png","progress.png")
 	self:addChild(self.hpbar)
-	self.hpbar:setProgress(50)
 end
 --传入|更新数据
 function GameUnit:setData()

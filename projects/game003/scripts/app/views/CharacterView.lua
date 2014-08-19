@@ -3,17 +3,12 @@
 ]]
 local SkillVo = require("app.models.SkillVo")
 local SkillItem = require("app.views.SkillItem")
-local Progress = import("app.views.Progress")
+
 local  CharacterView = class("CharacterView", function()
 		return display.newNode()
 end)
 --建立一些必备资源
 function CharacterView:ctor()
-	self.progress = Progress.new("progres_bg.png","progress.png")
-	self:addChild(self.progress)
-	self.progress:pos(100, -50)
-
-
 	self:setTouchEnabled(true)
 	self.head = display.newSprite("hero/AM.jpg")--默认头像
 	self:addChild(self.head)
@@ -23,7 +18,12 @@ function CharacterView:ctor()
 	local skillItem = SkillItem.new()
 	local skillItem = self:genSkillItem("item/s403.jpg")
 	skillItem:setPosition(100, 10)
+	skillItem:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+    	app:getController():useSkill()
+    end)
+    skillItem:setTouchEnabled(true)
 	self:addChild(skillItem)
+
 	self.skills = {};--技能容器,需要设定最多使用几个技能
 end
 --生成一个技能显示item
@@ -56,6 +56,11 @@ function CharacterView:onEnter()
 		end
 	end]]
 end
+
+function CharacterView:playSkillCall(callback)
+	self.callBack = callback
+end
+
 --退出场景的时候回收资源
 function CharacterView:onExit()
 	
