@@ -14,22 +14,30 @@ function CharacterView:ctor()
 	self:addChild(self.head)
 	--[[self.mpBar = display.newSprite(filename, x, y, params)--mp进度条
 	]]
-	local skill = SkillVo.new()
-	local skillItem = SkillItem.new()
-	local skillItem = self:genSkillItem("item/s403.jpg")
+	local skill = SkillVo.new({name="skill001",id="skill001",icon="item/s403.jpg"})
+	local skillItem = self:genSkillItem(skill)
 	skillItem:setPosition(100, 10)
 	skillItem:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
-    	app:getController():useSkill()
+    	app:getController():useSkill(skill)
     end)
     skillItem:setTouchEnabled(true)
 	self:addChild(skillItem)
+
+	local skill1 = SkillVo.new({name="skill002",id="skill002",icon="item/s423.jpg"})
+	local skillItem1 = self:genSkillItem(skill1)
+	skillItem1:setPosition(200, 10)
+	skillItem1:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+    	app:getController():useSkill(skill1)
+    end)
+    skillItem1:setTouchEnabled(true)
+	self:addChild(skillItem1)
 
 	self.skills = {};--技能容器,需要设定最多使用几个技能
 end
 --生成一个技能显示item
 function CharacterView:genSkillItem(skill,item)
 	--if item == nil then
-		item = display.newSprite(skill)--skill:getResId())
+		item = display.newSprite(skill:getIconRes())--skill:getResId())
         return item
 	--else
 			

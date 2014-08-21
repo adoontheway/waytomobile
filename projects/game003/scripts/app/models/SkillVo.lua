@@ -5,8 +5,25 @@ local SkillVo = class("SkillVo")
 
 function SkillVo:ctor(data)
 	if data ~= nil then
-		--todo
+		self.name = data.name
+		self.id = data.id
+		self.icon = data.icon
 	end
+end
+
+--图标资源
+function SkillVo:getIconRes(  )
+	return self.icon
+end
+
+--子弹资源
+function SkillVo:getBulletRes()
+	return self.bullet
+end
+
+--buff或者debuff资源
+function SkillVo:getBuffRes()
+	return self.buffRes
 end
 
 --buff|debuff的冷却时间
@@ -29,8 +46,17 @@ function SkillVo:getHarm( )
 	-- body
 end
 
---技能类型
-function SkillVo:getType( )
+--受众数量
+function SkillVo:targetQty()
+	-- body
+end
+
+--受众对象：己方或者对方
+function SkillVo:target()
+	
+end
+--技能类型 1 主动攻击 2 主动buff 
+function SkillVo:getType()
 	-- body
 end
 
@@ -41,7 +67,7 @@ end
 
 --技能名
 function  SkillVo:getName( )
-	-- body
+	return self.name
 end
 
 --技能资源编号

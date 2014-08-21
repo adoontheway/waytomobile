@@ -55,8 +55,8 @@ function PlayerController:dist( ax,ay,bx,by )
 	return math.sqrt(dx*dx + dy*dy)
 end
 
-function PlayerController:useSkill()
-	self.view:useSkill()
+function PlayerController:useSkill(skill)
+	self.view:useSkill(skill)
 end
 
 function PlayerController:control( view )

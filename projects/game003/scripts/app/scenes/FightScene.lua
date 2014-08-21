@@ -81,26 +81,21 @@ function FightScene:onExit()
     end
 end
 
-function FightScene:useSkill()
+function FightScene:useSkill(skill)
     -- body
-    print("Use skill....")
+    print("Use skill...."..skill:getName())
     local target = spMaps["enemy"]
     CCTexture2D:PVRImagesHavePremultipliedAlpha(true)
-    CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("wuleizhou.plist")
-    local effectShape = display.newSprite("wuleizhou.png")
-    local frames = CCArray:create()
-    for i=1,11 do
-        local framename = string.format("thunder%i.png", i)
-        printf("FrameName....", framename)
-        local frame = CCSpriteFrameCache:sharedSpriteFrameCache():spriteFrameByName(framename)
-        if frame ~= nil then
-            frames.addObject(frame)
-        end
-    end
+    CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("thunder.plist")
+    
+    local frames = display.newFrames("image %i.png", 1, 19)
+    local animation = display.newAnimation(frames, 0.1)
+    display.setAnimationCache("thunder",animation)
 
-    local  animation = CCAnimation:createWithSpriteFrames(frames)
-    effectShape:runAction(CCAnimate:create(animation))
-    effectShape:pos(target:getPositionX(), target:getPositionY())
+    local effectShape = display.newSprite(frames[1])
+    effectShape:playAnimationOnce(animation,true)
+    effectShape:pos(target:getPositionX()+target:getContentSize().width*0.5, target:getPositionY())
+    self:addChild(effectShape)
 end
 
 return FightScene
