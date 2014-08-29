@@ -40,9 +40,8 @@ function Player:ctor(properties, events, callbacks)
 	self:addComponent("components.behavior.StateMachine")
 	self.fsm__ = self:getComponent("components.behavior.StateMachine")      
 	local defaultEvents = {
-		{name="start", from="none", to="idle"},
-		{name="fire", from={"walking","idle"}, to="firing"},
-		{name="ready", from={"walking","firing"}, to="idle"},
+		{name="ready", from={"none","walking","firing"}, to="idle"},
+		{name="fire", from="idle", to="firing"},
 		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
 		{name="thaw", from="frozen", to="idle"},
@@ -53,7 +52,6 @@ function Player:ctor(properties, events, callbacks)
 
 	local defaultCallbacks ={
 		onchangestate = handler(self, self.onChangeState_),
-		onstart = handler(self, self.onStart_),
 		onfire = handler(self, self.onFire_),
 		onready = handler(self, self.onReady_),
 		onfreeze = handler(self, self.onFrozen_),
@@ -70,7 +68,7 @@ function Player:ctor(properties, events, callbacks)
 		callbacks = defaultCallbacks
 	})
 
-	self.fsm__:doEvent("start")
+	self.fsm__:doEvent("ready")
 end
 
 function Player:getSpeed()
@@ -127,10 +125,6 @@ function Player:isDead( )
 	return self.fsm__:getState() == "dead"
 end
 
-function Player:canFire()
-	return self.fsm__:canDoEvent("fire")
-end
-
 function Player:getAttack( )
 	return self.level_ * 5
 end
@@ -152,7 +146,7 @@ function Player:getDirection()
 end
 
 function Player:getCoolDown()
-	return 2
+	return 10
 end
 
 function Player:setFullHp()
@@ -198,6 +192,10 @@ end
 
 function Player:fire(enemy)
 	self.fsm__:doEvent("fire")
+	--self.fsm__:doEvent("ready",self:getCoolDown())
+end
+
+function Player:standby()
 	self.fsm__:doEvent("ready",self:getCoolDown())
 end
 
@@ -230,11 +228,10 @@ function Player:onChangeState_(event)
 	self:dispatchEvent(event)
 end
 
-function Player:onStart_( event )
-	printf("Player %s:%s started..", self:getId(),self.nickname_)
-	self:setFullHp();
-	self:dispatchEvent({name=Player.START_EVENT})
+function Player:onLeaveFiring_( event )
+	printf("Player %s:%s leave fire event: %s==>%s",self:getId(), self.nickname_, event.from, event.to)
 end
+
 
 function Player:onReady_(event)
 	printf("Player %s:%s fire", self:getId(), self.nickname_)
@@ -301,6 +298,14 @@ end
 --取得技能
 function Player:getSkills( )
 	-- body
+end
+
+function Player:setAI( ai )
+	self.ai = ai
+end
+
+function Player:getAI()
+	return self.ai
 end
 
 return Player

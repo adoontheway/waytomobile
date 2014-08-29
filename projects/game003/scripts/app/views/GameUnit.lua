@@ -61,10 +61,12 @@ function GameUnit:initDisplay()
 	local shape = CCArmature:create(self.player:getRes())
 	self.shape = shape
    	self:updateShapeDisplay(self.player:getState())
+   	shape:setAnchorPoint(CCPoint(0.5,0))
    	self:addChild(shape)
 
 	--角色血条
 	self.hpbar = Progress.new("progres_bg.png","progress.png")
+	self.hpbar:pos(0.5, shape:getContentSize().height)
 	self:addChild(self.hpbar)
 end
 --传入|更新数据

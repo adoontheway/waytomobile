@@ -8,6 +8,11 @@ end
 
 function PlayerController:tick(spMaps)
 	---更新数据
+	for name,sp in ipairs(spMaps) do
+		if sp:getAI() == nil then
+			sp:setAI(ai)
+		end
+	end
 	local  enemy
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
@@ -23,10 +28,22 @@ function PlayerController:tick(spMaps)
     	local myShape
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
     	if distance < me:getRadius() then
-    		if me:getState() == "walking" then
+    		if me:getState() == "walking" then--走动状态中的话进行待命
     			myShape = spMaps[me:getId()]
     			myShape:stopActionByTag(100)
-    			me:fire(enemy)
+    			me:standby()
+    		elseif me:getState() == "idle" then--待命状态的话根据冷却时间判断是否攻击
+    			if me:canFire() then
+    				me:fire(enemy)
+    				local percent = math.random(0,10)
+	    			if percent >= 5 then
+	    				print("Hited...")
+	    			else
+	    				print("Missed...")
+	    			end
+    			else
+    				print("Cooling down....")
+    			end
     		end
     	else
     		if me:getState() ~= "walking" then

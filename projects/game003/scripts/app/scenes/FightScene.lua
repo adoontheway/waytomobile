@@ -93,8 +93,9 @@ function FightScene:useSkill(skill)
     display.setAnimationCache("thunder",animation)
 
     local effectShape = display.newSprite(frames[1])
+    effectShape:setAnchorPoint(CCPoint(0.5,0))
     effectShape:playAnimationOnce(animation,true)
-    effectShape:pos(target:getPositionX()+target:getContentSize().width*0.5, target:getPositionY())
+    effectShape:pos(target:getPositionX(), target:getPositionY())
     self:addChild(effectShape)
 end
 
