@@ -1,5 +1,6 @@
 --[[
 	角色类
+	这里要管理资源的引用与切换
 ]]
 local scheduler = require(cc.PACKAGE_NAME..".scheduler")
 
@@ -7,8 +8,6 @@ local Player = class("Player", cc.mvc.ModelBase)
 
 --素材
 Player.resources = {"Zombie_polevaulter","Zombie_ladder","Zombie_jackbox","Zombie_imp","Zombie_gargantuar","Zombie_dolphinrider","Zombie_balloon"}
---行为
-Player.behaviors = {"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
 --Action对应的tag
 Player.actTags = {anim_idle=100,anim_walk=101,anim_eat=102,anim_eat=103,anim_death=104, celabrate=105,relive=106,attacked=107}
 
@@ -32,17 +31,17 @@ Player.schema["hp"]	= {"number",1}
 Player.schema["target"] = {"string"}
 Player.schema["res"] = {"string",Player.resources[math.random(1,#Player.resources)]}
 Player.schema["direction"] = {"number",1}--朝向
-Player.schema["x"] = {"number",1}--朝向
-Player.schema["y"] = {"number",1}--朝向
+Player.schema["x"] = {"number",1}
+Player.schema["y"] = {"number",1}
+Player.schema["speed"] = {"number",100}
 
 function Player:ctor(properties, events, callbacks)
 	Player.super.ctor(self,properties)
 	self:addComponent("components.behavior.StateMachine")
-	self.fsm__ = self:getComponent("components.behavior.StateMachine")
+	self.fsm__ = self:getComponent("components.behavior.StateMachine")      
 	local defaultEvents = {
-		{name="start", from="none", to="idle"},
+		{name="ready", from={"none","walking","firing"}, to="idle"},
 		{name="fire", from="idle", to="firing"},
-		{name="ready", from="firing", to="idle"},
 		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
 		{name="thaw", from="frozen", to="idle"},
@@ -53,7 +52,6 @@ function Player:ctor(properties, events, callbacks)
 
 	local defaultCallbacks ={
 		onchangestate = handler(self, self.onChangeState_),
-		onstart = handler(self, self.onStart_),
 		onfire = handler(self, self.onFire_),
 		onready = handler(self, self.onReady_),
 		onfreeze = handler(self, self.onFrozen_),
@@ -70,17 +68,29 @@ function Player:ctor(properties, events, callbacks)
 		callbacks = defaultCallbacks
 	})
 
-	self.fsm__:doEvent("start")
+	self.fsm__:doEvent("ready")
 end
 
+function Player:getSpeed()
+	-- body
+	return self.speed_
+end
 --警戒范围，这些应该是从静态数据读取的
 function Player:getRadius()
-	return 50
+	return 100
 end
 
 --资源
 function Player:getRes()
 	return self.res_
+end
+
+function Player:setX( value )
+	self.x_ = value
+end
+
+function Player:setY( value )
+	self.y_ = value
 end
 
 function Player:getX()
@@ -115,10 +125,6 @@ function Player:isDead( )
 	return self.fsm__:getState() == "dead"
 end
 
-function Player:canFire()
-	return self.fsm__:canDoEvent("fire")
-end
-
 function Player:getAttack( )
 	return self.level_ * 5
 end
@@ -140,7 +146,7 @@ function Player:getDirection()
 end
 
 function Player:getCoolDown()
-	return 2
+	return 10
 end
 
 function Player:setFullHp()
@@ -186,6 +192,10 @@ end
 
 function Player:fire(enemy)
 	self.fsm__:doEvent("fire")
+	--self.fsm__:doEvent("ready",self:getCoolDown())
+end
+
+function Player:standby()
 	self.fsm__:doEvent("ready",self:getCoolDown())
 end
 
@@ -207,17 +217,21 @@ function Player:hit(enemy)
 	return damage
 end
 
+function Player:walk()
+	self.fsm__:doEvent("walk")
+	
+end
+
 function Player:onChangeState_(event)
 	printf("Player %s:%s state changed from %s to %s",self:getId(), self.nickname_,event.from,event.to)
 	event = {name=Player.CHANGE_STATE_EVENT,from=event.from, to=event.to}
 	self:dispatchEvent(event)
 end
 
-function Player:onStart_( event )
-	printf("Player %s:%s started..", self:getId(),self.nickname_)
-	self:setFullHp();
-	self:dispatchEvent({name=Player.START_EVENT})
+function Player:onLeaveFiring_( event )
+	printf("Player %s:%s leave fire event: %s==>%s",self:getId(), self.nickname_, event.from, event.to)
 end
+
 
 function Player:onReady_(event)
 	printf("Player %s:%s fire", self:getId(), self.nickname_)
@@ -260,8 +274,7 @@ function Player:onLeavingFiring_(event)
 end
 
 function Player:onWalking(event)
-	local target = self.target_
-	if target_ ~= nil then
+	if self.target_ ~= nil then
 
 	end
 end
@@ -285,6 +298,14 @@ end
 --取得技能
 function Player:getSkills( )
 	-- body
+end
+
+function Player:setAI( ai )
+	self.ai = ai
+end
+
+function Player:getAI()
+	return self.ai
 end
 
 return Player

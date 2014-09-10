@@ -9,6 +9,7 @@ local MyApp = class("MyApp", cc.mvc.AppBase)
 function MyApp:ctor()
     MyApp.super.ctor(self)
     self.objects_ = {}
+    self.aipool = {}
 end
 
 function MyApp:run()
@@ -39,6 +40,23 @@ function MyApp:getTarget(source)
 		end
 	end
 	return nil
+end
+
+function MyApp:getController()
+	if self.controller == nil then
+		self.controller = require("app.controllers.PlayerController").new()
+	end
+	return self.controller
+end
+--generate a ai with the same name of the gameunit
+function MyApp:genAI(name)
+	if self.aipool[name] == nil then
+		self.aipool[name] = AI.new()
+	end
+end
+
+function MyApp:getAI( name )
+	return self.aipool[name]
 end
 
 return MyApp

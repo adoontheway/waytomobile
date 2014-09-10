@@ -5,6 +5,7 @@ local Player = import("app.models.Player")
 local Hero = import("app.models.Hero")
 local FightUi = import("app.views.FightUi")
 local PlayerController = import("app.controllers.PlayerController")
+local GameUnit = import("app.views.GameUnit")
 
 local FightScene = class("FightScene", function()
     return display.newScene("FightScene")
@@ -14,6 +15,7 @@ local controller = nil
 local handler = nil
 
 local scheduler = import("framework.scheduler")
+local spMaps = nil
 
 function FightScene:ctor()
 	self.speed = 100;
@@ -30,7 +32,6 @@ function FightScene:ctor()
     
 end
 
---娣诲姞涓�釜鐜╁鍒拌垶鍙颁笂#FightScene:addPlayer
 function FightScene:addPlayer(playerId)
 	local player = self,players[playerId]
 	if player ~= nil then
@@ -40,72 +41,62 @@ end
 
 
 function FightScene:onTouch(event)
---[[
-	if self.zombie:getActionByTag(100) ~= nill then
-		self.zombie:stopActionByTag(100)
-	end
-
-	if x < self.zombie:getPositionX() then
-		self.zombie:setScaleX(1)
-	else
-		self.zombie:setScaleX(-1)
-	end
-	local tempX = self.zombie:getPositionX()
-	local tempY = self.zombie:getPositionY()
-	local distance = math.sqrt(tempX*tempX + tempY*tempY)
-	local dura = distance/self.speed
-	print("Distance: "..distance.." Speed: "..self.speed.." Duration: "..dura)
-	local action = CCMoveTo:create(dura, CCPoint(x,y))
-	action:setTag(100)
-	self.zombie:runAction(action)
-	self.animation:play("anim_walk")
-	self.state = "walk"
-]]
 	print("Touched.....")
 end
 
 function FightScene:onEnterFrame()
-    controller:tick()
+    app:getController():tick(spMaps)
 end
 
 function FightScene:onEnter()
+    spMaps = {}
+
     local manager = CCArmatureDataManager:sharedArmatureDataManager()
     manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
     local attacker = app:getObject("me")
-    local attackerSp = CCArmature:create(attacker:getRes())
-    local animation = attackerSp:getAnimation()
-    animation:setSpeedScale(0.2)
-    animation:play("anim_walk")
-    attackerSp:setPosition(attacker:getX(), attacker:getY())
-    attackerSp:setScaleX(attacker:getDirection())
+    local attackerSp = GameUnit.new(attacker)
     self.layer:addChild(attackerSp)
+    
 
     local enemy = app:getObject("enemy")
-    local attackerSp1 = CCArmature:create(enemy:getRes())
-    local animation1 = attackerSp1:getAnimation()
-    animation1:setSpeedScale(0.2)
-    animation1:play("anim_walk")
-    attackerSp1:setPosition(enemy:getX(), enemy:getY())
-    attackerSp1:setScaleX(enemy:getDirection())
+    local attackerSp1 = GameUnit.new(enemy)
     self.layer:addChild(attackerSp1)
 
+    spMaps["me"] = attackerSp
+    spMaps["enemy"] = attackerSp1
+    --[[
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)
     end)
     self.layer:setTouchEnabled(true)
-    
-    controller = PlayerController.new()
+    ]]
 
-    handler = scheduler.scheduleGlobal(self.onEnterFrame, 1)
-    --self:schedule(self.onEnterFrame,1)
-    print("FightScene:onEnter()....")
+    handler = scheduler.scheduleGlobal(self.onEnterFrame, 0.3)
+    app:getController():control(self)
 end
 
 function FightScene:onExit()
-    -- body
     if handler ~= nil then
         scheduler.unscheduleGlobal(handler)
     end
+end
+
+function FightScene:useSkill(skill)
+    -- body
+    print("Use skill...."..skill:getName())
+    local target = spMaps["enemy"]
+    CCTexture2D:PVRImagesHavePremultipliedAlpha(true)
+    CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("thunder.plist")
+    
+    local frames = display.newFrames("image %i.png", 1, 19)
+    local animation = display.newAnimation(frames, 0.1)
+    display.setAnimationCache("thunder",animation)
+
+    local effectShape = display.newSprite(frames[1])
+    effectShape:setAnchorPoint(CCPoint(0.5,0))
+    effectShape:playAnimationOnce(animation,true)
+    effectShape:pos(target:getPositionX(), target:getPositionY())
+    self:addChild(effectShape)
 end
 
 return FightScene

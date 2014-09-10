@@ -41,9 +41,11 @@ function MainScene:ctor()
             id = "me",
             nickname = "beach",
             level = 1,
-            x = display.cx + 150,
-            y = display.cy,
-            direction = 1
+            x = display.cx - 150,
+            y = display.cy-50,
+            direction = -1,
+            speed = 50,
+            res = "Zombie_polevaulter"
         })
         app:setObject("me", player)
 
@@ -51,9 +53,10 @@ function MainScene:ctor()
             id = "enemy",
             nickname = "bitch",
             level = 1,
-            y = display.cy,
-            x = display.cx - 150,
-            direction = -1
+            y = display.cy-50,
+            x = display.cx + 150,
+            direction = 1,
+            res = "Zombie_balloon"
             })
         app:setObject("enemy", enemy)
     end

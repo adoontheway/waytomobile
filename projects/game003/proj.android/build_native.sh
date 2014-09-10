@@ -3,12 +3,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
-
-if [ -d "/cygdrive/" ]; then
-    ANDROID_NDK_ROOT=`cygpath "$ANDROID_NDK_ROOT"`
-    QUICK_COCOS2DX_ROOT=`cygpath "$QUICK_COCOS2DX_ROOT"`
-    COCOS2DX_ROOT=`cygpath "$COCOS2DX_ROOT"`
-fi
+COCOS2DX_ROOT=$QUICK_COCOS2DX_ROOT/lib/cocos2d-x
 
 echo "- config:"
 echo "  ANDROID_NDK_ROOT    = $ANDROID_NDK_ROOT"
@@ -17,11 +12,9 @@ echo "  COCOS2DX_ROOT       = $COCOS2DX_ROOT"
 echo "  APP_ROOT            = $APP_ROOT"
 echo "  APP_ANDROID_ROOT    = $APP_ANDROID_ROOT"
 
-# if use quick-cocos2d-x mini, uncomments line below
-# NDK_BUILD_FLAGS="CPPFLAGS=\"-DQUICK_MINI_TARGET=1\" QUICK_MINI_TARGET=1"
-
-# if use DEBUG, set NDK_DEBUG=1, otherwise set NDK_DEBUG=0
+# if dont use DEBUG, comments out two lines below
 NDK_DEBUG=1
+NDK_BUILD_FLAGS="CPPFLAGS=\"-DCOCOS2D_DEBUG=1\""
 
 echo "- cleanup"
 find "$APP_ANDROID_ROOT" -type d | xargs chmod 755 $1
