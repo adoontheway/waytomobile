@@ -42,7 +42,7 @@ function MainScene:ctor()
             nickname = "beach",
             level = 1,
             x = display.cx - 150,
-            y = display.cy,
+            y = display.cy-50,
             direction = -1,
             speed = 50,
             res = "Zombie_polevaulter"
@@ -53,7 +53,7 @@ function MainScene:ctor()
             id = "enemy",
             nickname = "bitch",
             level = 1,
-            y = display.cy,
+            y = display.cy-50,
             x = display.cx + 150,
             direction = 1,
             res = "Zombie_balloon"

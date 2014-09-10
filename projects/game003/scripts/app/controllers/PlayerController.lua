@@ -36,10 +36,21 @@ function PlayerController:tick(spMaps)
     			if me:canFire() then
     				me:fire(enemy)
     				local percent = math.random(0,10)
-	    			if percent >= 5 then
+	    			local stat_sp
+	    			if percent >= 6 then
 	    				print("Hited...")
+	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY());
 	    			else
+	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY());
 	    				print("Missed...")
+	    			end
+
+	    			local parent = display.getRunningScene()
+	    			assert(parent ~= nil, "parent is nil") 
+	    			assert(stat_sp ~= nil, "stat_sp is nil")
+	    			if stat_sp ~= nil and parent ~= nil then
+	    				parent:addChild(stat_sp)
+	    				--CCMoveTo:create(1, CCPoint(enemy:getX()-50, enemy:getY()+50))
 	    			end
     			else
     				print("Cooling down....")
@@ -65,6 +76,25 @@ function PlayerController:tick(spMaps)
             data:setY(sp:getPositionY())
         end
     end
+end
+
+function PlayerController:getHarmSp( harm, posx, posy )
+	local  sp 
+	local harmstr = string.format("%d", harm)
+	if harm > 0 then
+		sp = CCNode:create()
+		for i=1,#harmstr do
+			local tempsp = display.newSprite("fight/"..string.sub(harmstr, i,i)..".png",(i-1)*30,0)
+			local size = tempsp:getContentSize()
+			printLog(1, "tempsp size w:%f h:%f", size.width, size.height)
+			if tempsp ~= nil then
+				sp:addChild(tempsp)
+			end
+		end
+	else
+		sp = display.newSprite("shanbix_wenzi.png", posx, posy)
+	end
+	return sp
 end
 
 function PlayerController:dist( ax,ay,bx,by )
