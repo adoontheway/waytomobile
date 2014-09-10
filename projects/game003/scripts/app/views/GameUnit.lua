@@ -1,5 +1,4 @@
 local GameUnit = class("GameUnit", function()
-	-- body
 	return display.newNode()
 end)
 
