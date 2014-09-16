@@ -40,7 +40,8 @@ function Player:ctor(properties, events, callbacks)
 	self:addComponent("components.behavior.StateMachine")
 	self.fsm__ = self:getComponent("components.behavior.StateMachine")      
 	local defaultEvents = {
-		{name="ready", from={"none","walking","firing"}, to="idle"},
+		{name="start", from="none", to="idle"},
+		{name="ready", from={"walking","firing"}, to="idle"},
 		{name="fire", from="idle", to="firing"},
 		{name="walk",from="idle",to="walking"},
 		{name="freeeze", from="idle", to="frozen"},
@@ -48,9 +49,11 @@ function Player:ctor(properties, events, callbacks)
 		{name="kill", from={"idle","frozen"}, to="dead"},
 		{name="relive", from="dead", to="idle"}
 	}
+
 	table.insertto(defaultEvents,checktable(events))
 
 	local defaultCallbacks ={
+		onstart = handler(self, self.onStart_),
 		onchangestate = handler(self, self.onChangeState_),
 		onfire = handler(self, self.onFire_),
 		onready = handler(self, self.onReady_),
@@ -68,7 +71,7 @@ function Player:ctor(properties, events, callbacks)
 		callbacks = defaultCallbacks
 	})
 
-	self.fsm__:doEvent("ready")
+	self.fsm__:doEvent("start")
 end
 
 function Player:getSpeed()
@@ -146,7 +149,7 @@ function Player:getDirection()
 end
 
 function Player:getCoolDown()
-	return 10
+	return 3
 end
 
 function Player:setFullHp()
@@ -192,7 +195,7 @@ end
 
 function Player:fire(enemy)
 	self.fsm__:doEvent("fire")
-	--self.fsm__:doEvent("ready",self:getCoolDown())
+	self.fsm__:doEvent("ready",self:getCoolDown())
 end
 
 function Player:standby()
@@ -220,6 +223,10 @@ end
 function Player:walk()
 	self.fsm__:doEvent("walk")
 	
+end
+
+function Player:onStart_( event )
+	-- body
 end
 
 function Player:onChangeState_(event)

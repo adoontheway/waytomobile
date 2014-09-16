@@ -23,6 +23,7 @@ end
 
 --更新角色显示{"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
 function GameUnit:updateShapeDisplay(state)
+	
 	local animname = "anim_idle"
 	if state == "walking" then
 		animname = "anim_walk"
@@ -31,7 +32,7 @@ function GameUnit:updateShapeDisplay(state)
 	elseif state == "dead" then
 		animname = "anim_death"
 	end
-
+    printInfo("GameUnit state changed to %s playing : %s", state, animname)
 	if self.shape ~= nil then
 		local animation = self.shape:getAnimation()
 		animation:setSpeedScale(0.4)

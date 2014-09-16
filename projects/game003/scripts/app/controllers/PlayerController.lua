@@ -38,11 +38,9 @@ function PlayerController:tick(spMaps)
     				local percent = math.random(0,10)
 	    			local stat_sp
 	    			if percent >= 6 then
-	    				print("Hited...")
-	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY());
+	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY()+50);
 	    			else
-	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY());
-	    				print("Missed...")
+	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY()+50);
 	    			end
 
 	    			local parent = display.getRunningScene()
@@ -50,7 +48,11 @@ function PlayerController:tick(spMaps)
 	    			assert(stat_sp ~= nil, "stat_sp is nil")
 	    			if stat_sp ~= nil and parent ~= nil then
 	    				parent:addChild(stat_sp)
-	    				--CCMoveTo:create(1, CCPoint(enemy:getX()-50, enemy:getY()+50))
+	    				transition.execute(stat_sp, CCMoveTo:create(1.0, CCPoint(enemy:getX()-50, enemy:getY()+150)), {
+	    					onComplete = function()
+	    						stat_sp:removeSelf()
+	    					end
+	    					})
 	    			end
     			else
     				print("Cooling down....")
@@ -83,6 +85,7 @@ function PlayerController:getHarmSp( harm, posx, posy )
 	local harmstr = string.format("%d", harm)
 	if harm > 0 then
 		sp = CCNode:create()
+		sp:pos(posx, posy)
 		for i=1,#harmstr do
 			local tempsp = display.newSprite("fight/"..string.sub(harmstr, i,i)..".png",(i-1)*30,0)
 			local size = tempsp:getContentSize()

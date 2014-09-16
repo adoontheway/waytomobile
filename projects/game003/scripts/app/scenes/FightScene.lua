@@ -12,7 +12,7 @@ local FightScene = class("FightScene", function()
 end)
 
 local controller = nil
-local handler = nil
+local tickhandler = nil
 
 local scheduler = import("framework.scheduler")
 local spMaps = nil
@@ -44,7 +44,8 @@ function FightScene:onTouch(event)
 	print("Touched.....")
 end
 
-function FightScene:onEnterFrame()
+function FightScene:onEnterFrame(dt)
+    printLog(4, "FightScene ticks %f",dt)
     app:getController():tick(spMaps)
 end
 
@@ -71,13 +72,13 @@ function FightScene:onEnter()
     self.layer:setTouchEnabled(true)
     ]]
 
-    handler = scheduler.scheduleGlobal(self.onEnterFrame, 0.3)
+    tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 0.3)
     app:getController():control(self)
 end
 
 function FightScene:onExit()
-    if handler ~= nil then
-        scheduler.unscheduleGlobal(handler)
+    if tickhandler ~= nil then
+        scheduler.unscheduleGlobal(tickhandler)
     end
 end
 
