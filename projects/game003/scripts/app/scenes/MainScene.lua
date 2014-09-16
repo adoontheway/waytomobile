@@ -15,7 +15,7 @@ function MainScene:ctor()
     self.ui = MainUi.new()
     self:addChild(self.layer)
     self.ui:addTo(self.layer)
-    self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 64, align = ui.TEXT_ALIGN_CENTER, 
+    self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 40, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
             local nexScene = FightScene.new()
@@ -23,12 +23,12 @@ function MainScene:ctor()
             display.replaceScene(nexScene)
         end})
 
-    self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 64, align = ui.TEXT_ALIGN_CENTER,
+    self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 40, align = ui.TEXT_ALIGN_CENTER,
         x=display.cx, y=display.cy,color = display.COLOR_BLUE,
          listener = function()
         end})
 
-    self.item2 = ui.newTTFLabelMenuItem({text = "EXIT", size = 64, align = ui.TEXT_ALIGN_CENTER, 
+    self.item2 = ui.newTTFLabelMenuItem({text = "EXIT", size = 40, align = ui.TEXT_ALIGN_CENTER, 
         x=display.cx, y=display.cy-50,color = display.COLOR_RED,
         listener = function()
             game.exit()
