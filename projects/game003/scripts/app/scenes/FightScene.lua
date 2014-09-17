@@ -45,7 +45,6 @@ function FightScene:onTouch(event)
 end
 
 function FightScene:onEnterFrame(dt)
-    printLog(4, "FightScene ticks %f",dt)
     app:getController():tick(spMaps)
 end
 

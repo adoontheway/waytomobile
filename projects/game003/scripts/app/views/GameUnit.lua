@@ -49,6 +49,7 @@ end
 
 function GameUnit:onHpChanged( event )
 	-- body
+	self.hpbar:setProgress(self.player:getHp()/self.player:getMaxHp() * 100)
 end
 
 function GameUnit:onExpChanged( event )

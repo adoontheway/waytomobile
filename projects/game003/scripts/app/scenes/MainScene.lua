@@ -44,6 +44,7 @@ function MainScene:ctor()
             x = display.cx - 150,
             y = display.cy-50,
             direction = -1,
+            hp = 100,
             speed = 50,
             res = "Zombie_polevaulter"
         })
@@ -53,6 +54,7 @@ function MainScene:ctor()
             id = "enemy",
             nickname = "bitch",
             level = 1,
+            hp = 100,
             y = display.cy-50,
             x = display.cx + 150,
             direction = 1,

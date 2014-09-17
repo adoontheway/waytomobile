@@ -22,9 +22,13 @@ function PlayerController:tick(spMaps)
 
     mytarget = me:getTarget()
     if mytarget == nil then
-        print("Win...")
+        printLog(10, "Win==============")
     else
     	enemy = app:getObject(mytarget)
+    	if enemy:isDead() then
+    		printLog(10, "Win==============")
+    		return
+    	end
     	local myShape
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
     	if distance < me:getRadius() then
@@ -38,9 +42,10 @@ function PlayerController:tick(spMaps)
     				local percent = math.random(0,10)
 	    			local stat_sp
 	    			if percent >= 6 then
-	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY()+50);
+	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY()+50)
+	    				enemy:decreaseHp(10)
 	    			else
-	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY()+50);
+	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY()+50)
 	    			end
 
 	    			local parent = display.getRunningScene()
