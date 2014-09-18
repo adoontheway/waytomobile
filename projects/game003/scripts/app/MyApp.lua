@@ -22,8 +22,11 @@ function MyApp:setObject(id, object)
 	self.objects_[id] = object
 end
 
+function MyApp:removeObject(id)
+	self.objects_[id] = nil
+end
+
 function MyApp:getObject(key)
-	assert(self.objects_[key] ~= nil, string.format("MyApp:getObject() -id \"%s\" not exists",key))
 	return self.objects_[key]
 end
 
@@ -33,7 +36,7 @@ end
 
 function MyApp:getTarget(source)
 	for k,v in pairs(self.objects_) do
-		if v:isDead() ~= true then
+		if v ~= nil or not v:isDead() then
 			if v:getId() ~= source:getId() then--todo 暂时只判断两个的id不相等，后续添加随从之后用ownerId判断
 				return k
 			end
@@ -53,10 +56,6 @@ function MyApp:genAI(name)
 	if self.aipool[name] == nil then
 		self.aipool[name] = AI.new()
 	end
-end
-
-function MyApp:getAI( name )
-	return self.aipool[name]
 end
 
 return MyApp

@@ -71,7 +71,7 @@ function FightScene:onEnter()
     self.layer:setTouchEnabled(true)
     ]]
 
-    tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 0.3)
+    tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 1/60)
     app:getController():control(self)
 end
 

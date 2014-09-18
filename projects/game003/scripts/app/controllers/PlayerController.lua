@@ -7,27 +7,36 @@ function PlayerController:initEventListener(hero)
 end
 
 function PlayerController:tick(spMaps)
-	---更新数据
-	for name,sp in ipairs(spMaps) do
-		if sp:getAI() == nil then
-			sp:setAI(ai)
-		end
-	end
 	local  enemy
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
 	if mytarget == nil then
 		me:searchTarget()
+		mytarget = me:getTarget()
 	end
-
-    mytarget = me:getTarget()
+    
     if mytarget == nil then
-        printLog(10, "Win==============")
+        printLog(10, "Win==============19")
+        if me:getState() ~= "walking" then
+        	me:walk()
+        else
+        	me:updatePos()
+        end
+        
+        if me:getX() > display.right + 20 then
+        	display.wrapSceneWithTransition(MainScene.new(), "fade", 0.5)
+        end
     else
     	enemy = app:getObject(mytarget)
-    	if enemy:isDead() then
-    		printLog(10, "Win==============")
-    		return
+    	if enemy == nil or enemy:isDead() then
+    		me:searchTarget()
+			mytarget = me:getTarget()
+
+    		if conditions then
+    			printLog(10, "Win==============27")
+    			me:walk()
+    			return
+    		end
     	end
     	local myShape
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
@@ -67,10 +76,8 @@ function PlayerController:tick(spMaps)
     		if me:getState() ~= "walking" then
     			me:walk()
     			myShape = spMaps[me:getId()]
-    			local duration = distance/me:getSpeed()
-    			local action = CCMoveTo:create(duration,CCPoint(enemy:getX(),enemy:getY()))
-    			action:setTag(100)
-    			myShape:runAction(action)
+    		else
+    			me:updatePos()
     		end
     	end
     end
@@ -78,9 +85,12 @@ function PlayerController:tick(spMaps)
     for key,sp in pairs(spMaps) do
         local data = app:getObject(key)
         if data ~= nil then
-            --sp:setPosition(data:getX(), data:getY())
-            data:setX(sp:getPositionX())
-            data:setY(sp:getPositionY())
+        	if not data:isDead() then
+        		sp:setPosition(data:getX(), data:getY())--sp要在场景中移除
+        	else
+        		spMaps[key] = nil
+        		app:removeObject(key)
+        	end
         end
     end
 end

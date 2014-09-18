@@ -1,7 +1,7 @@
 local GameUnit = class("GameUnit", function()
 	return display.newNode()
 end)
-
+local scheduler = import("framework.scheduler")
 local Progress = import("app.views.Progress")
 
 function GameUnit:ctor(hero)
@@ -23,7 +23,6 @@ end
 
 --更新角色显示{"anim_walk","anim_eat","anim_placeladder","anim_idle","anim_ladderwalk","anim_laddereat","anim_death"}
 function GameUnit:updateShapeDisplay(state)
-	
 	local animname = "anim_idle"
 	if state == "walking" then
 		animname = "anim_walk"
@@ -36,20 +35,29 @@ function GameUnit:updateShapeDisplay(state)
 	if self.shape ~= nil then
 		local animation = self.shape:getAnimation()
 		animation:setSpeedScale(0.4)
-	    animation:play(animname)
+		animation:play(animname)
+	    
 	    self:setPosition(self.player:getX(), self.player:getY())
     	self:setScaleX(self.player:getDirection())
-		
 	end
 end
 
 function GameUnit:onKilled( event)
-	-- body
+	scheduler.performWithDelayGlobal(handler(self, self.autoRemove), 1.5)
 end
 
 function GameUnit:onHpChanged( event )
-	-- body
 	self.hpbar:setProgress(self.player:getHp()/self.player:getMaxHp() * 100)
+	
+end
+
+function GameUnit:autoRemove()
+	local action = CCFadeTo:create(1.0, 0.0)
+	transition.execute(self.shape, action, {
+		onComplete = function( )
+			self:removeSelf()
+		end
+		})
 end
 
 function GameUnit:onExpChanged( event )
@@ -64,7 +72,6 @@ function GameUnit:initDisplay()
    	self:updateShapeDisplay(self.player:getState())
    	shape:setAnchorPoint(CCPoint(0.5,0))
    	self:addChild(shape)
-
 	--角色血条
 	self.hpbar = Progress.new("progres_bg.png","progress.png")
 	self.hpbar:pos(0.5, shape:getContentSize().height)
@@ -85,6 +92,10 @@ end
 --移除事件:重复利用这个对象的时候会用到
 function GameUnit:removeEvents()
 	-- body
+end
+
+function GameUnit:onExit()
+	super.onExit()
 end
 
 return GameUnit

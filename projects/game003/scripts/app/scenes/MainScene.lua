@@ -45,7 +45,7 @@ function MainScene:ctor()
             y = display.cy-50,
             direction = -1,
             hp = 100,
-            speed = 50,
+            speed = 2,
             res = "Zombie_polevaulter"
         })
         app:setObject("me", player)

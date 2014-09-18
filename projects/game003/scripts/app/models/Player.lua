@@ -149,7 +149,7 @@ function Player:getDirection()
 end
 
 function Player:getCoolDown()
-	return 3
+	return 1.0
 end
 
 function Player:setFullHp()
@@ -222,7 +222,10 @@ end
 
 function Player:walk()
 	self.fsm__:doEvent("walk")
-	
+end
+
+function Player:updatePos()
+	self.x_ = self.x_ + self.speed_
 end
 
 function Player:onStart_( event )
@@ -237,6 +240,14 @@ end
 
 function Player:onLeaveFiring_( event )
 	printf("Player %s:%s leave fire event: %s==>%s",self:getId(), self.nickname_, event.from, event.to)
+	local cooldown = checknumber(event.args[1])
+	if cooldown > 0 then
+		scheduler.performWithDelayGlobal(function(  )
+			-- body
+			event.transition();
+		end, cooldown)
+		return "async"
+	end
 end
 
 
@@ -290,7 +301,7 @@ function Player:searchTarget()
 	local target
 	if self.target_ ~= nil then
 		target = app:getObject(self.target_)
-		if target:isDead() then
+		if target == nil or target:isDead() then
 			self.target_ = nil
 		end
 	end
