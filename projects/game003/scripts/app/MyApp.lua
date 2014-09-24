@@ -23,7 +23,7 @@ function MyApp:setObject(id, object)
 end
 
 function MyApp:removeObject(id)
-	self.objects_[id] = nil
+    table.remove(self.objects_, id)
 end
 
 function MyApp:getObject(key)

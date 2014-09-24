@@ -1,5 +1,5 @@
 --[[
-	鎴樻枟鍦烘櫙
+	Fight scene of the game
 ]]
 local Player = import("app.models.Player")
 local Hero = import("app.models.Hero")
@@ -46,6 +46,18 @@ end
 
 function FightScene:onEnterFrame(dt)
     app:getController():tick(spMaps)
+     --更新显示:用显示去更新数据，这个是不对的
+    for key,sp in pairs(spMaps) do
+        local data = app:getObject(key)
+        if data ~= nil then
+            if not data:isDead() then
+                sp:setPosition(data:getX(), data:getY())--sp要在场景中移除
+            else
+                spMaps[key] = nil
+                app:removeObject(key)
+            end
+        end
+    end
 end
 
 function FightScene:onEnter()
@@ -64,6 +76,17 @@ function FightScene:onEnter()
 
     spMaps["me"] = attackerSp
     spMaps["enemy"] = attackerSp1
+
+    local selfView = GUIReader:shareReader():widgetFromJsonFile("NewUi/NewUi_1.ExportJson")
+    self:addChild(selfView)
+    selfView:setVisible(false)
+    local btn = selfView:getChildByTag(4)
+    if btn ~= nil then
+        btn:setTouchEnabled(true)
+        btn:addNodeEventListener(cc.NODE_TOUCH_EVENT,function(event)
+            printLog(100, "Button on UI touched...")
+        end)
+    end
     --[[
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)

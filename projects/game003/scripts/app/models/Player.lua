@@ -274,6 +274,7 @@ end
 function Player:onKill_(event)
 	printf("Player %s:%s is killed", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.KILL_EVENT})
+	app:removeObject(self:getId())
 end
 
 function Player:onRelive_(event)
@@ -312,6 +313,7 @@ function Player:searchTarget()
 			self.target_ = temptarget
 		end
 	end
+	return self.target_
 end
 --取得技能
 function Player:getSkills( )

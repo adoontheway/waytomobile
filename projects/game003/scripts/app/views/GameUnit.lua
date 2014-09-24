@@ -83,7 +83,7 @@ function GameUnit:setData()
 end
 --取得数据
 function GameUnit:getData()
-	return self.hero
+	return self.player
 end
 --添加事件:重复利用这个对象的时候会用到
 function GameUnit:addEvents()

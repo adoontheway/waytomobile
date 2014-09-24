@@ -6,13 +6,12 @@ end
 function PlayerController:initEventListener(hero)
 end
 
-function PlayerController:tick(spMaps)
+function PlayerController:tick()
 	local  enemy
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
 	if mytarget == nil then
-		me:searchTarget()
-		mytarget = me:getTarget()
+		mytarget = me:searchTarget()
 	end
     
     if mytarget == nil then
@@ -38,12 +37,9 @@ function PlayerController:tick(spMaps)
     			return
     		end
     	end
-    	local myShape
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
     	if distance < me:getRadius() then
     		if me:getState() == "walking" then--走动状态中的话进行待命
-    			myShape = spMaps[me:getId()]
-    			myShape:stopActionByTag(100)
     			me:standby()
     		elseif me:getState() == "idle" then--待命状态的话根据冷却时间判断是否攻击
     			if me:canFire() then
@@ -52,7 +48,7 @@ function PlayerController:tick(spMaps)
 	    			local stat_sp
 	    			if percent >= 6 then
 	    				stat_sp = self:getHarmSp(10,enemy:getX(),enemy:getY()+50)
-	    				enemy:decreaseHp(10)
+	    				enemy:decreaseHp(20)
 	    			else
 	    				stat_sp = self:getHarmSp(0,enemy:getX(),enemy:getY()+50)
 	    			end
@@ -75,24 +71,12 @@ function PlayerController:tick(spMaps)
     	else
     		if me:getState() ~= "walking" then
     			me:walk()
-    			myShape = spMaps[me:getId()]
     		else
     			me:updatePos()
     		end
     	end
     end
-    --更新显示:用显示去更新数据，这个是不对的
-    for key,sp in pairs(spMaps) do
-        local data = app:getObject(key)
-        if data ~= nil then
-        	if not data:isDead() then
-        		sp:setPosition(data:getX(), data:getY())--sp要在场景中移除
-        	else
-        		spMaps[key] = nil
-        		app:removeObject(key)
-        	end
-        end
-    end
+   
 end
 
 function PlayerController:getHarmSp( harm, posx, posy )
@@ -125,7 +109,6 @@ function PlayerController:useSkill(skill)
 end
 
 function PlayerController:control( view )
-	-- body
 	self.view = view
 end
 
