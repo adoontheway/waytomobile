@@ -10,6 +10,7 @@ function MyApp:ctor()
     MyApp.super.ctor(self)
     self.objects_ = {}
     self.aipool = {}
+    self.sceneMgr = require("app.models.SceneDataMgr").new()
 end
 
 function MyApp:run()
@@ -23,7 +24,7 @@ function MyApp:setObject(id, object)
 end
 
 function MyApp:removeObject(id)
-    table.remove(self.objects_, id)
+	self.objects_[id] = nil 
 end
 
 function MyApp:getObject(key)

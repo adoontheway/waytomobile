@@ -18,9 +18,8 @@ function MainScene:ctor()
     self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 40, align = ui.TEXT_ALIGN_CENTER, 
         x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
          listener = function()
-            local nexScene = FightScene.new()
-            local transition = display.wrapSceneWithTransition(nexScene,"fade",0.5)
-            display.replaceScene(nexScene)
+            self:initPlayerData()
+            app:enterScene("FightScene")
         end})
 
     self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 40, align = ui.TEXT_ALIGN_CENTER,
@@ -36,32 +35,7 @@ function MainScene:ctor()
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
     
-    if not app:isObjectExists("me") then
-        local player = Hero.new({
-            id = "me",
-            nickname = "beach",
-            level = 1,
-            x = display.cx - 150,
-            y = display.cy-50,
-            direction = -1,
-            hp = 100,
-            speed = 2,
-            res = "Zombie_polevaulter"
-        })
-        app:setObject("me", player)
-
-        local enemy = Hero.new({
-            id = "enemy",
-            nickname = "bitch",
-            level = 1,
-            hp = 100,
-            y = display.cy-50,
-            x = display.cx + 150,
-            direction = 1,
-            res = "Zombie_balloon"
-            })
-        app:setObject("enemy", enemy)
-    end
+    
 end
 
 function MainScene:onEnter()
@@ -74,6 +48,34 @@ function MainScene:onTouch(event, x, y)
 end
 
 function MainScene:onExit()
+end
+
+function MainScene:initPlayerData()
+    local player = Hero.new({
+        id = "me",
+        nickname = "beach",
+        level = 1,
+        x = display.cx - 150,
+        y = display.cy-50,
+        direction = -1,
+        hp = 100,
+        speed = 2,
+        res = "Zombie_polevaulter"
+    })
+    app:setObject("me", player)        
+
+
+    local enemy = Hero.new({
+            id = "enemy",
+            nickname = "bitch",
+            level = 1,
+            hp = 100,
+            y = display.cy-50,
+            x = display.cx + 150,
+            direction = 1,
+            res = "Zombie_balloon"
+            })
+    app:setObject("enemy", enemy)
 end
 
 return MainScene

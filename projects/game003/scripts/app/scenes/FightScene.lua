@@ -52,10 +52,14 @@ function FightScene:onEnterFrame(dt)
         if data ~= nil then
             if not data:isDead() then
                 sp:setPosition(data:getX(), data:getY())--sp要在场景中移除
+            elseif data:getParent() == nil then
+                spMaps[key] = nil
             else
                 spMaps[key] = nil
                 app:removeObject(key)
             end
+        else
+            spMaps[key] = nil
         end
     end
 end
@@ -101,6 +105,14 @@ end
 function FightScene:onExit()
     if tickhandler ~= nil then
         scheduler.unscheduleGlobal(tickhandler)
+    end
+
+    for id,sp in pairs(spMaps) do
+        if sp:getParent() ~= nil then
+            sp:removeSelf()
+            app:removeObject(id)
+        end
+        spMaps[id] = nil
     end
 end
 

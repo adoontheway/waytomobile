@@ -6,36 +6,31 @@ end
 function PlayerController:initEventListener(hero)
 end
 
-function PlayerController:tick()
-	local  enemy
+function PlayerController:tick()	
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
-	if mytarget == nil then
+    local  enemy = app:getObject(mytarget)
+	if mytarget == nil or enemy == nil then
 		mytarget = me:searchTarget()
 	end
     
     if mytarget == nil then
-        printLog(10, "Win==============19")
-        if me:getState() ~= "walking" then
+        if me:getState() == "idle" then
         	me:walk()
-        else
+        elseif me:getState() == "walking" then
         	me:updatePos()
         end
         
-        if me:getX() > display.right + 20 then
-        	display.wrapSceneWithTransition(MainScene.new(), "fade", 0.5)
+        if me:getX() > display.right - 20 then
+        	app:enterScene("MainScene")
+        	--display.wrapSceneWithTransition(MainScene.new(), "fade", 0.5)
         end
     else
     	enemy = app:getObject(mytarget)
     	if enemy == nil or enemy:isDead() then
     		me:searchTarget()
 			mytarget = me:getTarget()
-
-    		if conditions then
-    			printLog(10, "Win==============27")
-    			me:walk()
-    			return
-    		end
+    		return
     	end
     	local distance = self:dist(enemy:getX(),enemy:getY(), me:getX(), me:getY())
     	if distance < me:getRadius() then
@@ -113,67 +108,3 @@ function PlayerController:control( view )
 end
 
 return PlayerController
-
---[[
-	for index = #self.bullets_, 1, -1 do
-		local bullet = self.bullets_[index]
-		local x, y = bullet:getPosition()
-		x = x+bullet.speed
-		bullet:setPositionX(x)
-
-		if x < display.left - 100 or x > display.right + 100 then
-			bullet:removeSelf()
-			table.remove(self.bullets_, index)
-		elseif
-			local targetView = self.views_[bullet.target]
-			local tx,ty = targetView:getPosition()
-			if dist(x,y,tx,ty) <= 30 then
-				if self:hit(bullet.attacker, bullet.target, bullet) then
-					bullet:removeSelf()
-					table.remove(self.bullets_, index)
-				else
-					bullet.target = nil
-				end
-			end
-		end
-	end
-	]]
---[[
-
-function PlayerController:hit(attacker, target, bullet)
-	if not target:isDead() then
-		local damage = attacker:hit(target)
-		if damage <= 0 then
-			local miss = display.newSprite("shanbix_wenzi.png")
-				:pos(bullet:getPosition())
-				:addTo(self, 1000)
-			transition.moveBy(miss,{y=100, time = 1.5, onComplete=function()
-				miss:removeSelf()
-			end})
-		end
-		return damage > 0
-	else
-		return false
-	end
-end
-
-function PlayerController:fire(attacker, target)
-	if not attacker:canFire() then return end
-
-	attacker:fire()
-
-	local bullet = display.newSprite("gongji_wenzi.png"):addTo(self)
-	local view = self.views_[attacker]
-	local x,y = view:getPosition()
-	y = y +12
-	if view:isFlipX() then
-		x = x - 44
-	else
-		x = x + 44
-	end
-	bullet.speed = 5
-	bullet:pos(x, y)
-	bullet.attacker = attacker
-	bullet.target = target
-	self.bullets_[#self.bullets_ +1 ] = bullet
-end]]
