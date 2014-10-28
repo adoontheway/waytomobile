@@ -21,6 +21,7 @@ function FightScene:ctor()
 	self.speed = 100;
 	self.curBehaviorId = 1;
     self.layer = display.newLayer()
+    self.layer:setTouchEnabled(true)
     self:addChild(self.layer)
     self.layer:setTouchEnabled(true)
     self.bg = display.newSprite("battle_bg/bbg_corridor_ruin.jpg",display.cx, display.cy)
@@ -83,21 +84,26 @@ function FightScene:onEnter()
 
     local selfView = GUIReader:shareReader():widgetFromJsonFile("NewUi/NewUi_1.ExportJson")
     self:addChild(selfView)
+    selfView:setTouchEnabled(true)
+    selfView:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+        printInfo("UI touched")
+    end)
+    --[[
     selfView:setVisible(false)
     local btn = selfView:getChildByTag(4)
     if btn ~= nil then
+        btn:setTouchMode(cc.TOUCH_MODE_ONE_BY_ONE)
         btn:setTouchEnabled(true)
+        btn:setTouchSwallowEnabled(false)
         btn:addNodeEventListener(cc.NODE_TOUCH_EVENT,function(event)
             printLog(100, "Button on UI touched...")
         end)
     end
-    --[[
     self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
     	self.onTouch(event)
-    end)
-    self.layer:setTouchEnabled(true)
-    ]]
-
+    end)]]
+    
+    
     tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 1/60)
     app:getController():control(self)
 end

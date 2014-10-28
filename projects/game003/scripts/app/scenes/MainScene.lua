@@ -10,6 +10,7 @@ local Hero = import("app.models.Hero")
 local FightScene = import("app.scenes.FightScene")
 
 function MainScene:ctor()
+
     self.instance = self
     self.layer = display.newLayer();
     self.ui = MainUi.new()
@@ -34,13 +35,13 @@ function MainScene:ctor()
         end})
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
-    
-    
 end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-    
+   --[[display.addSpriteFramesWithFile("res/AM/.plist","res/AM/sheet.png")
+    local am = display.newSprite("Eyes")
+    self.layer:addChild(am)]] 
 end
 
 function MainScene:onTouch(event, x, y)

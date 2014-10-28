@@ -3,33 +3,32 @@
 ]]
 local AI = class("AI")
 
+AI.WANDER_STATE = "wander"--wander state
+AI.TARGETING_STATE = "targeting"--targeting state
+AI.ENAGE_STATE = "engage"-- engage state
+
 function AI:ctor()
-	
+	self.masters = table.new({})--master map id:state
 end
 
---控制宿主
-function AI:control(master)
-	self.master = master
-	master.ai = self
+function AI:getCurState()
+
 end
 
---以下部分伪代码
 function AI:tick()
-	if self.master ~= nil then
-		if self.master:getTarget() == nil then--没有目标的话找目标
-			self.master:searchTarget()
-		end
 
-		if self.master:getRadius() < self:getDistance(self.master,self.master:getTarget())--判断是否在攻击范围内
-			if not self.master:getTarget():isDead() then
-				if self.master:getStatus() ~= "firing" then
-					self.master:fire(self.master:getTarget())
-				end
-			end
-		elseif self.master:getStatus() ~= "walking" then
-			self.master:walk()
-		end
-	end
+end
+
+function AI:wander( ... )
+	-- body
+end
+
+function AI:target( ... )
+	-- body
+end
+
+function AI:engage( ... )
+	-- body
 end
 
 --计算距离

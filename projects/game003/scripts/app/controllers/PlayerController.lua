@@ -6,7 +6,17 @@ end
 function PlayerController:initEventListener(hero)
 end
 
+local times = 0--how many time ticks
+local gap = 1--perform a tick with the gap
+
 function PlayerController:tick()	
+	times = times + 1
+	
+	if times%gap ~= 0 then
+		printInfo("No beat")
+		return
+	end
+
 	local me = app:getObject("me")	
     local mytarget = me:getTarget()
     local  enemy = app:getObject(mytarget)
