@@ -31,17 +31,20 @@ function MainScene:ctor()
     self.item2 = ui.newTTFLabelMenuItem({text = "EXIT", size = 40, align = ui.TEXT_ALIGN_CENTER, 
         x=display.cx, y=display.cy-50,color = display.COLOR_RED,
         listener = function()
-            game.exit()
+            app.exit()
         end})
     self.menu = ui.newMenu({self.item0,self.item1,self.item2})
     self.layer:addChild(self.menu)
+
+
 end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-   --[[display.addSpriteFramesWithFile("res/AM/.plist","res/AM/sheet.png")
+    app:sendHttpRequest("hehe")
+    --[[display.addSpriteFramesWithFile("res/AM/.plist","res/AM/sheet.pvr")
     local am = display.newSprite("Eyes")
-    self.layer:addChild(am)]] 
+    self.layer:addChild(am)]]
 end
 
 function MainScene:onTouch(event, x, y)

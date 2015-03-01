@@ -11,11 +11,11 @@ function FightUi:ctor()
 	self.view = CharacterView:new()
 	self.view:setPosition(100,display.bottom+100)
 	self:addChild(self.view)
-	print("FightUi:ctor().....")
+	--("FightUi:ctor().....")
 end
 
 function FightUi:onEnter()
-	print("FightUi:onEnter()....")
+	--print("FightUi:onEnter()....")
 	self.me = app:getObject("me")
 	if self.me ~= nil then
 		self:initUi()
@@ -25,7 +25,7 @@ function FightUi:onEnter()
 end
 
 function FightUi:initUi()
-	print("FightUi:initUi()....")
+	--print("FightUi:initUi()....")
 end
 
 function FightUi:onExit()

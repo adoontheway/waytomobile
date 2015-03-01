@@ -31,7 +31,7 @@ function GameUnit:updateShapeDisplay(state)
 	elseif state == "dead" then
 		animname = "anim_death"
 	end
-    printInfo("GameUnit state changed to %s playing : %s", state, animname)
+    --printInfo("GameUnit state changed to %s playing : %s", state, animname)
 	if self.shape ~= nil then
 		local animation = self.shape:getAnimation()
 		animation:setSpeedScale(0.4)

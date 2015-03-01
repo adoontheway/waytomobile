@@ -3,7 +3,7 @@ require("config")
 require("framework.init")
 require("framework.shortcodes")
 require("framework.cc.init")
-require("pb")
+--require("pb")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
@@ -12,6 +12,7 @@ function MyApp:ctor()
     self.objects_ = {}
     self.aipool = {}
     self.sceneMgr = require("app.models.SceneDataMgr").new()
+    self.communicator = require("app.controllers.Communication").new()
 end
 
 function MyApp:run()
@@ -58,6 +59,10 @@ function MyApp:genAI(name)
 	if self.aipool[name] == nil then
 		self.aipool[name] = AI.new()
 	end
+end
+
+function MyApp:sendHttpRequest( param )
+	self.communicator:doRequest(param)
 end
 
 return MyApp

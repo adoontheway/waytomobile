@@ -233,13 +233,13 @@ function Player:onStart_( event )
 end
 
 function Player:onChangeState_(event)
-	printf("Player %s:%s state changed from %s to %s",self:getId(), self.nickname_,event.from,event.to)
+	--printf("Player %s:%s state changed from %s to %s",self:getId(), self.nickname_,event.from,event.to)
 	event = {name=Player.CHANGE_STATE_EVENT,from=event.from, to=event.to}
 	self:dispatchEvent(event)
 end
 
 function Player:onLeaveFiring_( event )
-	printf("Player %s:%s leave fire event: %s==>%s",self:getId(), self.nickname_, event.from, event.to)
+	--printf("Player %s:%s leave fire event: %s==>%s",self:getId(), self.nickname_, event.from, event.to)
 	local cooldown = checknumber(event.args[1])
 	if cooldown > 0 then
 		scheduler.performWithDelayGlobal(function(  )
@@ -252,33 +252,33 @@ end
 
 
 function Player:onReady_(event)
-	printf("Player %s:%s fire", self:getId(), self.nickname_)
+	--printf("Player %s:%s fire", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.FIRE_EVENT})
 end
 
 function Player:onThaw_(event)
-	printf("Player %s:%s thawing", self:getId(), self.nickname_)
+	--printf("Player %s:%s thawing", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.THAW_EVENT})
 end
 
 function Player:onFire_(event)
-	printf("Player %s:%s is firing", self:getId(), self.nickname_)
+	--printf("Player %s:%s is firing", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.FIRE_EVENT})
 end
 
 function Player:onFreeze_(event)
-	printf("Player %s:%s is frozen", self:getId(), self:getNickName())
+	--printf("Player %s:%s is frozen", self:getId(), self:getNickName())
 	self:dispatchEvent({name = Player.FREEZE_EVENT})
 end
 
 function Player:onKill_(event)
-	printf("Player %s:%s is killed", self:getId(), self.nickname_)
+	--printf("Player %s:%s is killed", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.KILL_EVENT})
 	app:removeObject(self:getId())
 end
 
 function Player:onRelive_(event)
-	printf("Player %s:%s is relived", self:getId(), self.nickname_)
+	--printf("Player %s:%s is relived", self:getId(), self.nickname_)
 	self:dispatchEvent({name = Player.RELIVE_EVENT})
 end
 

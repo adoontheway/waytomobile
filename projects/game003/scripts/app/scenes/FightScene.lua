@@ -6,7 +6,7 @@ local Hero = import("app.models.Hero")
 local FightUi = import("app.views.FightUi")
 local PlayerController = import("app.controllers.PlayerController")
 local GameUnit = import("app.views.GameUnit")
-
+local CharacterView = import("app.views.CharacterView")
 local FightScene = class("FightScene", function()
     return display.newScene("FightScene")
 end)
@@ -27,10 +27,12 @@ function FightScene:ctor()
     self.bg = display.newSprite("battle_bg/bbg_corridor_ruin.jpg",display.cx, display.cy)
     self.layer:addChild(self.bg)
     self.players = {}
+    self.characterView = CharacterView.new():addTo(self)
+    --[[
     self.ui = FightUi.new()
-    --self.ui:setPosition(0, display.bottom-150)
+    self.ui:setPosition(0, display.bottom-150)
     self.layer:addChild(self.ui)
-    
+    ]]
 end
 
 function FightScene:addPlayer(playerId)
@@ -81,14 +83,14 @@ function FightScene:onEnter()
 
     spMaps["me"] = attackerSp
     spMaps["enemy"] = attackerSp1
-
+    --[[
     local selfView = GUIReader:shareReader():widgetFromJsonFile("NewUi/NewUi_1.ExportJson")
     self:addChild(selfView)
     selfView:setTouchEnabled(true)
     selfView:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
         printInfo("UI touched")
     end)
-    --[[
+    
     selfView:setVisible(false)
     local btn = selfView:getChildByTag(4)
     if btn ~= nil then
@@ -98,8 +100,9 @@ function FightScene:onEnter()
         btn:addNodeEventListener(cc.NODE_TOUCH_EVENT,function(event)
             printLog(100, "Button on UI touched...")
         end)
-    end
-    self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+    end]]
+    --[[self.layer:addNodeEventListener(cc.NODE_TOUCH_EVENT, function( event )
+        printInfo("Layer Touched...")
     	self.onTouch(event)
     end)]]
     
@@ -111,6 +114,7 @@ end
 function FightScene:onExit()
     if tickhandler ~= nil then
         scheduler.unscheduleGlobal(tickhandler)
+        tickhandler = nil
     end
 
     for id,sp in pairs(spMaps) do
@@ -123,8 +127,7 @@ function FightScene:onExit()
 end
 
 function FightScene:useSkill(skill)
-    -- body
-    print("Use skill...."..skill:getName())
+    --print("Use skill...."..skill:getName())
     local target = spMaps["enemy"]
     CCTexture2D:PVRImagesHavePremultipliedAlpha(true)
     CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("thunder.plist")
