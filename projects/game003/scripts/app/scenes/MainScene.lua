@@ -41,7 +41,7 @@ end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-    app:sendHttpRequest("hehe")
+    app:sendHttpRequest({oper=1,data="login"})
     --[[display.addSpriteFramesWithFile("res/AM/.plist","res/AM/sheet.pvr")
     local am = display.newSprite("Eyes")
     self.layer:addChild(am)]]

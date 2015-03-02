@@ -21,7 +21,11 @@ end
 
 function Communication:doRequest(params)
 	local request = network.createHTTPRequest(onRequestFinished, url, "POST")
-	request:addPOSTValue("param",params)
+	local data = json.encode(params)
+	--print(#data)
+	--crypto.encryptXXTEA(data, "################")
+	--print(#data)
+	request:setPOSTData(data)
 	request:start()
 end
 
