@@ -1,0 +1,84 @@
+Quick-Cocos2d-x C++ support ready.
+
+------------------------------------------------
+
+LOAD LUA FILE: E:/3rd/mygit/waytomobile/projects/game003/src/main.lua
+
+------------------------------------------------
+
+[LUA-print] ===========================================================
+
+[LUA-print]               LOAD QUICK FRAMEWORK
+
+[LUA-print] ===========================================================
+
+[LUA-print] [INFO] 
+
+[LUA-print] [INFO] # DEBUG                        = 2
+
+[LUA-print] [INFO] #
+
+[LUA-print] [INFO] # device.platform              = windows
+
+[LUA-print] [INFO] # device.model                 = unknown
+
+[LUA-print] [INFO] # device.language              = cn
+
+[LUA-print] [INFO] # device.writablePath          = E:\3rd\mygit\waytomobile\projects\game003\
+
+[LUA-print] [INFO] # device.directorySeparator    = \
+
+[LUA-print] [INFO] # device.pathSeparator         = ;
+
+[LUA-print] [INFO] #
+
+[LUA-print] [INFO] # CONFIG_SCREEN_AUTOSCALE      = FIXED_HEIGHT
+
+[LUA-print] [INFO] # CONFIG_SCREEN_WIDTH          = 960.00
+
+[LUA-print] [INFO] # CONFIG_SCREEN_HEIGHT         = 640.00
+
+[LUA-print] [INFO] # display.widthInPixels        = 960.00
+
+[LUA-print] [INFO] # display.heightInPixels       = 640.00
+
+[LUA-print] [INFO] # display.contentScaleFactor   = 1.00
+
+[LUA-print] [INFO] # display.width                = 960.00
+
+[LUA-print] [INFO] # display.height               = 640.00
+
+[LUA-print] [INFO] # display.cx                   = 480.00
+
+[LUA-print] [INFO] # display.cy                   = 320.00
+
+[LUA-print] [INFO] # display.left                 = 0.00
+
+[LUA-print] [INFO] # display.right                = 960.00
+
+[LUA-print] [INFO] # display.top                  = 640.00
+
+[LUA-print] [INFO] # display.bottom               = 0.00
+
+[LUA-print] [INFO] # display.c_left               = -480.00
+
+[LUA-print] [INFO] # display.c_right              = 480.00
+
+[LUA-print] [INFO] # display.c_top                = 320.00
+
+[LUA-print] [INFO] # display.c_bottom             = -320.00
+
+[LUA-print] [INFO] #
+
+[LUA ERROR] [string "app/scenes/MainScene.lua"]:19: attempt to index global 'ui' (a nil value)
+
+[LUA-print] [INFO] LUA VM MEMORY USED: 3583.96 KB
+
+[LUA-print] [INFO] "E:/3rd/mygit/waytomobile/projects/game003/res/main/main_bg_grass_left.jpg" rc=1 id=3 1189 x 615 @ 32 bpp => 2856 KB
+"E:/3rd/mygit/waytomobile/projects/game003/res/main/main_bg_grass_right.jpg" rc=1 id=4 1189 x 615 @ 32 bpp => 2856 KB
+"/cc_fps_images" rc=4 id=1 999 x 54 @ 16 bpp => 105 KB
+TextureCache dumpDebugInfo: 3 textures, for 5818 KB (5.68 MB)
+
+
+[LUA-print] [INFO] ---------------------------------------------------
+

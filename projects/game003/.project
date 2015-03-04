@@ -5,13 +5,10 @@
 	<projects>
 	</projects>
 	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.dltk.core.scriptbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>org.ccdt.cocosproject</nature>
+		<nature>org.ccdt.cocosquickproject</nature>
 		<nature>org.eclipse.koneki.ldt.nature</nature>
 	</natures>
 </projectDescription>

@@ -1,8 +1,7 @@
 
 require("config")
+require("cocos.init")
 require("framework.init")
-require("framework.shortcodes")
-require("framework.cc.init")
 --require("pb")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
@@ -16,7 +15,7 @@ function MyApp:ctor()
 end
 
 function MyApp:run()
-    CCFileUtils:sharedFileUtils():addSearchPath("res/")
+    cc.FileUtils:getInstance():addSearchPath("res/")
     self:enterScene("MainScene")
 end
 
