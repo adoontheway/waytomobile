@@ -33,6 +33,8 @@ class Main extends egret.DisplayObjectContainer{
     private loadingView:LoadingUI;
     private stones:Array;
     private plate:egret.Bitmap;
+    private txt:egret.TextField;
+    private selectedStone:Stone;
     public constructor() {
         super();
         this.addEventListener(egret.Event.ADDED_TO_STAGE,this.onAddToStage,this);
@@ -42,7 +44,6 @@ class Main extends egret.DisplayObjectContainer{
         //设置加载进度界面
         this.loadingView  = new LoadingUI();
         this.stage.addChild(this.loadingView);
-
         //初始化Resource资源加载库
         RES.addEventListener(RES.ResourceEvent.CONFIG_COMPLETE,this.onConfigComplete,this);
         RES.loadConfig("resource/resource.json","resource/");
@@ -81,6 +82,10 @@ class Main extends egret.DisplayObjectContainer{
      * 创建游戏场景
      */
     private createGameScene():void{
+        this.txt = new egret.TextField();
+        this.addChild(this.txt);
+        this.txt.width = this.stage.stageWidth;
+        this.txt.height = 100;
         this.plate = this.createBitmapByName("plate");
         this.addChild(this.plate);
         this.plate.x = this.stage.stageWidth - this.plate.width >> 1;
@@ -146,10 +151,88 @@ class Main extends egret.DisplayObjectContainer{
             var stone:Stone = new Stone(info["isRed"]);
             stone.setType(info["type"]);
             stone.setPos(info["posX"],info["posY"]);
+            stone.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouched, this);
             this.addChild(stone);
-
             this.stones.push(stone);
         }
+    }
+
+    private onTouched(event:egret.TouchEvent)
+    {
+        var stone:Stone = event.currentTarget;
+        this.txt.text = "Type:"+stone.getType()+" Name:"+stone.name;
+        if(stone.isRed() == Config.IsRed )
+        {
+            this.selectedStone = event.target;
+            return;
+        }else
+        {
+            if(this.selectedStone != null)
+            {
+               // var canMove:boolean = this.canMoveTo(stone,stone.get)
+            }
+        }
+    }
+
+    private canMoveTo(stone:Stone,tx:number,ty:number):boolean
+    {
+        var result:boolean = false;
+        switch(stone.getType())
+        {
+            case EnumStoneType.TypeBing:
+                result = this.canMoveBing(stone,tx,ty);
+                break;
+            case EnumStoneType.TypeChe:
+                result = this.canMoveChe(stone,tx,ty);
+                break;
+            case EnumStoneType.TypeMa:
+                result = this.canMoveMa(stone,tx,ty);
+                break;
+            case EnumStoneType.TypePao:
+                result = this.canMovePao(stone,tx,ty);
+                break;
+            case EnumStoneType.TypeShi:
+                result = this.canMoveShi(stone,tx,ty);
+                break;
+            case EnumStoneType.TypeXiang:
+                result = this.canMoveXiang(stone,tx,ty);
+                break;
+            case EnumStoneType.TypeShuai:
+                result = this.canMoveShuai(stone,tx,ty);
+                break;
+        }
+        return result;
+    }
+
+    private canMoveBing(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+
+    private canMoveChe(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+
+    private canMoveMa(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+    private canMovePao(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+    private canMoveXiang(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+    private canMoveShi(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
+    }
+    private canMoveShuai(stone:Stone,tx:number,ty:number):boolean
+    {
+        return true;
     }
 
     /**

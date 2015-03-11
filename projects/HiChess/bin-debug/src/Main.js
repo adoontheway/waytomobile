@@ -76,6 +76,10 @@ var Main = (function (_super) {
      * 创建游戏场景
      */
     Main.prototype.createGameScene = function () {
+        this.txt = new egret.TextField();
+        this.addChild(this.txt);
+        this.txt.width = 100;
+        this.txt.height = 80;
         this.plate = this.createBitmapByName("plate");
         this.addChild(this.plate);
         this.plate.x = this.stage.stageWidth - this.plate.width >> 1;
@@ -138,9 +142,14 @@ var Main = (function (_super) {
             var stone = new Stone(info["isRed"]);
             stone.setType(info["type"]);
             stone.setPos(info["posX"], info["posY"]);
+            stone.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onTouched, this);
             this.addChild(stone);
             this.stones.push(stone);
         }
+    };
+    Main.prototype.onTouched = function (event) {
+        var stone = event.currentTarget;
+        this.txt.text = "Type:" + stone.getType() + " Name:" + stone.name;
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

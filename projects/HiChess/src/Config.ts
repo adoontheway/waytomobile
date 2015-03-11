@@ -1,4 +1,6 @@
 class Config{
+    /** Am I Red **/
+    public static IsRed:boolean = false;
     /** 单位长度 **/
     public static Unit:number = 53;
 
