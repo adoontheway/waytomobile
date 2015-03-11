@@ -1,0 +1,19 @@
+{
+	"groups":[
+	{
+		"keys":"sheet_json,description",
+		"name":"preload"
+	}],
+	"resources":[
+	{
+		"name":"description",
+		"type":"json",
+		"url":"config/description.json"
+	},
+	{
+		"name":"sheet_json",
+		"subkeys":"0_1,0_2,0_3,0_4,0_5,0_6,0_7,1_1,1_2,1_3,1_4,1_5,1_6,1_7,plate",
+		"type":"sheet",
+		"url":"assets/sheet.json"
+	}]
+}
