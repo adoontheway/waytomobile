@@ -90,6 +90,8 @@ class Main extends egret.DisplayObjectContainer{
         this.addChild(this.plate);
         this.plate.x = this.stage.stageWidth - this.plate.width >> 1;
         this.plate.y = (this.stage.stageHeight - this.plate.height) >> 1;
+        this.plate.touchEnabled = true;
+        this.plate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBgTouched,this);
         this.initStones();
         /**
         var sky:egret.Bitmap = this.createBitmapByName("bgImage");
@@ -157,7 +159,38 @@ class Main extends egret.DisplayObjectContainer{
         }
     }
 
-    private onTouched(event:egret.TouchEvent)
+    private getStoneAt(posx:number, posy:number):Stone
+    {
+        var len:number = this.stones.length;
+        for(var i:number; i < len; i++)
+        {
+            var s:Stone = this.stones[i];
+            if(s.getTx() == posx && s.getTy() == posy)
+            {
+                break;
+            }
+        }
+        return s;
+    }
+
+    private onBgTouched(event:egret.TouchEvent):void
+    {
+        var posX:number = event.stageX;
+        var posY:number = event.stageY;
+        var tx:number = parseInt((posX - Config.StartX)/Config.Unit);
+        var ty:number = parseInt((posY - Config.StartY)/Config.Unit);
+        var s:Stone = this.getStoneAt(tx, ty);
+        if(this.selectedStone) //todo then move
+            var canMove:boolean = this.canMoveTo(this.selectedStone,tx,ty);
+        if(s != null)
+        {
+            //todo do kill
+        }else
+        {
+            //todo do move
+        }
+    }
+    private onTouched(event:egret.TouchEvent):void
     {
         var stone:Stone = event.currentTarget;
         this.txt.text = "Type:"+stone.getType()+" Name:"+stone.name;
@@ -169,7 +202,8 @@ class Main extends egret.DisplayObjectContainer{
         {
             if(this.selectedStone != null)
             {
-               // var canMove:boolean = this.canMoveTo(stone,stone.get)
+               var canMove:boolean = this.canMoveTo(stone,stone.getTx(),stone.getTy());
+                //todo then kill
             }
         }
     }

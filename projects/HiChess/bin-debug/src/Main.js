@@ -78,12 +78,14 @@ var Main = (function (_super) {
     Main.prototype.createGameScene = function () {
         this.txt = new egret.TextField();
         this.addChild(this.txt);
-        this.txt.width = 100;
-        this.txt.height = 80;
+        this.txt.width = this.stage.stageWidth;
+        this.txt.height = 100;
         this.plate = this.createBitmapByName("plate");
         this.addChild(this.plate);
         this.plate.x = this.stage.stageWidth - this.plate.width >> 1;
         this.plate.y = (this.stage.stageHeight - this.plate.height) >> 1;
+        this.plate.touchEnabled = true;
+        this.plate.addEventListener(egret.TouchEvent.TOUCH_TAP, this.onBgTouched);
         this.initStones();
         /**
         var sky:egret.Bitmap = this.createBitmapByName("bgImage");
@@ -147,9 +149,72 @@ var Main = (function (_super) {
             this.stones.push(stone);
         }
     };
+    Main.prototype.onBgTouched = function (event) {
+        var posX = event.stageX;
+        var posY = event.stageY;
+        var tx = parseInt((posX - Config.StartX) / Config.Unit);
+        var ty = parseInt((posY - Config.StartY) / Config.Unit);
+        alert(tx + ":" + ty);
+    };
     Main.prototype.onTouched = function (event) {
         var stone = event.currentTarget;
         this.txt.text = "Type:" + stone.getType() + " Name:" + stone.name;
+        if (stone.isRed() == Config.IsRed) {
+            this.selectedStone = event.target;
+            return;
+        }
+        else {
+            if (this.selectedStone != null) {
+            }
+        }
+    };
+    Main.prototype.canMoveTo = function (stone, tx, ty) {
+        var result = false;
+        switch (stone.getType()) {
+            case EnumStoneType.TypeBing:
+                result = this.canMoveBing(stone, tx, ty);
+                break;
+            case EnumStoneType.TypeChe:
+                result = this.canMoveChe(stone, tx, ty);
+                break;
+            case EnumStoneType.TypeMa:
+                result = this.canMoveMa(stone, tx, ty);
+                break;
+            case EnumStoneType.TypePao:
+                result = this.canMovePao(stone, tx, ty);
+                break;
+            case EnumStoneType.TypeShi:
+                result = this.canMoveShi(stone, tx, ty);
+                break;
+            case EnumStoneType.TypeXiang:
+                result = this.canMoveXiang(stone, tx, ty);
+                break;
+            case EnumStoneType.TypeShuai:
+                result = this.canMoveShuai(stone, tx, ty);
+                break;
+        }
+        return result;
+    };
+    Main.prototype.canMoveBing = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMoveChe = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMoveMa = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMovePao = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMoveXiang = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMoveShi = function (stone, tx, ty) {
+        return true;
+    };
+    Main.prototype.canMoveShuai = function (stone, tx, ty) {
+        return true;
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

@@ -44,6 +44,16 @@ class Stone extends egret.DisplayObjectContainer
         return this._isRed;
     }
 
+    public getTx():number
+    {
+        return this._tx;
+    }
+
+    public getTy():number
+    {
+        return this._ty;
+    }
+
     public reset():void
     {
         //todo

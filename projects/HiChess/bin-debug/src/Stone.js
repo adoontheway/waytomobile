@@ -31,6 +31,9 @@ var Stone = (function (_super) {
     Stone.prototype.getType = function () {
         return this._type;
     };
+    Stone.prototype.isRed = function () {
+        return this._isRed;
+    };
     Stone.prototype.reset = function () {
         //todo
     };

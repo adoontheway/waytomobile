@@ -1,6 +1,8 @@
 var Config = (function () {
     function Config() {
     }
+    /** Am I Red **/
+    Config.IsRed = false;
     /** 单位长度 **/
     Config.Unit = 53;
     Config.MaxPosX = 8;
