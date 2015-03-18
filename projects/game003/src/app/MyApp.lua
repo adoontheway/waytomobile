@@ -2,7 +2,6 @@
 require("config")
 require("cocos.init")
 require("framework.init")
---require("pb")
 
 local MyApp = class("MyApp", cc.mvc.AppBase)
 
@@ -39,7 +38,7 @@ end
 function MyApp:getTarget(source)
 	for k,v in pairs(self.objects_) do
 		if v ~= nil or not v:isDead() then
-			if v:getId() ~= source:getId() then--todo 鏆傛椂鍙垽鏂袱涓殑id涓嶇浉绛夛紝鍚庣画娣诲姞闅忎粠涔嬪悗鐢╫wnerId鍒ゆ柇
+			if v:getId() ~= source:getId() then--todo 暂时只判断两个的id不相等，后续添加随从之后用ownerId判断
 				return k
 			end
 		end

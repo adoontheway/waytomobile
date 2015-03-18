@@ -16,32 +16,19 @@ function MainScene:ctor()
     self.ui = MainUi.new()
     self:addChild(self.layer)
     self.ui:addTo(self.layer)
-    self.item0 = ui.newTTFLabelMenuItem({text = "START", size = 40, align = ui.TEXT_ALIGN_CENTER, 
-        x = display.cx, y = display.cy + 50, color = display.COLOR_GREEN,
-         listener = function()
-            self:initPlayerData()
-            app:enterScene("FightScene")
-        end})
-
-    self.item1 = ui.newTTFLabelMenuItem({text = "ABOUT", size = 40, align = ui.TEXT_ALIGN_CENTER,
-        x=display.cx, y=display.cy,color = display.COLOR_BLUE,
-         listener = function()
-        end})
-
-    self.item2 = ui.newTTFLabelMenuItem({text = "EXIT", size = 40, align = ui.TEXT_ALIGN_CENTER, 
-        x=display.cx, y=display.cy-50,color = display.COLOR_RED,
-        listener = function()
-            app.exit()
-        end})
-    self.menu = ui.newMenu({self.item0,self.item1,self.item2})
-    self.layer:addChild(self.menu)
-
+    self.startBtn = cc.ui.UIPushButton.new({normal="res/jinruyouxi_anniu.png"})
+    self.startBtn:pos(display.cx, display.cy)
+    self.startBtn:onButtonClicked(function( )
+        self:initPlayerData()
+        app:enterScene("FightScene")
+    end)
+    self.layer:addChild(self.startBtn)
 
 end
 
 function MainScene:onEnter()
     self.layer:setTouchEnabled(true)
-    app:sendHttpRequest({oper=1,data="login"})
+    --app:sendHttpRequest({oper=1,data="login"})
     --[[display.addSpriteFramesWithFile("res/AM/.plist","res/AM/sheet.pvr")
     local am = display.newSprite("Eyes")
     self.layer:addChild(am)]]

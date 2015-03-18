@@ -67,22 +67,44 @@ function FightScene:onEnterFrame(dt)
     end
 end
 
-function FightScene:onEnter()
-    spMaps = {}
-
-    local manager = CCArmatureDataManager:sharedArmatureDataManager()
-    manager:addArmatureFileInfo("Zombie.png","Zombie.plist","Zombie.xml")
+function FightScene:initPlayers()
+    -- body
     local attacker = app:getObject("me")
     local attackerSp = GameUnit.new(attacker)
     self.layer:addChild(attackerSp)
-    
-
     local enemy = app:getObject("enemy")
     local attackerSp1 = GameUnit.new(enemy)
     self.layer:addChild(attackerSp1)
 
     spMaps["me"] = attackerSp
     spMaps["enemy"] = attackerSp1
+
+    tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 1/60)
+    app:getController():control(self)
+end
+
+function FightScene:onEnter()
+    spMaps = {}
+    
+    local function onLoaded(percent) 
+        if percent >= 1 then
+            self:initPlayers()
+            --[[
+                local armature = ccs.Armature:create("Zombie")
+                armature:getAnimation():playWithIndex(1)
+                armature:getAnimation():setSpeedScale(0.5)
+                armature:setPosition(cc.p(display.cx,display.cy*0.3))
+                armature:setScale(0.6)
+                self:addChild(armature)
+            ]]
+        else
+            printInfo("Armature Loading:%f %",percent*100 )
+        end
+    end
+
+    local manager = ccs.ArmatureDataManager:getInstance()
+    manager:addArmatureFileInfoAsync("Zombie.png","Zombie.plist","Zombie.xml",onLoaded)
+
     --[[
     local selfView = GUIReader:shareReader():widgetFromJsonFile("NewUi/NewUi_1.ExportJson")
     self:addChild(selfView)
@@ -105,10 +127,6 @@ function FightScene:onEnter()
         printInfo("Layer Touched...")
     	self.onTouch(event)
     end)]]
-    
-    
-    tickhandler = scheduler.scheduleGlobal(handler(self,self.onEnterFrame), 1/60)
-    app:getController():control(self)
 end
 
 function FightScene:onExit()
@@ -129,8 +147,12 @@ end
 function FightScene:useSkill(skill)
     --print("Use skill...."..skill:getName())
     local target = spMaps["enemy"]
-    CCTexture2D:PVRImagesHavePremultipliedAlpha(true)
-    CCSpriteFrameCache:sharedSpriteFrameCache():addSpriteFramesWithFile("thunder.plist")
+    if target == nil then
+        return
+    end
+    --cc.Texture2D:PVRImagesHavePremultipliedAlpha(true)
+    --cc.SpriteFrameCache:getInstance():addSpriteFramesWithFile("thunder.plist")
+    display.addSpriteFrames("thunder.plist","thunder.png")
     
     local frames = display.newFrames("image %i.png", 1, 19)
     local animation = display.newAnimation(frames, 0.1)

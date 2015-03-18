@@ -63,7 +63,7 @@ function PlayerController:tick()
 	    			assert(stat_sp ~= nil, "stat_sp is nil")
 	    			if stat_sp ~= nil and parent ~= nil then
 	    				parent:addChild(stat_sp)
-	    				transition.execute(stat_sp, CCMoveTo:create(1.0, CCPoint(enemy:getX()-50, enemy:getY()+150)), {
+	    				transition.execute(stat_sp, cc.MoveTo:create(1.0, CCPoint(enemy:getX()-50, enemy:getY()+150)), {
 	    					onComplete = function()
 	    						stat_sp:removeSelf()
 	    					end
@@ -88,7 +88,7 @@ function PlayerController:getHarmSp( harm, posx, posy )
 	local  sp 
 	local harmstr = string.format("%d", harm)
 	if harm > 0 then
-		sp = CCNode:create()
+		sp = display.newNode()
 		sp:pos(posx, posy)
 		for i=1,#harmstr do
 			local tempsp = display.newSprite("fight/"..string.sub(harmstr, i,i)..".png",(i-1)*30,0)

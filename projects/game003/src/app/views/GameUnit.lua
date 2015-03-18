@@ -52,7 +52,7 @@ function GameUnit:onHpChanged( event )
 end
 
 function GameUnit:autoRemove()
-	local action = CCFadeTo:create(1.0, 0.0)
+	local action = cc.FadeTo:create(1.0, 0.0)
 	transition.execute(self.shape, action, {
 		onComplete = function( )
 			self:removeSelf()
@@ -67,7 +67,14 @@ end
 --初始化显示
 function GameUnit:initDisplay()
 	-- 角色外观
-	local shape = CCArmature:create(self.player:getRes())
+	--[[
+    armature:getAnimation():playWithIndex(1)
+    armature:getAnimation():setSpeedScale(0.5)
+    armature:setPosition(cc.p(display.cx,display.cy*0.3))
+    armature:setScale(0.6)
+    ]]
+    
+	local shape = ccs.Armature:create(self.player:getRes())
 	self.shape = shape
    	self:updateShapeDisplay(self.player:getState())
    	shape:setAnchorPoint(CCPoint(0.5,0))
