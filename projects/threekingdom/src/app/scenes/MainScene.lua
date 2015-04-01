@@ -71,9 +71,9 @@ function MainScene:onStateChange()
 	end
 	if self.player.state ~= tstate then
 		if tstate == "run" then
-			self:playAnimation(self.player, tstate, 0, 7, false)
+			self.animAction = self:playAnimation(self.player, tstate, 0, 7, false)
 		else
-			self:playAnimation(self.player, tstate, 0, 25, false)
+			self.animAction = self:playAnimation(self.player, tstate, 0, 25, false)
 		end
 	end
 	

@@ -16,8 +16,8 @@ local JoyStick = class("JoyStick", function(bgm, bgs, touchres)
 	node.bgs = bgs
 	node.touch = touch
 	node.touch = touch
-	node.cx = node.halfRad
-	node.cy = bgs:getContentSize().height*.5
+	node.tx = node.halfRad
+	node.ty = bgs:getContentSize().height*.5
 	node:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
 	return node
 end)
@@ -45,15 +45,16 @@ function JoyStick:ready()
 end
 
 function JoyStick:onTouched(event)
-	self.touch:pos(event.x, event.y)
-	local dis = dist(event.x,event.y,self.cx,self.cy)
-	if dis >= self.halfRad then
+	print(event.x, event.y)
+	self.touch:pos(event.x - self.halfRad, event.y - self.halfRad)
+	local dis = dist(event.x - self.halfRad,event.y - self.halfRad,self.tx,self.ty)
+	if math.abs(dis) >= self.halfRad then
 		self.fullEng = true
 	else
 		self.fullEng = false
 	end
-	local tx = event.x - self.cx
-	local ty = event.y - self.cy
+	local tx = event.x - self.tx - self.halfRad
+	local ty = event.y - self.ty - self.halfRad
 	self.tx = tx/dis
 	self.ty = ty/dis
 	if tx >= 0 then
