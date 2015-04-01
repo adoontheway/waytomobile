@@ -1,50 +1,92 @@
-local JoyStick = class("JoyStick", function(bg, touchres, arrow)
-	local background = display.newSprite(bg)
+local JoyStick = class("JoyStick", function(bgm, bgs, touchres)
+	local bgm = display.newSprite(bgm)
+	local bgs = display.newSprite(bgs)
 	local touch = display.newSprite(touchres)
-	local arrowup = display.newSprite(arrow)
-	arrowup:pos(0, 22)
-	arrowup:setAnchorPoint(display.ANCHOR_POINTS[display.BOTTOM_CENTER])
-	local arrowdown = display.newSprite(arrow)
-	arrowdown:rotation(180)
-	arrowdown:pos(0, -22)
-	arrowdown:setAnchorPoint(display.ANCHOR_POINTS[display.BOTTOM_CENTER])
-	local arrowleft = display.newSprite(arrow)
-	arrowleft:rotation(-90)
-	arrowleft:pos(-22, 0)
-	arrowleft:setAnchorPoint(display.ANCHOR_POINTS[display.BOTTOM_CENTER])
-	local arrowright = display.newSprite(arrow)
-	arrowright:rotation(90)
-	arrowright:pos(22, 0)
-	arrowright:setAnchorPoint(display.ANCHOR_POINTS[display.BOTTOM_CENTER])
 
-	background:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
+	bgm:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
+	bgs:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
 	touch:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
 	local node = display.newNode()
-	node:addChild(background)
+	node:addChild(bgm)
+	node:addChild(bgs)
 	node:addChild(touch)
-	node:addChild(arrowup)
-	node:addChild(arrowdown)
-	node:addChild(arrowleft)
-	node:addChild(arrowright)
-	node.background = background
-	node.touchbg = touch
+	node.halfRad = bgs:getContentSize().width*.5--reference of walk and run
+	node.fullRad = bgm:getContentSize().width*.5
+	node.bgm = bgm
+	node.bgs = bgs
+	node.touch = touch
+	node.touch = touch
+	node.cx = node.halfRad
+	node.cy = bgs:getContentSize().height*.5
+	node:setAnchorPoint(display.ANCHOR_POINTS[display.CENTER])
 	return node
 end)
 
-function JoyStick:ctor( )
-	-- body
+JoyStick.MOVE = "MOVE"
+JoyStick.STOP = "STOP"
+JoyStick.RIGHT = 1
+JoyStick.LEFT = -1
+
+function JoyStick:ctor()
 end
 
-function JoyStick:setCallbacks(onDirectionChangd, onPowerChange)
-	-- body
+function JoyStick:control( player, callback )
+	self.player = player
+	self.callback = callback
+	if self.flag == false or self.flag == nil then
+		self:ready()
+	end
 end
 
-function JoyStick:getDirection()
-	-- body
+function JoyStick:ready()
+	self.flag = true
+	self:setTouchEnabled(true)
+	self:addNodeEventListener(cc.NODE_TOUCH_EVENT, handler(self, self.onTouched),1000, 9999)
 end
 
-function JoyStick:onPowerChange()
-	-- body
+function JoyStick:onTouched(event)
+	self.touch:pos(event.x, event.y)
+	local dis = dist(event.x,event.y,self.cx,self.cy)
+	if dis >= self.halfRad then
+		self.fullEng = true
+	else
+		self.fullEng = false
+	end
+	local tx = event.x - self.cx
+	local ty = event.y - self.cy
+	self.tx = tx/dis
+	self.ty = ty/dis
+	if tx >= 0 then
+		self.direction = JoyStick.RIGHT
+	else
+		self.direction = JoyStick.LEFT
+	end
+
+	if self.callback ~= nil then
+		self.callback()
+	end
 end
+
+function JoyStick:getState()
+	return self.state
+end
+
+function JoyStick:getDir( )
+	return self.tx,self.ty
+end
+
+function JoyStick:isFullEng( )
+	return self.fullEng
+end
+
+function JoyStick:getDirection( )
+	return self.direction
+end
+
+function dist( x0,y0,x1,y1 )
+ 	local dx = x0 - x1
+	local dy = y0 - y1
+	return math.sqrt(dx*dx+dy*dy)
+ end 
 
 return JoyStick
